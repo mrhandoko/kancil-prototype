@@ -7,6 +7,7 @@ import store from './store'
 import Home from './components/Home'
 import PhoneSelection from './components/PhoneSelection'
 import Login from './components/Login'
+import LoanApplication from './components/LoanApplication'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,6 +16,7 @@ ReactDOM.render(
         <Route exact path='/' component={Home} />
         <Route path='/phone-selection' component={PhoneSelection} />
         <Route path='/login' component={Login} />
+        <Route path='/load-application' component={LoanApplication} />
       </div>
     </Router>
   </Provider>,
