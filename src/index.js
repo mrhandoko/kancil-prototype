@@ -16,7 +16,7 @@ ReactDOM.render(
     <Router>
       <div>
         <Route exact path='/' component={Home} />
-        <Route path='/phone-selection' component={PhoneSelection} />
+        <Route path='/phone' component={PhoneSelection} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
         <Route path='/loan-checkout' component={LoanCheckout} />
