@@ -1,11 +1,14 @@
 import React from 'react'
 
 import Header from '../components/Header'
+import PhoneContent from '../components/PhoneContent'
+import Footer from '../components/Footer'
 
 const PhoneSelection = () => (
   <div>
     <Header />
-    <h1>Phone Selection</h1>
+    <PhoneContent />
+    <Footer />
   </div>
 )
 
