@@ -6,7 +6,7 @@ const Header = () => (
     <div className='sticky'>
       <div className='row'>
         <div className='col-sm-7 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-2'>
-          <img src={require('../assets/images/logo/top_logo.png')} className='top-logo' />
+          <img src={require('../assets/images/logo/top_logo.png')} className='top-logo' alt='' />
         </div>
         <div className='align-right col-sm-5 col-md-7 col-lg-4'>
           <nav className='hidden-sm'>
@@ -19,12 +19,12 @@ const Header = () => (
         </div>
       </div>
     </div>
-    <div className='button_container_ham' ref='toggleMenu'>
+    <div className='button_container_ham'>
   		<div className='top' />
   		<div className='middle' />
   		<div className='bottom' />
 		</div>
-		<div className='overlay' ref='overlayMenu'>
+		<div className='overlay'>
 			<div className='mobilemenu'>
 				<ul>
 					<li><Link to='/'>Home</Link></li>
