@@ -1,0 +1,356 @@
+/*
+
+Author: Excellerate Lab
+Created on: May 16 2017
+Last Edit Date: May 16 2017
+
+*/
+
+/* -------------------------------------
+
+Index:
+
+%1 GLOBAL & FONT
+%2 NAV
+%3 SWIPER SLIDER
+%4 OVERLAY RESPONSIVE MENU
+%5
+%6
+%7
+%8
+%9
+%10
+
+------------------------------------- */
+
+/* ------------------------------------- %1 GLOBAL & FONT */
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+
+html {
+	font-size: 1em;
+}
+html, * {
+	font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%
+}
+* {
+	font-size: 1rem
+}
+
+/* preloader styles */
+#load_screen{
+	background: #fff;
+	opacity: 1;
+	position: fixed;
+	z-index:99999;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+}
+#load_screen > div#loading{
+	width:120px;
+	height:120px;
+	position:absolute;
+	left:50%; 
+	top:50%; 
+	background-image:url(../img/status.svg);
+	background-position:center;
+	margin: -60px 0 0 -60px;
+}
+/* end preloader styles */
+
+/* alignment styles */
+.text-right {text-align: right;}
+.text-center {text-align:center;}
+@media screen and (max-width: 767px) {
+	.small-text-center {text-align:center;}
+}
+/* end alignment styles */
+
+/* font sizes */
+.fnt-sz-s4 {font-size: 0.6rem}
+.fnt-sz-s3 {font-size: 0.7rem}
+.fnt-sz-s2 {font-size: 0.8rem}
+.fnt-sz-s1 {font-size: 0.9rem}
+
+.fnt-sz-l1 {font-size: 1.1rem}
+.fnt-sz-l2 {font-size: 1.2rem}
+.fnt-sz-l3 {font-size: 1.3rem}
+.fnt-sz-l4 {font-size: 1.4rem}
+.fnt-sz-l5 {font-size: 1.5rem}
+.fnt-sz-l6 {font-size: 1.6rem}
+.fnt-sz-l7 {font-size: 1.7rem}
+.fnt-sz-l8 {font-size: 1.8rem}
+.fnt-sz-l9 {font-size: 1.9rem}
+/* end font sizes */
+
+/* font colors */
+.fnt-light-blue {}
+.fnt-blue {}
+
+.fnt-light-red {}
+.fnt-red {}	
+
+.fnt-light-green {}
+.fnt-green {}
+
+.fnt-light-gray {}
+.fnt-grey {}
+/* end font colors */
+
+/*.phone-thumb {width:60%;}*/
+
+.clean-form {
+	background: #fff;
+	border: 0;
+	margin:0;
+}
+.clean-form input[type=text]{
+	width:95%;
+}
+.clean-form.sort{
+	display:inline-block;
+	padding: 5px;
+}
+.clean-form.sort select{
+	padding: 0;
+	margin:0;
+}
+
+.filter-top {
+	border:1px solid #eaeaea;
+	padding:0.5rem;
+}
+
+.filter-bottom {
+	border-right:1px solid #eaeaea;
+	border-bottom:1px solid #eaeaea;
+	border-left:1px solid #eaeaea;
+}
+
+/* ------------------------------------- %2 NAV */
+header {
+	-webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);}
+nav {
+	background-color: #fff;
+	margin-top: 1.2rem;
+}
+nav a {text-decoration:none; margin-right:2rem;}
+nav a:last-child {margin-right:0;}
+nav a.active {text-decoration:underline;}
+
+/*@media screen and (max-width: 767px) {
+	nav {display:none;}
+}*/
+
+.top-logo {
+	width:110px;
+	margin-top:10px;
+}
+
+/* ------------------------------------- %3 SWIPER SLIDER */
+
+	.swiper-container {
+		width: 100%;
+		height: 50vh;
+	}
+	.swiper-slide {
+		text-align: center;
+		font-size: 2rem;
+		background: #ccc;
+		/* Center slide text vertically */
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+		flex-direction: column;
+		-webkit-flex-direction: column;
+		-ms- flex-direction: column;
+	}
+
+/* ------------------------------------- %4 OVERLAY RESPONSIVE MENU */
+
+@media screen and (min-width: 767px) {
+	.button_container_ham {display:none;}
+}
+
+.button_container_ham {
+	-ms-transform: scale(-0.6, 0.6);
+	-webkit-transform: scale(-0.6, 0.6);
+	transform: scale(-0.6, 0.6);
+	position: fixed;
+	top: 20px;
+	right: 5%;
+	height: 27px;
+	width: 35px;
+	cursor: pointer;
+	z-index: 9999;
+	-webkit-transition: opacity .25s ease;
+	transition: opacity .25s ease;
+}
+.button_container_ham:hover {
+	
+}
+.button_container_ham.active .top {
+	-webkit-transform: translateY(11px) translateX(0) rotate(45deg);
+	transform: translateY(11px) translateX(0) rotate(45deg);
+	background: #FFF;
+}
+.button_container_ham.active .middle {
+	opacity: 0;
+	background: #FFF;
+}
+.button_container_ham.active .bottom {
+	-webkit-transform: translateY(-11px) translateX(0) rotate(-45deg);
+	transform: translateY(-11px) translateX(0) rotate(-45deg);
+	background: #FFF;
+}
+.button_container_ham span {
+	background: #0277bd;
+	border: none;
+	height: 5px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-transition: all .35s ease;
+	transition: all .35s ease;
+	cursor: pointer;
+}
+.button_container_ham span:nth-of-type(2) {
+	top: 11px;
+}
+.button_container_ham span:nth-of-type(3) {
+	top: 22px;
+}
+
+
+.overlay {
+	position: fixed;
+	background: #000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0%;
+	opacity: 0;
+	z-index: 9998;
+	visibility: hidden;
+	-webkit-transition: opacity .35s, visibility .35s, height .35s;
+	transition: opacity .35s, visibility .35s, height .35s;
+	overflow: hidden;
+}
+.overlay.open {
+	opacity: .9;
+	visibility: visible;
+	height: 100%;
+}
+
+.overlay.open li {
+	-webkit-animation: fadeInRight .5s ease forwards;
+	animation: fadeInRight .5s ease forwards;
+	-webkit-animation-delay: .35s;
+	animation-delay: .35s;
+}
+.overlay.open li:nth-of-type(2) {
+	-webkit-animation-delay: .4s;
+	animation-delay: .4s;
+}
+.overlay.open li:nth-of-type(3) {
+	-webkit-animation-delay: .45s;
+	animation-delay: .45s;
+}
+.overlay.open li:nth-of-type(4) {
+	-webkit-animation-delay: .50s;
+	animation-delay: .50s;
+}
+.overlay.open li:nth-of-type(5) {
+	-webkit-animation-delay: .50s;
+	animation-delay: .50s;
+}
+/* add another NTH child for additional menu items */
+
+
+
+.overlay .mobilemenu {
+	position: relative;
+	height: 70%;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	font-weight: 400;
+	text-align: center;
+}
+.overlay ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	display: inline-block;
+	position: relative;
+	height: 100%;
+}
+.overlay ul li {
+	display: block;
+	height: 25%;
+	height: calc(100% / 5); /* number of menu items, to divide evenly */
+	min-height: 50px;
+	position: relative;
+	opacity: 0;
+}
+.overlay ul li a {
+	display: block;
+	position: relative;
+	color: #FFF;
+	text-decoration: none;
+	overflow: hidden;
+	font-size:2.5rem;
+}
+.overlay ul li a:hover:after, .overlay ul li a:focus:after, .overlay ul li a:active:after {
+	width: 100%;
+}
+.overlay ul li a:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	height: 3px;
+	background: #FFF;
+	-webkit-transition: .35s;
+	transition: .35s;
+}
+
+@-webkit-keyframes fadeInRight {
+0% {
+	opacity: 0;
+	left: 20%;
+}
+100% {
+	opacity: 1;
+	left: 0;
+}
+}
+
+@keyframes fadeInRight {
+0% {
+	opacity: 0;
+	left: 20%;
+}
+100% {
+	opacity: 1;
+	left: 0;
+}
+}
