@@ -1,34 +1,50 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <title>Kancil</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Excellerate Lab">
+    <meta property="og:title" content="">
+    <meta property="og:description" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="page_thumb.png">
+    <meta property="og:url" content="http://www.kancil.co">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <title>Kancil</title>
     <link rel="stylesheet" href="css/mini.css">
-		<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/swiper.min.js"></script>
+    <!-- Preloader -->
+    <script>
+      window.addEventListener("load", function(){
+        var load_screen = document.getElementById("load_screen");
+        document.body.removeChild(load_screen);
+      });
+    </script>
+    <!-- End Preloader -->
   </head>
   <body>
-    <div id="root"></div>
-    <!-- <div className='overlay' id='overlayMenu'>xxxxxxx
-      <div className='mobilemenu'>
-        <ul>
-          <li><a href='#'>Home</a></li>
-          <li><a href='#'>Phones</a></li>
-          <li><a href='#'>FAQ</a></li>
-          <li><a href='#'>Contact</a></li>
-          <li><a href='#'>Signup</a></li>
-        </ul>
-      </div>
+    <div id="load_screen">
+      <div id="loading"></div>
     </div>
-    <script>
-    // Toggle mobile menu
-    function classToggle() {
-      document.querySelector('#toggleMenu').classList.toggle('active');
-      document.querySelector('#overlayMenu').classList.toggle('open');
-    }
-    document.querySelector('#toggleMenu').addEventListener('click', classToggle);
-    document.querySelector('#overlayMenu').addEventListener('click', classToggle);
-  </script> -->
+    <div id="root"></div>
   </body>
+  <script>
+    //Begin Swiper
+   var swiper = new Swiper('.swiper-container', {
+     pagination: '.swiper-pagination',
+     paginationClickable: true
+   });
+
+   // Toggle mobile menu
+   function classToggle() {
+     document.querySelector('toggleMenu').classList.toggle('active');
+     document.querySelector('#overlayMenu').classList.toggle('open');
+   }
+   document.querySelector('#toggleMenu').addEventListener('click', classToggle);
+   document.querySelector('#overlayMenu').addEventListener('click', classToggle);
+ </script>
 </html>
