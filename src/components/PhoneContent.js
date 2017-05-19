@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 class PhoneContent extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       products: []
     }
@@ -81,7 +82,7 @@ class PhoneContent extends Component {
               						<div className='section text-center'>
               							<img src={item.image} alt='' />
               							<h4>{item.product_name}<small>Rp. 3.500.000</small></h4>
-              							<a href='#' className='button fnt-sz-s2'>Buy</a>
+              							<Link to={this.props.loanApp} className='button fnt-sz-s2'>Buy</Link>
               						</div>
               					</div>
               				</div>
