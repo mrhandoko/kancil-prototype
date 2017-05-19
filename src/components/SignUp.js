@@ -52,9 +52,6 @@ class SignUp extends React.Component {
   }
 
   render () {
-    if (this.state.redirectRegisterSuccess) {
-      return <Redirect to={{pathname: '/phone'}} />
-    }
     return (
       <div>
         <Header />
