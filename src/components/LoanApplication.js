@@ -1,58 +1,109 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import Header from './Header'
 import Footer from './Footer'
 
-const LoanApplication = () => (
-  <div>
-    <Header />
-    <div className='container' style={{ marginTop: 25 }}>
-      <div className='row'>
-        <div className='col-sm-12 col-md-3 col-md-offset-1 col-lg-2 col-lg-offset-2'>
-          <div className='phone_filters'>
-            <div className='filter-top'>
-              <h3 className='fnt-blue'>Filters</h3>
-            </div>
-            <div className='filter-bottom'>
-              <div className='col-sm-12 col-md-6 col-lg-4'>
-                <div className='card fluid'>
-                  <div className='section text-center'>
-                    <img src={'http://s3.amazonaws.com/digitaltrends-uploads-prod/2017/03/S8_PHOTOS.144.jpg'} alt='' width='200' />
-                    <h4>Phone<small>Rp. 3.500.000</small></h4>
-                    <button to='/loan-application' className='button fnt-sz-s2'>Buy</button>
-                  </div>
+class LoanApplication extends Component {
+  constructor () {
+    super ()
+    this.state = {
+      loanApplication: {
+        full_name: '',
+        nik: '',
+        gender: '',
+        phone: '',
+        birthplace: '',
+        birthdate: '',
+        address: '',
+        kecamatan: '',
+        kelurahan: '',
+        provinsi: '',
+        kodepos: '',
+        urlktp: '',
+        urlprofilephoto: '',
+        lat: '',
+        lng: ''
+      }
+    }
+  }
+  render () {
+    return (
+      <div>
+        <Header />
+        <div className='container' style={{ margin: 25 }}>
+        	<div className='row'>
+        		<div className='col-sm-12 col-md-3 col-md-offset-1 col-lg-2 col-lg-offset-2'>
+        			<div className='panel-top'>
+        				<h4 className='fnt-blue'>Your Phone</h4>
+        			</div>
+        			<div className='panel-bottom'>
+        				<br />
+        				<div className='text-center'>
+        					<img src={require('../assets/images/phone1.jpg')} alt='' />
+        					<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
+        					<a className='button primary' href='#product-specs' data-modal-open>Choose a Different Phone</a>
+        				</div>
+        				<br />
+        			</div>
+        			<br />
+        		</div>
+        		<div className='col-sm-12 col-md-7 col-lg-6'>
+        			<div className='panel-bottom'>
+        				<form className='clean-form'>
+      						<h4>Personal Information</h4>
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>KTP Upload</h5>
+      						<input className='input-full' type='text' />
+                  <h5 className='fnt-grey'>Profile Upload</h5>
+      						<input className='input-full' type='text' />
+      						<h5 className='fnt-grey'>Nama Lengkap</h5>
+      						<input className='input-full' type='text' />
+      						<div className='form-spacer' />
+      						<h5 className='fnt-grey'>Nomor Induk Kependudukan</h5>
+      						<input type='text' />
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>gender</h5>
+                  <select>
+      							<option>Laki-laki</option>
+      							<option>Perempuan</option>
+      						</select>
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>Tempat Lahir</h5>
+      						<input type='text' />
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>Tanggal Lahir</h5>
+      						<input type='text' placeholder='DD/MM/YYYY' />
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>Address</h5>
+      						<input type='text' />
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>Kelurahan</h5>
+      						<input type='text' />
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>Kecamatan</h5>
+      						<input type='text' />
+      						<div className='form-spacer' />
+                  <h5 className='fnt-grey'>Provinsi</h5>
+      						<input type='text' />
+                  <h5 className='fnt-grey'>Kodepos</h5>
+      						<input type='text' />
+      						<div className='form-spacer' />
+      						<br />
+      						<br />
+      						<div className='row'>
+      							<div className='col-sm-12 col-md-12 col-lg-12 text-right'>
+      								<button className='tertiary'>Submit</button>
+      							</div>
+      						</div>
+                </form>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className='col-sm-12 col-md-7 col-lg-6'>
-          <div className='row'>
-            <div className='col-sm-12 col-md-12 col-lg-12'>
-              <div className='row' style={{ borderBottom: 1 }}>
-                <div className='col-sm-6 col-md-6 col-lg-6'>
-                  <div style={{ marginTop: 10 }} className='fnt-sz-s1'>Showing 12 of 53 Products</div>
-                </div>
-                <div className='text-right col-sm-6 col-md-6 col-lg-6 fnt-sz-s1'>
-                  Sort by:
-                  <form className='clean-form sort'>
-                    <select>
-                      <option>ASC</option>
-                      <option>DESC</option>
-                    </select>
-                  </form>
-                </div>
-              </div>
-            </div>
-              <input type='text' placeholder='Nama lengkap' />
-              <br />
-              <input type='text' placeholder='Mobile phone' />
-          </div>
-        </div>
+        			</div>
+        		</div>
+        	</div>
+        <Footer />
       </div>
-    </div>
-    <Footer />
-  </div>
-)
+    )
+  }
+}
 
 export default LoanApplication
