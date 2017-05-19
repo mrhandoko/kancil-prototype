@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Header from './Header'
+import Footer from './Footer'
 
 class PhoneSelection extends Component {
   constructor () {
@@ -14,14 +14,8 @@ class PhoneSelection extends Component {
   }
   componentDidMount () {
     axios.get('http://localhost:5000/products')
-    .then(response => {
-      this.setState({ products: response.data })
-      console.log(this.state.products)
-    })
-    .catch(err => {
-      console.log(err)
-      console.error(err)
-    })
+    .then(response => this.setState({ products: response.data }))
+    .catch(err => console.error(err))
   }
   render () {
     return (
