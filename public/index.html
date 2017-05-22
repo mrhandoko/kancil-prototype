@@ -17,13 +17,15 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/swiper.min.css">
     <script src="js/swiper.min.js"></script>
+    <link rel="stylesheet" href="css/modal.css">
+		<script src="js/vanilla-modal.js"></script>
     <!-- Preloader -->
     <script>
-      window.addEventListener('load', function () {
-        var load_screen = document.getElementById('load_screen')
-        document.body.removeChild(load_screen)
-      })
-    </script>
+    window.addEventListener('load', function() {
+	var load_screen = document.getElementById('load_screen')
+	document.body.removeChild(load_screen)
+})
+</script>
     <!-- End Preloader -->
   </head>
   <body>
@@ -31,12 +33,44 @@
       <div id="loading"></div>
     </div>
     <div id="root"></div>
+
+    <!-- Hamburger menu-->
+    <div class="button_container_ham hidden-md hidden-lg" id="toggleMenu">
+    	<span class="top"></span>
+    	<span class="middle"></span>
+    	<span class="bottom"></span>
+    </div>
+
+    <!-- Mobile nav overlay menu -->
+    <div class="overlay" id="overlayMenu">
+    	<div class="mobilemenu">
+    		<ul>
+    			<li><a href="#">Home</a></li>
+    			<li><a href="#">Phones</a></li>
+    			<li><a href="#">FAQ</a></li>
+    			<li><a href="#">Contact</a></li>
+    			<li><a href="#">Signup</a></li>
+    		</ul>
+    	</div>
+    </div>
+
+    <script>
+    // Toggle mobile menu
+function classToggle() {
+	document.querySelector('#toggleMenu').classList.toggle('active')
+	document.querySelector('#overlayMenu').classList.toggle('open')
+}
+document.querySelector('#toggleMenu').addEventListener('click', classToggle)
+document.querySelector('#overlayMenu').addEventListener('click', classToggle)
+</script>
   </body>
   <script>
-    //Begin Swiper
-   var swiper = new Swiper('.swiper-container', {
-     pagination: '.swiper-pagination',
-     paginationClickable: true
-   })
- </script>
+  //Begin Swiper
+var swiper = new Swiper('.swiper-container', {
+	pagination: '.swiper-pagination',
+	paginationClickable: true,
+	autoHeight: true
+})
+</script>
+  <script>var modal = new VanillaModal.default();</script>
 </html>

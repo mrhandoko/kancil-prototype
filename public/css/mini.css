@@ -789,7 +789,7 @@ footer a, footer a:visited {
 header.sticky, footer.sticky {
 	position: -webkit-sticky;
 	position: sticky;
-	z-index: 1101
+	z-index: 96;
 }
 header.sticky {
 	top: 0
