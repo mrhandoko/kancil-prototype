@@ -21,11 +21,11 @@
     <script src="js/vanilla-modal.js"></script>
     <!-- Preloader -->
     <script>
-    window.addEventListener('load', () => {
-  const load_screen = document.getElementById('load_screen');
-  document.body.removeChild(load_screen);
-});
-</script>
+      window.addEventListener('load', () => {
+        const load_screen = document.getElementById('load_screen')
+        document.body.removeChild(load_screen)
+      })
+    </script>
     <!-- End Preloader -->
   </head>
   <body>
@@ -39,7 +39,6 @@
     	<span class="middle"></span>
     	<span class="bottom"></span>
     </div>
-
     <!-- Mobile nav overlay menu -->
     <div class="overlay" id="overlayMenu">
     	<div class="mobilemenu">
@@ -52,15 +51,14 @@
     		</ul>
     	</div>
     </div>
-
     <script>
-    // Toggle mobile menu
-function classToggle() {
-  document.querySelector('#toggleMenu').classList.toggle('active');
-  document.querySelector('#overlayMenu').classList.toggle('open');
-}
-document.querySelector('#toggleMenu').addEventListener('click', classToggle);
-document.querySelector('#overlayMenu').addEventListener('click', classToggle);
-</script>
+      // Toggle mobile menu
+      function classToggle() {
+        document.querySelector('#toggleMenu').classList.toggle('active');
+        document.querySelector('#overlayMenu').classList.toggle('open');
+      }
+        document.querySelector('#toggleMenu').addEventListener('click', classToggle);
+        document.querySelector('#overlayMenu').addEventListener('click', classToggle);
+    </script>
   </body>
 </html>

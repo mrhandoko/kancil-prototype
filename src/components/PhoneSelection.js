@@ -5,7 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 
 class PhoneSelection extends Component {
-	constructor() {
+	constructor () {
 		super()
 		this.state = {
 			products: []
@@ -14,7 +14,7 @@ class PhoneSelection extends Component {
 	componentDidMount() {
 		this.modal = new VanillaModal()
 	}
-	componentWillUnMount() {
+	componentWillUnmount() {
 		this.modal.destroy()
 	}
 	render() {
@@ -25,13 +25,7 @@ class PhoneSelection extends Component {
 					<div className="row">
 						<div className="col-sm-12 col-md-3 col-md-offset-1 col-lg-2 col-lg-offset-2">
 							<div className="text-right">
-								<a
-									href="#side-panel"
-									className="button hidden-md hidden-lg primary"
-									data-modal-open
-								>
-									Filters
-								</a>
+								<a href="#side-panel" className="button hidden-md hidden-lg primary" data-modal-open>Filters</a>
 							</div>
 							<div className="hidden-sm" id="side-panel">
 								<div className="panel-top">
@@ -57,13 +51,13 @@ class PhoneSelection extends Component {
 											<label htmlFor="chk4">&nbsp;Lenovo</label>
 										</div>
 										<div className="form-spacer" />
-										<h5>Price Range</h5>
-										<select>
-											<option>0 - 1jt</option>
-											<option>1jt - 2jt</option>
-											<option>2jt - 3jt</option>
-											<option>3jt - 4jt</option>
-										</select>
+											<h5>Price Range</h5>
+											<select>
+												<option>0 - 1jt</option>
+												<option>1jt - 2jt</option>
+												<option>2jt - 3jt</option>
+												<option>3jt - 4jt</option>
+											</select>
 										<div className="form-spacer" />
 										<h5>Screen Size</h5>
 										<select>
@@ -78,10 +72,7 @@ class PhoneSelection extends Component {
 						<div className="col-sm-12 col-md-7 col-lg-6">
 							<div className="row">
 								<div className="col-sm-12 col-md-12 col-lg-12">
-									<div
-										className="row"
-										style={{ borderBottom: '1px solid #eaeaea' }}
-									>
+									<div className="row" style={{ borderBottom: '1px solid #eaeaea' }}>
 										<div className="col-sm-6 col-md-6 col-lg-6">
 											<div style={{ marginTop: 10 }} className="fnt-sz-s1">
 												Showing 12 of 53 Products
@@ -103,13 +94,7 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -118,13 +103,7 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -133,13 +112,7 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -148,13 +121,7 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -163,13 +130,15 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+										</div>
+									</div>
+								</div>
+								<div className="col-sm-12 col-md-6 col-lg-4">
+									<div className="card fluid">
+										<div className="section text-center">
+											<img src="img/phone1.jpg" alt="" />
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -178,13 +147,7 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -193,28 +156,7 @@ class PhoneSelection extends Component {
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
 											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												href="#product-specs"
-												data-modal-open
-											>
-												View Details
-											</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a
-												className="button"
-												onClick={this.handleShowModal}
-												data-modal-open
-											>
-												View Details
-											</a>
+											<a className="button" href="#product-specs" data-modal-open>View Details</a>
 										</div>
 									</div>
 								</div>

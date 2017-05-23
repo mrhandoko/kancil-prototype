@@ -1,4 +1,4 @@
-/* global Swiper*/
+/* global Swiper */
 import React from 'react';
 
 class SwiperComponent extends React.Component {
