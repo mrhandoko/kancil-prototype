@@ -12,7 +12,10 @@ class PhoneSelection extends Component {
     };
   }
   componentDidMount() {
-    new VanillaModal.default();
+    this.modal = new VanillaModal();
+  }
+  componentWillUnmount() {
+    this.modal.destroy();
   }
   render() {
     return (
