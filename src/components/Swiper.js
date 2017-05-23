@@ -1,8 +1,15 @@
-/*global Swiper*/
-import React from 'react'
+/* global Swiper*/
+import React from 'react';
 
 class SwiperComponent extends React.Component {
-  render() { 
+  componentDidMount() {
+    new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+      autoHeight: true,
+    });
+  }
+  render() {
     return (
       <div>
         <div className="swiper-container">
@@ -16,16 +23,8 @@ class SwiperComponent extends React.Component {
           <div className="swiper-pagination" />
         </div>
       </div>
-    )
-  }
-
-  componentDidMount() {
-      new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        autoHeight: true
-      })  
+    );
   }
 }
 
-export default SwiperComponent
+export default SwiperComponent;

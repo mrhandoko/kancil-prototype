@@ -21,10 +21,10 @@
     <script src="js/vanilla-modal.js"></script>
     <!-- Preloader -->
     <script>
-    window.addEventListener('load', function() {
-	var load_screen = document.getElementById('load_screen')
-	document.body.removeChild(load_screen)
-})
+    window.addEventListener('load', () => {
+  const load_screen = document.getElementById('load_screen');
+  document.body.removeChild(load_screen);
+});
 </script>
     <!-- End Preloader -->
   </head>
@@ -56,20 +56,12 @@
     <script>
     // Toggle mobile menu
 function classToggle() {
-	document.querySelector('#toggleMenu').classList.toggle('active')
-	document.querySelector('#overlayMenu').classList.toggle('open')
+  document.querySelector('#toggleMenu').classList.toggle('active');
+  document.querySelector('#overlayMenu').classList.toggle('open');
 }
-document.querySelector('#toggleMenu').addEventListener('click', classToggle)
-document.querySelector('#overlayMenu').addEventListener('click', classToggle)
+document.querySelector('#toggleMenu').addEventListener('click', classToggle);
+document.querySelector('#overlayMenu').addEventListener('click', classToggle);
 </script>
   </body>
-  <script>
-  //Begin Swiper
-// var swiper = new Swiper('.swiper-container', {
-// 	pagination: '.swiper-pagination',
-// 	paginationClickable: true,
-// 	autoHeight: true
-// })
-</script>
-<script>var vanillaModal = new VanillaModal.default()</script>
+  <script>var modal = new VanillaModal.default();</script>
 </html>
