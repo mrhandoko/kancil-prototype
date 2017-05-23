@@ -1,14 +1,14 @@
-const initialState = {}
+const initialState = {};
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_USER_DATA':
-      return action.payload
+      return action.payload;
     case 'REGISTER_TOKEN':
-      return action.payload
+      return action.payload;
     case 'LOGOUT_TOKEN':
-      return state
+      return state;
     default:
-      return state
+      return state;
   }
-}
+};
