@@ -11,16 +11,16 @@ import LoanApplication from './components/LoanApplication'
 import SignUp from './components/SignUp'
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <div>
-        <Route exact path='/' component={Home} />
-        <Route path='/phone' component={PhoneSelection} />
-        <Route path='/login' component={Login} />
-        <Route path='/loan-application' component={LoanApplication} />
-        <Route path='/daftar' component={SignUp} />
-      </div>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+	<Provider store={store}>
+		<Router>
+			<div>
+				<Route exact path="/" component={Home} />
+				<Route path="/phone" component={PhoneSelection} />
+				<Route path="/login" component={Login} />
+				<Route path="/loan-application" component={LoanApplication} />
+				<Route path="/signup" component={SignUp} />
+			</div>
+		</Router>
+	</Provider>,
+	document.getElementById('root')
 )
