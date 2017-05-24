@@ -44,6 +44,7 @@ class Header extends React.Component {
 							<a href="#">Contact</a>
 							<Link to="/signup"><b>Daftar</b></Link>
 							<Link to="/login"><b>Login</b></Link>
+							<Link to="/loan-application"><b>Loan Application</b></Link>
 						</nav>
 					</div>
 				</div>
