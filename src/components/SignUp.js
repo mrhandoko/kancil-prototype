@@ -18,7 +18,8 @@ class SignUp extends React.Component {
 			fieldDisable: false,
 			redirectLoginSuccess: false,
 			wrongPassword: false,
-			wrongUsername: false
+			wrongUsername: false,
+			isLogin: false
 		}
 	}
 
@@ -63,13 +64,6 @@ class SignUp extends React.Component {
 		this.setState({ email: email })
 	}
 
-	componentWillUpdate(nextProps, nextState) {
-		nextState.registerButton = !(nextState.email &&
-			nextState.username &&
-			nextState.password1 === nextState.password2 &&
-			nextState.password1 !== '')
-	}
-
 	registerButtonOnClick(event) {
 		event.preventDefault()
 		// show loading
@@ -85,6 +79,13 @@ class SignUp extends React.Component {
 		})
 	}
 
+	componentDidMount() {
+		if (window.localStorage.length !== 0) {
+      this.setState({
+        isLogin: true
+      })
+    }
+	}
 	render() {
 		if (this.state.redirectLoginSuccess) {
 			return <Redirect to='/phone' />

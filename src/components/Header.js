@@ -9,29 +9,27 @@ class Header extends React.Component {
 			username: ''
 		}
 	}
-	// componentWillMount() {
+	componentWillMount() {
 		// let setUser = window.localStorage.getItem('userDetail')
 		// if (setUser !== null) {
 		// 	let userJson = JSON.parse(setUser)
-			// axios
-			// 	.post('http://localhost:8000/auth/verify', { token: userJson.token })
-			// 	.then(result => {
-			// 		if (result.data.token === userJson.token) {
-			// 			this.props.setUserData(result.data)
-			// 		} else {
-			// 			console.log('something wong', result)
-			// 		}
-			// 	})
-			// 	.catch(err => {
-			// 		console.log(err)
-			// 	})
+		// 	axios
+		// 		.post('http://localhost:8000/auth/verify', { token: userJson.token })
+		// 		.then(result => {
+		// 			if (result.data.token === userJson.token) {
+		// 				this.props.setUserData(result.data)
+		// 			} else {
+		// 				console.log('something wong', result)
+		// 			}
+		// 		})
+		// 		.catch(err => {
+		// 			console.log(err)
+		// 		})
 		// }
-	// }
-	componentDidMount () {
-		if (window.localStorage.length ===1) {
+		if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).data.user.username.length > 0 ) {
 			this.setState({
 				isLogin: true,
-				username: JSON.parse(localStorage.getItem('userDetail')).user.username
+				username: JSON.parse(localStorage.userDetail).data.user.username
 			})
 		}
 	}
@@ -47,9 +45,8 @@ class Header extends React.Component {
 							<Link to="/">Home</Link>
 							<Link to="/phone">Phones</Link>
 							<Link to="/faq">FAQ</Link>
-							<Link to="/signup"><b>Daftar</b></Link>
 							{
-								this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/login"><b>Login</b></Link>
+								this.state.isLogin ? <div><a>Selamat Datang, {this.state.username}</a><a onClick={() => window.localStorage.removeItem('userDetail')} style={{cursor: 'pointer'}}>Logout</a></div> : <div><Link to="/signup"><b>Daftar</b></Link><Link to="/login"><b>Login</b></Link></div>
 							}
 						</nav>
 					</div>
