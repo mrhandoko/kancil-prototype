@@ -26,11 +26,13 @@ class Header extends React.Component {
 		// 			console.log(err)
 		// 		})
 		// }
-		if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).data.user.username.length > 0 ) {
-			this.setState({
-				isLogin: true,
-				username: JSON.parse(localStorage.userDetail).data.user.username
-			})
+		if (window.localStorage.getItem('userDetail') !== null) {
+			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).data.user.username.length > 0 ) {
+				this.setState({
+					isLogin: true,
+					username: JSON.parse(localStorage.userDetail).data.user.username
+				})
+			}
 		}
 	}
 	render() {
