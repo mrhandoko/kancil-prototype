@@ -9,6 +9,8 @@ import PhoneSelection from './components/PhoneSelection';
 import Login from './components/Login';
 import LoanApplication from './components/LoanApplication';
 import SignUp from './components/SignUp';
+import Thankyou from './components/Thankyou';
+import FAQ from './components/FAQ';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,6 +21,8 @@ ReactDOM.render(
         <Route path="/login" component={Login} />
         <Route path="/loan-application" component={LoanApplication} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/thankyou" component={Thankyou} />
+        <Route path="/faq" component={FAQ} />
       </div>
     </Router>
   </Provider>,
