@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomeContent4 = () => (
   <div className="row">
@@ -23,7 +24,7 @@ const HomeContent4 = () => (
         Isi dengan lengkap dan tepat formulir online di sini:
         <br />
         <br />
-        <a className="button primary" href="#"><img alt="" src="img/form_icon.png" style={{verticalAlign: 'middle'}} width={25} />&nbsp;Application Form</a>
+        <Link className="button primary" to="/phone"><img alt="" src="img/form_icon.png" style={{verticalAlign: 'middle'}} width={25} />&nbsp;Application Form</Link>
         <br />
         <br />
         Hingga Kawan Cicil menghubungimu untuk datang ke tempat pengambilan smartphone, siapkan dengan Anda:

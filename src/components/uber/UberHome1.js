@@ -9,7 +9,7 @@ const UberHome1 = () => (
   <div>
     <Header />
     <Swiper1 />
-    <HomeContent1 />
+    <HomeContent1 toPhonePage/>
     <Footer />
   </div>
 )

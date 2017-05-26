@@ -27,7 +27,7 @@ const HomeContent2 = () => (
           Isi dengan lengkap dan tepat formulir online di sini:
           <br />
           <br />
-          <Link className="button primary" href="#"><img src="img/form_icon.png" style={{verticalAlign: 'middle'}} width={25} to="/phone" alt="" />&nbsp;Application Form</Link>
+          <Link className="button primary" href="#" to="/phone"><img src="img/form_icon.png" style={{verticalAlign: 'middle'}} width={25} alt="" />&nbsp;Application Form</Link>
           <br />
           <br />
           Hingga Kawan Cicil menghubungimu untuk datang ke tempat pengambilan smartphone, siapkan dengan Anda:
