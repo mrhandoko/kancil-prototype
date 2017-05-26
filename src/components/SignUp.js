@@ -70,8 +70,8 @@ class SignUp extends React.Component {
 		this.setState({ registerButton: true, disabled: true })
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
-			console.log(result.data);
 			window.localStorage.setItem('userDetail', JSON.stringify(result.data))
+			window.localStorage.setItem('userDetail', JSON.stringify(result))
 			this.setState({ redirectLoginSuccess: true })
 		})
 		.catch(err => {

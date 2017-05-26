@@ -14,11 +14,27 @@ class Header extends React.Component {
 		window.localStorage.removeItem('product')
 	}
 	componentWillMount() {
+		// let setUser = window.localStorage.getItem('userDetail')
+		// if (setUser !== null) {
+		// 	let userJson = JSON.parse(setUser)
+		// 	axios
+		// 		.post('http://localhost:8000/auth/verify', { token: userJson.token })
+		// 		.then(result => {
+		// 			if (result.data.token === userJson.token) {
+		// 				this.props.setUserData(result.data)
+		// 			} else {
+		// 				console.log('something wong', result)
+		// 			}
+		// 		})
+		// 		.catch(err => {
+		// 			console.log(err)
+		// 		})
+		// }
 		if (window.localStorage.getItem('userDetail') !== null) {
-			if (window.localStorage.length !==1) {
+			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).data.user.username.length > 0 ) {
 				this.setState({
 					isLogin: true,
-					username: JSON.parse(localStorage.userDetail).user.username
+					username: JSON.parse(localStorage.userDetail).data.user.username
 				})
 			}
 		}
