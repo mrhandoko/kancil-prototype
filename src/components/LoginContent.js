@@ -31,11 +31,13 @@ class LoginContent extends React.Component {
       if (err) this.setState({ isSucceed: false })
     });
   }
-  componentDidMount() {
-    if (window.localStorage.length === 1) {
-      this.setState({
-        isLogin: true
-      })
+  componentWillMount() {
+    if (window.localStorage.getItem('userDetail') !== null) {
+      if (window.localStorage.length !== 0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0) {
+        this.setState({
+          isLogin: true
+        })
+      }
     }
   }
   render () {

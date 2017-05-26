@@ -109,11 +109,13 @@ class LoanApplication extends Component {
     console.log(reader.readAsDataURL(file))
   }
   componentWillMount() {
-    if (window.localStorage.length !==0) {
-			this.setState({
-				isLogin: true
-			})
-		}
+    if (window.localStorage.getItem('userDetail') !== null) {
+      if (window.localStorage.length !==0) {
+  			this.setState({
+  				isLogin: true
+  			})
+  		}
+    }
   }
   render() {
     if (this.state.isLogin) {
