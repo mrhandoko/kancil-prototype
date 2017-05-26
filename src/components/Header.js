@@ -1,28 +1,42 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import axios from 'axios'
-
-import { setUserData } from '../actions'
+import { Redirect, Link } from 'react-router-dom'
 
 class Header extends React.Component {
+	constructor () {
+		super ()
+		this.state = {
+			isLogin: false,
+			username: ''
+		}
+	}
+	logout() {
+		window.localStorage.removeItem('userDetail')
+		window.localStorage.removeItem('product')
+	}
 	componentWillMount() {
-		let setUser = window.localStorage.getItem('userDetail')
-		if (setUser !== null) {
-			let userJson = JSON.parse(setUser)
-			axios
-				.post('http://localhost:8000/auth/verify', { token: userJson.token })
-				.then(result => {
-					if (result.data.token === userJson.token) {
-						this.props.setUserData(result.data)
-					} else {
-						console.log('something wong', result)
-					}
+		// let setUser = window.localStorage.getItem('userDetail')
+		// if (setUser !== null) {
+		// 	let userJson = JSON.parse(setUser)
+		// 	axios
+		// 		.post('http://localhost:8000/auth/verify', { token: userJson.token })
+		// 		.then(result => {
+		// 			if (result.data.token === userJson.token) {
+		// 				this.props.setUserData(result.data)
+		// 			} else {
+		// 				console.log('something wong', result)
+		// 			}
+		// 		})
+		// 		.catch(err => {
+		// 			console.log(err)
+		// 		})
+		// }
+		if (window.localStorage.getItem('userDetail') !== null) {
+			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0 ) {
+				this.setState({
+					isLogin: true,
+					username: JSON.parse(localStorage.userDetail).user.username
 				})
-				.catch(err => {
-					console.log(err)
-				})
+			}
 		}
 	}
 	render() {
@@ -30,21 +44,19 @@ class Header extends React.Component {
 			<header className="sticky">
 				<div className="row">
 					<div className="col-sm-7 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-2">
-						<img
-							src={require('../assets/images/logo/top_logo.png')}
-							className="top-logo"
-							alt=""
-						/>
+						<img src={require('../assets/images/logo/top_logo.png')} className="top-logo" alt="" />
 					</div>
 					<div className="align-right col-sm-5 col-md-7 col-lg-4">
 						<nav className="hidden-sm">
 							<Link to="/">Home</Link>
 							<Link to="/phone">Phones</Link>
-							<a href="#">FAQ</a>
-							<a href="#">Contact</a>
-							<Link to="/signup"><b>Daftar</b></Link>
-							<Link to="/login"><b>Login</b></Link>
-							<Link to="/loan-application"><b>Loan Application</b></Link>
+							<Link to="/faq">FAQ</Link>
+							{
+								this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
+							}
+							{
+								this.state.isLogin ? <Link onClick={() => this.logout()} to='/' style={{cursor: 'pointer'}}>Logout</Link> : <Link to="/login"><b>Login</b></Link>
+							}
 						</nav>
 					</div>
 				</div>
@@ -53,8 +65,4 @@ class Header extends React.Component {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ setUserData }, dispatch)
-}
-
-export default connect(null, mapDispatchToProps)(Header)
+export default Header

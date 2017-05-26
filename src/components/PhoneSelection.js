@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import VanillaModal from 'vanilla-modal'
+import { Link, Redirect } from 'react-router-dom'
 
 import Header from './Header'
 import Footer from './Footer'
@@ -8,14 +9,22 @@ class PhoneSelection extends Component {
 	constructor () {
 		super()
 		this.state = {
-			products: []
+			isLogin: false,
+			phone: '',
+			price: ''
 		}
 	}
 	componentDidMount() {
 		this.modal = new VanillaModal()
+		if (window.localStorage.length === 1) {
+			this.setState({ isLogin: true })
+		}
 	}
 	componentWillUnmount() {
 		this.modal.destroy()
+	}
+	chooseThisPhone() {
+		window.localStorage.setItem('product', JSON.stringify(this.state))
 	}
 	render() {
 		return (
@@ -93,8 +102,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 1<small>Rp. 1.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 1', price: 'Rp. 1.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -102,8 +111,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 2<small>Rp. 2.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 2', price: 'Rp. 2.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -111,8 +120,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 3<small>Rp. 3.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 3', price: 'Rp. 3.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -120,8 +129,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 4<small>Rp. 4.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 4', price: 'Rp. 4.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -129,8 +138,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 5<small>Rp. 5.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 5', price: 'Rp. 5.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -138,7 +147,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 6<small>Rp. 6.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 6', price: 'Rp. 6.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -146,17 +156,8 @@ class PhoneSelection extends Component {
 									<div className="card fluid">
 										<div className="section text-center">
 											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy s8<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open>View Details</a>
+											<h4>Samsung Galaxy 7<small>Rp. 7.500.000</small></h4>
+											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 7', price: 'Rp. 7.500.000'})}>View Details</a>
 										</div>
 									</div>
 								</div>
@@ -204,6 +205,9 @@ class PhoneSelection extends Component {
 												Audio playback (via headset): up to 110 hours<br />
 												Fast charging: up to 7 hours of use from only 15 minutes of charging
 											</div>
+										</div>
+										<div>
+											<center><Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone()}>Buy This Phone</Link></center>
 										</div>
 									</div>
 								</div>
