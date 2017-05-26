@@ -11,6 +11,7 @@ class Header extends React.Component {
 	}
 	logout() {
 		window.localStorage.removeItem('userDetail')
+		window.localStorage.removeItem('product')
 	}
 	componentWillMount() {
 		if (window.localStorage.getItem('userDetail') !== null) {
