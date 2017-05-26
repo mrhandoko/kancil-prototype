@@ -71,7 +71,6 @@ class SignUp extends React.Component {
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
 			window.localStorage.setItem('userDetail', JSON.stringify(result.data))
-			window.localStorage.setItem('userDetail', JSON.stringify(result))
 			this.setState({ redirectLoginSuccess: true })
 		})
 		.catch(err => {
@@ -88,7 +87,7 @@ class SignUp extends React.Component {
 	}
 	render() {
 		if (this.state.redirectLoginSuccess) {
-			return <Redirect to='/phone' />
+			return <Redirect to='/loan-application' />
 		} else {
 			return (
 				<div>

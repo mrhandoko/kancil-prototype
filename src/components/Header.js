@@ -31,10 +31,10 @@ class Header extends React.Component {
 		// 		})
 		// }
 		if (window.localStorage.getItem('userDetail') !== null) {
-			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).data.user.username.length > 0 ) {
+			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0 ) {
 				this.setState({
 					isLogin: true,
-					username: JSON.parse(localStorage.userDetail).data.user.username
+					username: JSON.parse(localStorage.userDetail).user.username
 				})
 			}
 		}
