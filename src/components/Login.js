@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -76,14 +76,14 @@ class Login extends Component {
                   </div>
                 </div>
                 <div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
-                  <div className="col-sm-3 col-md-6 col-lg-6">
-                    <a href className="forgot-password fnt-sz-s1">Sign Up</a>
+                  <div className="col-sm-12 col-md-12 col-lg-12 text-center">
+                    <Link className="forgot-password fnt-sz-s1" to='/signup'>Sign Up</Link>
                   </div>
-                  <div className="col-sm-9 col-md-6 col-lg-6 text-right">
+                  {/* <div className="col-sm-9 col-md-6 col-lg-6 text-right">
                     <a href className="forgot-password fnt-sz-s1">
                       Forgot your Password?
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

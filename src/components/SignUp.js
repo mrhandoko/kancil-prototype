@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './Header';
@@ -125,9 +125,9 @@ class SignUp extends React.Component {
 									</div>
 									<div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
 										<div className="col-sm-12 col-md-12 col-lg-12 text-center">
-											<a href className="forgot-password fnt-sz-s1">
+											<Link to="/login" className="forgot-password fnt-sz-s1">
 												Already have an account?
-											</a>
+											</Link>
 										</div>
 									</div>
 								</div>
