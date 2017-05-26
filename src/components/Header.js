@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 class Header extends React.Component {
 	constructor () {
@@ -8,6 +8,10 @@ class Header extends React.Component {
 			isLogin: false,
 			username: ''
 		}
+	}
+	logout() {
+		window.localStorage.removeItem('userDetail')
+		window.localStorage.removeItem('product')
 	}
 	componentWillMount() {
 		// let setUser = window.localStorage.getItem('userDetail')
@@ -27,10 +31,10 @@ class Header extends React.Component {
 		// 		})
 		// }
 		if (window.localStorage.getItem('userDetail') !== null) {
-			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).data.user.username.length > 0 ) {
+			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0 ) {
 				this.setState({
 					isLogin: true,
-					username: JSON.parse(localStorage.userDetail).data.user.username
+					username: JSON.parse(localStorage.userDetail).user.username
 				})
 			}
 		}
@@ -48,7 +52,10 @@ class Header extends React.Component {
 							<Link to="/phone">Phones</Link>
 							<Link to="/faq">FAQ</Link>
 							{
-								this.state.isLogin ? <div><a>Selamat Datang, {this.state.username}</a><a onClick={() => window.localStorage.removeItem('userDetail')} style={{cursor: 'pointer'}}>Logout</a></div> : <div><Link to="/signup"><b>Daftar</b></Link><Link to="/login"><b>Login</b></Link></div>
+								this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
+							}
+							{
+								this.state.isLogin ? <Link onClick={() => this.logout()} to='/' style={{cursor: 'pointer'}}>Logout</Link> : <Link to="/login"><b>Login</b></Link>
 							}
 						</nav>
 					</div>

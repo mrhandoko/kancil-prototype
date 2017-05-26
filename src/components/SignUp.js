@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './Header';
@@ -70,8 +70,7 @@ class SignUp extends React.Component {
 		this.setState({ registerButton: true, disabled: true })
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
-			console.log(result.data);
-			window.localStorage.setItem('userDetail', JSON.stringify(result))
+			window.localStorage.setItem('userDetail', JSON.stringify(result.data))
 			this.setState({ redirectLoginSuccess: true })
 		})
 		.catch(err => {
@@ -126,9 +125,9 @@ class SignUp extends React.Component {
 									</div>
 									<div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
 										<div className="col-sm-12 col-md-12 col-lg-12 text-center">
-											<a href className="forgot-password fnt-sz-s1">
+											<Link to="/login" className="forgot-password fnt-sz-s1">
 												Already have an account?
-											</a>
+											</Link>
 										</div>
 									</div>
 								</div>

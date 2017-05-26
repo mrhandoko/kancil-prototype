@@ -31,11 +31,13 @@ class LoginContent extends React.Component {
       if (err) this.setState({ isSucceed: false })
     });
   }
-  componentDidMount() {
-    if (window.localStorage.length === 1) {
-      this.setState({
-        isLogin: true
-      })
+  componentWillMount() {
+    if (window.localStorage.getItem('userDetail') !== null) {
+      if (window.localStorage.length !== 0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0) {
+        this.setState({
+          isLogin: true
+        })
+      }
     }
   }
   render () {
@@ -50,7 +52,7 @@ class LoginContent extends React.Component {
                 <h4 className="fnt-blue">Login</h4>
               </div>
               <div className="panel-bottom">
-                <div className="clean-form">
+                <form className="clean-form">
                   <h5 className="fnt-grey">Email</h5>
                   <input type="text" name className="input-full" onChange={event => this.setUsernameField(event)} />
                   <div className="form-spacer" />
@@ -62,7 +64,7 @@ class LoginContent extends React.Component {
                       { this.state.isSucceed === false && <span style={{ color: 'red' }}>Anda tidak bisa melakukan login. Silakan daftar/Sign Up terlebih dahulu</span>}
                     </div>
                   </div>
-                </div>
+                </form>
                 <div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
                   <div className="col-sm-12 col-md-12 col-lg-12 text-center">
                     <img src="img/facebook_login.png" alt="" />
