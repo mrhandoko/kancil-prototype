@@ -19,6 +19,13 @@ class LoanApplication extends Component {
       kelurahan: '',
       provinsi: '',
       kodepos: '',
+      married_status: '',
+      wife_husband_name: '',
+      children: '',
+      education_level: '',
+      employment: '',
+      earning: '',
+      start_date_job: '',
       urlktp: '',
       urlprofilephoto: '',
       lat: '',
@@ -173,6 +180,13 @@ class LoanApplication extends Component {
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Tanggal Lahir</h5>
           						<input className='input-full' type='text' placeholder='DD/MM/YYYY' onChange={event => this.setBirthday(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Married Status</h5>
+          						<input className='input-full' type='text'  />
+                      <select onChange={event => this.setMarriedStatus(event)}>
+          							<option value='kawin'>Kawin</option>
+          							<option value='belum kawin'>Belum Kawin</option>
+          						</select>
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Address</h5>
           						<input className='input-full' type='text' onChange={event => this.setAddress(event)} />

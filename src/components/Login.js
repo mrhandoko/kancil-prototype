@@ -27,6 +27,7 @@ class Login extends Component {
     let {email, password} = this.state
     axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/login/", {email, password})
     .then(result => {
+      console.log(result);
       this.setState({ isSucceed: true, isLogin: true })
       window.localStorage.setItem('userDetail', JSON.stringify(result.data))
     })
