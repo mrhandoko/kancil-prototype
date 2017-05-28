@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
+import { loginRequest } from '../actions'
 
 class Login extends Component {
   constructor () {
@@ -22,28 +25,21 @@ class Login extends Component {
   setPasswordField (event) {
     this.setState({ password: event.target.value })
   }
+
   clickLogin (event) {
-    event.preventDefault();
     let {email, password} = this.state
-    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/login/", {email, password})
-    .then(result => {
-      console.log(result);
+    this.props.loginRequest(email, password)
+  }
+
+  componentWillReceieveProps(nextProps) {
+    if (nextProps.User.isLogin) {
+      window.localStorage.setItem('userDetail', JSON.stringify(nextProps.User))
       this.setState({ isSucceed: true, isLogin: true })
-      window.localStorage.setItem('userDetail', JSON.stringify(result.data))
-    })
-    .catch(err => {
-      if (err) this.setState({ isSucceed: false })
-    });
-  }
-  componentWillMount() {
-    if (window.localStorage.getItem('userDetail') !== null) {
-      if (window.localStorage.length !== 0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0) {
-        this.setState({
-          isLogin: true
-        })
-      }
     }
+    else
+      this.setState({isSucceed: false})
   }
+
   render () {
     if (this.state.isLogin) {
       return <Redirect to="/phone" />
@@ -97,4 +93,12 @@ class Login extends Component {
   }
 }
 
-export default Login
+const mapStateToProps = state => ({
+  User: state.User
+})
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ loginRequest }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

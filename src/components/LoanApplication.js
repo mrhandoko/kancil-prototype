@@ -138,7 +138,7 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/")
+    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/")
     .then(result => console.log(result.data))
     .catch(err => console.log(err));
   }
@@ -184,40 +184,40 @@ class LoanApplication extends Component {
             				<form className='clean-form'>
           						<h4>Personal Information</h4>
           						<div className='form-spacer' />
-                      <h5 className='fnt-grey'>Upload KTP</h5>
+                      <h5 className='fnt-grey'>Foto KTP</h5>
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} />
-                      <label htmlFor="file-input" className='button' style={{ width: 120 }}>upload foto ktp</label>
+
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Foto diri & KTP</h5>
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload foto diri & KTP</label>
+
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Bukti Alamat</h5>
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl}/>
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload bukti alamat</label>
+
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Kartu Keluarga</h5>
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload kartu keluarga</label>
+
                       <h5 className='fnt-grey'>Bukti Pendapatan 3 Bulan Terakhir</h5>
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 1</label>
+
                       <br />
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 2</label>
+
                       <br />
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 3</label>
+
           						<h5 className='fnt-grey'>Nama Lengkap</h5>
           						<input className='input-full' type='text' onChange={event => this.setFullname(event)} />
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Nomor Handphone</h5>
           						<input className='input-full' type='text' onChange={event => this.setPhone(event)}/>
           						<div className='form-spacer' />
-          						<h5 className='fnt-grey'>Nomor Induk Kependudukan</h5>
+          						<h5 className='fnt-grey'>Nomor Induk Kependudukan (No KTP)</h5>
           						<input className='input-full' type='text' onChange={event => this.setNIK(event)} />
           						<div className='form-spacer' />
-                      <h5 className='fnt-grey'>gender</h5>
+                      <h5 className='fnt-grey'>Jenis Kelamin</h5>
                       <select onChange={event => this.setGender(event)}>
           							<option value='L'>Laki-laki</option>
           							<option value='P'>Perempuan</option>
@@ -233,6 +233,7 @@ class LoanApplication extends Component {
                       <select onChange={event => this.setMarriedStatus(event)}>
           							<option value='kawin'>Kawin</option>
           							<option value='belum kawin'>Belum Kawin</option>
+                        <option value='janda/duda'>Janda/Duda</option>
           						</select>
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Nama Istri/Suami</h5>
