@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -74,7 +74,9 @@ class LoanApplication extends Component {
     })
   }
   setPhone(event) {
-    phone: event.target.value
+    this.setState({
+      phone: event.target.value
+    })
   }
   setNIK(event) {
     this.setState({
@@ -241,15 +243,15 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/", this.state, {header:{
-      token: JSON.parse(localStorage.userDetail).token
-    }})
-    .then(result => {
-      this.setState({ product: JSON.parse(localStorage.product).phone })
-      localStorage.setItem('loanApplication', this.state)
-      this.setState({ isApplied: true })
-    })
-    .catch(err => console.log(err));
+    // axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/", this.state, {header:{
+    //   token: JSON.parse(localStorage.userDetail).token
+    // }})
+    // .then(result => {
+    //   this.setState({ product: JSON.parse(localStorage.product).phone })
+    //   localStorage.setItem('loanApplication', this.state)
+    //   this.setState({ isApplied: true })
+    // })
+    // .catch(err => console.log(err));
   }
   componentWillMount() {
     if (window.localStorage.getItem('userDetail') !== null) {
@@ -263,7 +265,7 @@ class LoanApplication extends Component {
   render() {
     if (this.state.isLogin) {
       if (this.state.isApplied) {
-        return <Redirect to='/thankyou' />
+        return <Redirect to='/status' />
       } else {
         return (
           <div>
