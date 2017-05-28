@@ -86,7 +86,9 @@ class SignUp extends React.Component {
     }
 	}
 	render() {
-		if (this.state.redirectLoginSuccess) {
+		if (this.state.redirectLoginSuccess && localStorage.getItem('product') !== null) {
+			return <Redirect to='/loan-application' />
+		} else if(this.state.redirectLoginSuccess) {
 			return <Redirect to='/phone' />
 		} else {
 			return (

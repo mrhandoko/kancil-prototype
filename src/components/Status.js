@@ -21,21 +21,15 @@ class Status extends Component {
                 <h3 className="fnt-white">ACOUNT OVERVIEW</h3>
                 <br />
                 <div className="row">
-                  <div className="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1 text-center">
-                    <div className="status-box">
-                      <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-6 text-left">
-                          <h4>STATUS</h4>
-                          <h5 style={{marginTop: 10}}>Loan Application Accepted!<small>Your phone is on the way!</small></h5>
-                          <h6 style={{marginTop: 10}}>Applied on:<small>January 1, 2017</small></h6>
-                          <h6 style={{marginTop: 10}}>Product:<small>Samsung Galaxy S8</small></h6>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-6 text-right">
-                          <br />
-                          <img src="img/accepted.png" width={150} alt="" />
-                        </div>
-                      </div>
-                    </div>
+                  <div className="col-sm-12 col-md-6 col-lg-6 text-left">
+                    <h4>STATUS</h4>
+                    <h5 style={{marginTop: 10}}>Loan Application in Review<small>Please check back</small></h5>
+                    <h6 style={{marginTop: 10}}>Applied on:<small>January 1, 2017</small></h6>
+                    <h6 style={{marginTop: 10}}>Product:<small>Samsung Galaxy S8</small></h6>
+                  </div>
+                  <div className="col-sm-12 col-md-6 col-lg-6 text-right">
+                    <br />
+                    <img src="img/in_review.png" width={150} alt='review' />
                   </div>
                 </div>
               </div>
@@ -47,21 +41,15 @@ class Status extends Component {
                 <h3 className="fnt-white">ACOUNT OVERVIEW</h3>
                 <br />
                 <div className="row">
-                  <div className="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1 text-center">
-                    <div className="status-box">
-                      <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-6 text-left">
-                          <h4>STATUS</h4>
-                          <h5 style={{marginTop: 10}}>Loan Application in Review<small>Please check back</small></h5>
-                          <h6 style={{marginTop: 10}}>Applied on:<small>January 1, 2017</small></h6>
-                          <h6 style={{marginTop: 10}}>Product:<small>Samsung Galaxy S8</small></h6>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-6 text-right">
-                          <br />
-                          <img src="img/in_review.png" width={150} alt="" />
-                        </div>
-                      </div>
-                    </div>
+                  <div className="col-sm-12 col-md-6 col-lg-6 text-left">
+                    <h4>STATUS</h4>
+                    <h5 style={{marginTop: 10}}>Loan Application Accepted!<small>Your phone is on the way!</small></h5>
+                    <h6 style={{marginTop: 10}}>Applied on:<small>January 1, 2017</small></h6>
+                    <h6 style={{marginTop: 10}}>Product:<small>Samsung Galaxy S8</small></h6>
+                  </div>
+                  <div className="col-sm-12 col-md-6 col-lg-6 text-right">
+                    <br />
+                    <img src="img/accepted.png" width={150} alt='review' />
                   </div>
                 </div>
               </div>
