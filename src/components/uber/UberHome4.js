@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from './Header';
+import Header from '../Header';
 import Swiper2 from './Swiper2';
 import HomeContent4 from './HomeContent4';
 import Footer from '../Footer';

@@ -4,11 +4,9 @@ const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
 export const loginRequest = (email, password) => dispatch => {
   axios.post(BASE_URL + 'auth/login/', {email, password})
   .then(response => {
-    console.log(email, password)
     if (response.data.user.email === email) {
       response.data['isSucceed'] = true
       response.data['isLogin'] = true
-      console.log(response.data);
       dispatch({
         type: 'SET_USER_DATA',
         payload: response.data
@@ -25,5 +23,12 @@ export const loginRequest = (email, password) => dispatch => {
       type: 'LOGIN_FAILED',
       payload: err
     })
+  })
+}
+
+export const partnershipId = id => dispatch => {
+  dispatch({
+    type: 'PARTNERSHIP',
+    payload: id
   })
 }
