@@ -5,6 +5,17 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 
+const Styles = {
+  uploadImage: {
+    borderBottom: '1px solid lightgray',
+    borderRight: '1px solid lightgray',
+    borderTop: '1px solid lightgray',
+    borderLeft: '1px solid lightgray',
+    padding: 10, margin: 15,
+    cursor: 'pointer'
+  }
+}
+
 class LoanApplication extends Component {
   constructor () {
     super ()
@@ -30,12 +41,20 @@ class LoanApplication extends Component {
       lat: '',
       lng: '',
       ktp: '',
+      fileKTP: '',
       ktp_selfie: '',
+      fileKTPSelfie: '',
       proof_address: '',
+      fileProofAddress: '',
       family_card: '',
+      fileFamilyCard: '',
       proof_income1: '',
+      fileProofIncome1: '',
       proof_income2: '',
+      fileProofIncome2: '',
       proof_income3: '',
+      fileProofIncome3: '',
+      product: '',
       isApplied: false,
     }
   }
@@ -132,14 +151,104 @@ class LoanApplication extends Component {
       kodepos: event.target.value
     })
   }
+  uploadKTPImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        fileKTP: file,
+        ktp: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadKTPSelfieImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        ktp_selfie: reader.result,
+        fileKTPSelfie: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofAddressImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_address: reader.result,
+        fileProofAddress: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadFamilyCardImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        family_card: reader.result,
+        fileFamilyCard: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofIncome1(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_income1: reader.result,
+        fileProofIncome1: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofIncome2(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_income2: reader.result,
+        fileProofIncome2: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofIncome3(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_income3: reader.result,
+        fileProofIncome3: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
   clickLoanApplication(event) {
     event.preventDefault();
     this.setState({
       isApplied: true
     })
     console.log(this.state);
-    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/")
-    .then(result => console.log(result.data))
+    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/", this.state, {header:{
+      token: JSON.parse(localStorage.userDetail).token
+    }})
+    .then(result => {
+      this.setState({ product: JSON.parse(localStorage.product).phone })
+      localStorage.setItem('loanApplication', this.state)
+      this.setState({ isApplied: true })
+    })
     .catch(err => console.log(err));
   }
   componentWillMount() {
@@ -185,29 +294,34 @@ class LoanApplication extends Component {
           						<h4>Personal Information</h4>
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Upload KTP</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} />
-                      <label htmlFor="file-input" className='button' style={{ width: 120 }}>upload foto ktp</label>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadKTPImage(event)} />
+                      </div>
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Foto diri & KTP</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload foto diri & KTP</label>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadKTPSelfieImage(event)} />
+                      </div>
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Bukti Alamat</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl}/>
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload bukti alamat</label>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofAddressImage(event)} />
+                      </div>
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Kartu Keluarga</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload kartu keluarga</label>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadFamilyCardImage(event)} />
+                      </div>
                       <h5 className='fnt-grey'>Bukti Pendapatan 3 Bulan Terakhir</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 1</label>
-                      <br />
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 2</label>
-                      <br />
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 3</label>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofIncome1(event)} />
+                      </div>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofIncome2(event)} />
+                      </div>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofIncome3(event)} />
+                      </div>
           						<h5 className='fnt-grey'>Nama Lengkap</h5>
           						<input className='input-full' type='text' onChange={event => this.setFullname(event)} />
                       <div className='form-spacer' />
