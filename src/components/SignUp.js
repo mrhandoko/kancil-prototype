@@ -87,7 +87,7 @@ class SignUp extends React.Component {
 	}
 	render() {
 		if (this.state.redirectLoginSuccess) {
-			return <Redirect to='/loan-application' />
+			return <Redirect to='/phone' />
 		} else {
 			return (
 				<div>
