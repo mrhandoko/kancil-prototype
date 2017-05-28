@@ -32,6 +32,7 @@ class LoginContent extends React.Component {
     });
   }
   componentWillMount() {
+    console.log('fired');
     if (window.localStorage.getItem('userDetail') !== null) {
       if (window.localStorage.length !== 0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0) {
         this.setState({

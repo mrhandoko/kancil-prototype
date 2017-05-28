@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -27,13 +26,15 @@ class Login extends Component {
   }
 
   clickLogin (event) {
+    event.preventDefault()
     let {email, password} = this.state
     this.props.loginRequest(email, password)
   }
 
-  componentWillReceieveProps(nextProps) {
-    if (nextProps.User.isLogin) {
-      window.localStorage.setItem('userDetail', JSON.stringify(nextProps.User))
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user.isLogin) {
+      window.localStorage.setItem('userDetail', JSON.stringify(nextProps.user))
+      console.log(nextProps.user);
       this.setState({ isSucceed: true, isLogin: true })
     }
     else
@@ -67,11 +68,6 @@ class Login extends Component {
                     </div>
                   </div>
                 </form>
-                <div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
-                  <div className="col-sm-12 col-md-12 col-lg-12 text-center">
-                    <img src="img/facebook_login.png" alt="" />
-                  </div>
-                </div>
                 <div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
                   <div className="col-sm-12 col-md-12 col-lg-12 text-center">
                     <Link className="forgot-password fnt-sz-s1" to='/signup'>Sign Up</Link>
@@ -94,7 +90,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  User: state.User
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => (

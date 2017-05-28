@@ -23,7 +23,7 @@ const Status = () => (
                   </div>
                   <div className="col-sm-12 col-md-6 col-lg-6 text-right">
                     <br />
-                    <img src="img/in_review.png" width={150} />
+                    <img src="img/in_review.png" width={150} alt='review' />
                   </div>
                 </div>
               </div>
@@ -49,7 +49,7 @@ const Status = () => (
                   </div>
                   <div className="col-sm-12 col-md-6 col-lg-6 text-right">
                     <br />
-                    <img src="img/accepted.png" width={150} />
+                    <img src="img/accepted.png" width={150} alt='review' />
                   </div>
                 </div>
               </div>
