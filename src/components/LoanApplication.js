@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
 
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
 
 class LoanApplication extends Component {
   constructor () {
@@ -14,25 +15,28 @@ class LoanApplication extends Component {
       phone: '',
       birthplace: '',
       birthdate: '',
+      married_status: '',
+      wife_husband_name: '',
+      children: '',
+      education_level: '',
+      earning: '',
+      start_date_job: '',
+      employment: '',
       address: '',
       kecamatan: '',
       kelurahan: '',
       provinsi: '',
       kodepos: '',
-      married_status: '',
-      wife_husband_name: '',
-      children: '',
-      education_level: '',
-      employment: '',
-      earning: '',
-      start_date_job: '',
-      urlktp: '',
-      urlprofilephoto: '',
       lat: '',
       lng: '',
+      ktp: '',
+      ktp_selfie: '',
+      proof_address: '',
+      family_card: '',
+      proof_income1: '',
+      proof_income2: '',
+      proof_income3: '',
       isApplied: false,
-      KTPfile: '',
-      imagePreviewUrl: ''
     }
   }
   uploadKTP(event) {
@@ -49,6 +53,9 @@ class LoanApplication extends Component {
     this.setState({
       full_name: event.target.value
     })
+  }
+  setPhone(event) {
+    phone: event.target.value
   }
   setNIK(event) {
     this.setState({
@@ -68,6 +75,36 @@ class LoanApplication extends Component {
   setBirthday(event) {
     this.setState({
       birthdate: event.target.value
+    })
+  }
+  setMarriedStatus(event) {
+    this.setState({
+      married_status: event.target.value
+    })
+  }
+  setSpouseName(event) {
+    this.setState({
+      wife_husband_name: event.target.value
+    })
+  }
+  setChildren(event) {
+    this.setState({
+      children: event.target.value
+    })
+  }
+  setEducationLevel(event) {
+    this.setState({
+      education_level: event.target.value
+    })
+  }
+  setEarning(event) {
+    this.setState({
+      earning: event.target.value
+    })
+  }
+  setStartDateJob(event) {
+    this.setState({
+      start_date_job: event.target.value
     })
   }
   setAddress(event) {
@@ -101,19 +138,9 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-  }
-  handleImageChange(event) {
-    event.preventDefault();
-    let reader = new FileReader();
-    let file = event.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
-    }
-    console.log(reader.readAsDataURL(file))
+    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/")
+    .then(result => console.log(result.data))
+    .catch(err => console.log(err));
   }
   componentWillMount() {
     if (window.localStorage.getItem('userDetail') !== null) {
@@ -158,13 +185,34 @@ class LoanApplication extends Component {
           						<h4>Personal Information</h4>
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Upload KTP</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
+                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} />
                       <label htmlFor="file-input" className='button' style={{ width: 120 }}>upload foto ktp</label>
-                      <h5 className='fnt-grey'>Upload Kartu Keluarga</h5>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Foto diri & KTP</h5>
                       <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload foto kartu keluarga</label>
+                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload foto diri & KTP</label>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Bukti Alamat</h5>
+                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl}/>
+                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload bukti alamat</label>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Kartu Keluarga</h5>
+                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
+                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload kartu keluarga</label>
+                      <h5 className='fnt-grey'>Bukti Pendapatan 3 Bulan Terakhir</h5>
+                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
+                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 1</label>
+                      <br />
+                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
+                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 2</label>
+                      <br />
+                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
+                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>bukti pendapatan 3</label>
           						<h5 className='fnt-grey'>Nama Lengkap</h5>
           						<input className='input-full' type='text' onChange={event => this.setFullname(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Nomor Handphone</h5>
+          						<input className='input-full' type='text' onChange={event => this.setPhone(event)}/>
           						<div className='form-spacer' />
           						<h5 className='fnt-grey'>Nomor Induk Kependudukan</h5>
           						<input className='input-full' type='text' onChange={event => this.setNIK(event)} />
@@ -182,11 +230,25 @@ class LoanApplication extends Component {
           						<input className='input-full' type='text' placeholder='DD/MM/YYYY' onChange={event => this.setBirthday(event)} />
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Married Status</h5>
-          						<input className='input-full' type='text'  />
                       <select onChange={event => this.setMarriedStatus(event)}>
           							<option value='kawin'>Kawin</option>
           							<option value='belum kawin'>Belum Kawin</option>
           						</select>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Nama Istri/Suami</h5>
+          						<input className='input-full' type='text' onChange={event => this.setSpouseName(event)}/>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Jumlah Anak</h5>
+          						<input className='input-full' type='text' onChange={event => this.setChildren(event)}/>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Tingkat Pendudukan</h5>
+          						<input className='input-full' type='text' onChange={event => this.setEducationLevel(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Gaji/Pendapatan</h5>
+          						<input className='input-full' type='text' onChange={event => this.setEarning(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Mulai Bekerja</h5>
+          						<input className='input-full' type='text' onChange={event => this.setStartDateJob(event)} placeholder='DD/MM/YYYY' />
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Address</h5>
           						<input className='input-full' type='text' onChange={event => this.setAddress(event)} />
@@ -224,4 +286,4 @@ class LoanApplication extends Component {
   }
 }
 
-export default LoanApplication
+export default LoanApplication;
