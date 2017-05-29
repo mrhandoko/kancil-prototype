@@ -168,7 +168,7 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        ktp: file,
+        ktp: file['name'],
         ktp64: reader.result
       });
     }
@@ -252,17 +252,17 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    // axios.put("http://localhost:8000/api/userdetail/", this.state, {
-    //   headers: {
-    //     Authorization: 'JWT ' + this.props.user.token
-    // }})
-    // .then(result => {
-    //   console.log(result.data);
-    //   this.setState({ product: JSON.parse(localStorage.product).phone })
-    //   localStorage.setItem('loanApplication', this.state)
-    //   this.setState({ isApplied: true })
-    // })
-    // .catch(err => console.log(err));
+    axios.put("http://localhost:8000/api/userdetail/", this.state, {
+      headers: {
+        Authorization: 'JWT ' + this.props.user.token
+    }})
+    .then(result => {
+      console.log(result.data);
+      this.setState({ product: JSON.parse(localStorage.product).phone })
+      localStorage.setItem('loanApplication', this.state)
+      this.setState({ isApplied: true })
+    })
+    .catch(err => console.log(err));
   }
   componentWillMount() {
     if (window.localStorage.getItem('userDetail') !== null) {
