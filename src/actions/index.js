@@ -27,6 +27,17 @@ export const loginRequest = (email, password) => dispatch => {
   })
 }
 
+export const getUserDetail = user => dispatch => {
+  axios.get(BASE_URL + 'api/userdetail/', {headers: { Authorization: 'JWT ' + user.token}})
+  .then(response => {
+    dispatch({
+      type: 'SET_USER_DETAIL',
+      payload: response.data
+    })
+  })
+  .catch(err => console.log(err))
+}
+
 export const setPartnership = id => {
   return ({
     type: 'SET_PARTNER_ID',

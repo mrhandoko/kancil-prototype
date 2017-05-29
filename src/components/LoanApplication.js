@@ -35,6 +35,7 @@ class LoanApplication extends Component {
       employment: '',
       address: '',
       kecamatan: '',
+      kota: '',
       kelurahan: '',
       provinsi: '',
       kodepos: '',
@@ -143,6 +144,11 @@ class LoanApplication extends Component {
       kecamatan: event.target.value
     })
   }
+  setCity(event) {
+    this.setState({
+      city: event.target.value
+    })
+  }
   setProvince(event) {
     this.setState({
       province: event.target.value
@@ -243,7 +249,7 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.post("http://localhost:8000/api/loan/", this.state, {header:{
+    axios.put("http://localhost:8000/api/userDetail/", this.state, {headers:{
       token: JSON.parse(localStorage.userDetail).token
     }})
     .then(result => {
@@ -358,7 +364,7 @@ class LoanApplication extends Component {
                       <h5 className='fnt-grey'>Jumlah Anak</h5>
           						<input className='input-full' type='text' onChange={event => this.setChildren(event)}/>
                       <div className='form-spacer' />
-                      <h5 className='fnt-grey'>Tingkat Pendudukan</h5>
+                      <h5 className='fnt-grey'>Pendidikan Terakhir</h5>
           						<input className='input-full' type='text' onChange={event => this.setEducationLevel(event)} />
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Gaji/Pendapatan</h5>
@@ -375,6 +381,8 @@ class LoanApplication extends Component {
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Kecamatan</h5>
           						<input className='input-full' type='text' onChange={event => this.setKecamatan(event)} />
+                      <h5 className='fnt-grey'>Kota</h5>
+          						<input className='input-full' type='text' onChange={event => this.setCity(event)} />
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Provinsi</h5>
           						<input className='input-full' type='text' onChange={event => this.setProvince(event)} />
