@@ -66,3 +66,14 @@ export const setPartnership = id => {
     payload: {id}
   })
 }
+
+export const submitLoan = (finance_product, product, user) => dispatch => {
+  axios.post(BASE_URL + 'api/loan/', {finance_product, product}, {headers: { Authorization: 'JWT ' + user.token }})
+  .then(response => {
+    dispatch({
+      type: 'SET_LOAN_DATA',
+      payload: response.data
+    })
+  })
+  .catch(err => console.log(err))
+}

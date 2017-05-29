@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
+
+import { submitLoan } from '../actions'
 
 class LoanReview extends Component {
   componentDidMount() {
@@ -44,4 +47,8 @@ const mapStateToProps = state => ({
   product: state.product,
 })
 
-export default connect(mapStateToProps,null)(LoanReview)
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({submitLoan}, dispatch)
+)
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoanReview)
