@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 import Header from './Header';
 import Footer from './Footer';
