@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -35,6 +35,7 @@ class LoanApplication extends Component {
       employment: '',
       address: '',
       kecamatan: '',
+      kota: '',
       kelurahan: '',
       provinsi: '',
       kodepos: '',
@@ -141,6 +142,11 @@ class LoanApplication extends Component {
   setKecamatan(event) {
     this.setState({
       kecamatan: event.target.value
+    })
+  }
+  setCity(event) {
+    this.setState({
+      city: event.target.value
     })
   }
   setProvince(event) {
@@ -358,7 +364,7 @@ class LoanApplication extends Component {
                       <h5 className='fnt-grey'>Jumlah Anak</h5>
           						<input className='input-full' type='text' onChange={event => this.setChildren(event)}/>
                       <div className='form-spacer' />
-                      <h5 className='fnt-grey'>Tingkat Pendudukan</h5>
+                      <h5 className='fnt-grey'>Pendidikan Terakhir</h5>
           						<input className='input-full' type='text' onChange={event => this.setEducationLevel(event)} />
                       <div className='form-spacer' />
                       <h5 className='fnt-grey'>Gaji/Pendapatan</h5>
@@ -375,6 +381,8 @@ class LoanApplication extends Component {
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Kecamatan</h5>
           						<input className='input-full' type='text' onChange={event => this.setKecamatan(event)} />
+                      <h5 className='fnt-grey'>Kota</h5>
+          						<input className='input-full' type='text' onChange={event => this.setCity(event)} />
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Provinsi</h5>
           						<input className='input-full' type='text' onChange={event => this.setProvince(event)} />
