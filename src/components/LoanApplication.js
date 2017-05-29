@@ -249,7 +249,7 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.post("http://localhost:8000/api/loan/", this.state, {header:{
+    axios.put("http://localhost:8000/api/userDetail/", this.state, {headers:{
       token: JSON.parse(localStorage.userDetail).token
     }})
     .then(result => {

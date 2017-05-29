@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
-import { loginRequest } from '../actions'
+import { loginRequest, getUserDetail } from '../actions';
 
 class Login extends Component {
   constructor () {
@@ -33,9 +33,10 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.isLogin) {
+    if (nextProps.user.isLogin && !this.props.user.isLogin) {
       window.localStorage.setItem('userDetail', JSON.stringify(nextProps.user))
       console.log(nextProps.user);
+      this.props.getUserDetail(nextProps.user)
       this.setState({ isSucceed: true, isLogin: true })
     }
     else
@@ -95,7 +96,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({ loginRequest }, dispatch)
+  bindActionCreators({ loginRequest, getUserDetail }, dispatch),
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
