@@ -55,7 +55,7 @@ class Status extends Component {
                           <h4>STATUS</h4>
                           <h5 style={{marginTop: 10}}>Loan Application in Review<small>Please check back</small></h5>
                           <h6 style={{marginTop: 10}}>Applied on:<small>May 29, 2017</small></h6>
-                          <h6 style={{marginTop: 10}}>Product:<small>{ JSON.parse(localStorage.getItem('product')).phone }</small></h6>
+                          <h6 style={{marginTop: 10}}>Product:<small> Your phone here my friend </small></h6>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-6 text-right">
                           <br />
