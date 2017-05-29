@@ -23,6 +23,7 @@ class PhoneSelection extends Component {
 		if (window.localStorage.length === 1) {
 			this.setState({ isLogin: true })
 		}
+		console.log(this.props.user);
 		if (this.props.user.isLogin) {
 			axios.get('http://localhost:8000/api/finance-product/' + this.props.userDetail.partnership + '/')
 			.then(response => {
@@ -52,7 +53,8 @@ class PhoneSelection extends Component {
 	productModals() {
 		if (this.state.modalProduct !== -1) {
 			let data = this.state.products[this.state.modalProduct]
-			console.log(data);
+			console.log('product modals', this.state.modalProduct);
+			console.log('phone data', data.product);
 			return (
 				<div>
 				<center><img src={data.product.image} alt="" /></center>

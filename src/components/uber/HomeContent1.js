@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import { partnershipId } from '../../actions'
 
 class HomeContent1 extends React.Component {
-  componentDidMount() {
-    this.modal = new VanillaModal()
-  }
+  // componentDidMount() {
+  //   this.modal = new VanillaModal()
+  // }
   render() {
     return (
       <div className="container" style={{margin: '25px 0'}}>

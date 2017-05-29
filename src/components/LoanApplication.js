@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux'
 
 import Header from './Header';
 import Footer from './Footer';
@@ -165,8 +166,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        fileKTP: file,
-        ktp: reader.result
+        ktp: file,
+        ktp64: reader.result
       });
     }
     reader.readAsDataURL(file)
@@ -177,8 +178,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        ktp_selfie: reader.result,
-        fileKTPSelfie: file
+        ktp_selfie64: reader.result,
+        ktp_selfie: file
       });
     }
     reader.readAsDataURL(file)
@@ -189,8 +190,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        proof_address: reader.result,
-        fileProofAddress: file
+        proof_address64: reader.result,
+        proof_address: file
       });
     }
     reader.readAsDataURL(file)
@@ -201,8 +202,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        family_card: reader.result,
-        fileFamilyCard: file
+        family_card64: reader.result,
+        family_card: file
       });
     }
     reader.readAsDataURL(file)
@@ -213,8 +214,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        proof_income1: reader.result,
-        fileProofIncome1: file
+        proof_income164: reader.result,
+        proof_income1: file
       });
     }
     reader.readAsDataURL(file)
@@ -225,8 +226,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        proof_income2: reader.result,
-        fileProofIncome2: file
+        proof_income264: reader.result,
+        proof_income2: file
       });
     }
     reader.readAsDataURL(file)
@@ -237,8 +238,8 @@ class LoanApplication extends Component {
     let file = event.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        proof_income3: reader.result,
-        fileProofIncome3: file
+        proof_income364: reader.result,
+        proof_income3: file
       });
     }
     reader.readAsDataURL(file)
@@ -249,10 +250,12 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.put("http://localhost:8000/api/userDetail/", this.state, {headers:{
-      token: JSON.parse(localStorage.userDetail).token
+    axios.put("http://localhost:8000/api/userdetail/", this.state, {
+      headers: {
+        Authorization: 'JWT ' + this.props.user.token
     }})
     .then(result => {
+      console.log(result.data);
       this.setState({ product: JSON.parse(localStorage.product).phone })
       localStorage.setItem('loanApplication', this.state)
       this.setState({ isApplied: true })
@@ -411,4 +414,8 @@ class LoanApplication extends Component {
   }
 }
 
-export default LoanApplication;
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, null)(LoanApplication);
