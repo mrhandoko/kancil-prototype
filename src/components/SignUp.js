@@ -1,9 +1,12 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import Header from './Header';
 import Footer from './Footer';
+import { setUserDetail } from '../actions'
 
 class SignUp extends React.Component {
 	constructor(props) {
@@ -68,10 +71,23 @@ class SignUp extends React.Component {
 		event.preventDefault()
 		// show loading
 		this.setState({ registerButton: true, disabled: true })
-		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
+		axios.post('http://localhost:8000/auth/register/', this.state)
 		.then(result => {
-			window.localStorage.setItem('userDetail', JSON.stringify(result.data))
-			this.setState({ redirectLoginSuccess: true })
+			axios.post('http://localhost:8000/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : null}, {
+			  headers: {
+			    Authorization: 'JWT ' + result.data.token
+			  }
+			})
+			.then(response => {
+				window.localStorage.setItem('userDetail', JSON.stringify(result.data))
+				this.props.setUserDetail(response.data)
+				console.log('FIIREEEE');
+				this.setState({ redirectLoginSuccess: true })
+			})
+			.catch(err1 => {
+				console.log('error while set register with partner', err1)
+				this.setState({ registerErr: err1 })
+			})
 		})
 		.catch(err => {
 			this.setState({ registerErr: err })
@@ -86,7 +102,9 @@ class SignUp extends React.Component {
     }
 	}
 	render() {
-		if (this.state.redirectLoginSuccess) {
+		if (this.state.redirectLoginSuccess && localStorage.getItem('product') !== null) {
+			return <Redirect to='/loan-application' />
+		} else if(this.state.redirectLoginSuccess) {
 			return <Redirect to='/phone' />
 		} else {
 			return (
@@ -141,4 +159,12 @@ class SignUp extends React.Component {
 	}
 }
 
-export default SignUp;
+const mapStateToProps = state => ({
+	partner: state.partner
+})
+
+const mapDispatchToProps = dispatch => (
+	bindActionCreators({ setUserDetail }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

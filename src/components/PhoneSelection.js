@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import VanillaModal from 'vanilla-modal'
 import { Link, Redirect } from 'react-router-dom'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import axios from 'axios'
 
 import Header from './Header'
 import Footer from './Footer'
+
+import { selectPhone } from '../actions'
 
 class PhoneSelection extends Component {
 	constructor () {
@@ -11,20 +16,98 @@ class PhoneSelection extends Component {
 		this.state = {
 			isLogin: false,
 			phone: '',
-			price: ''
+			price: '',
+			products: '',
+			modalProduct: -1
 		}
 	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.userDetail.partnership)
+			axios.get('http://localhost:8000/api/finance-product/' + nextProps.userDetail.partnership + '/')
+			.then(response => {
+				this.setState({ products: response.data })
+			})
+			.catch(err => {
+				console.log(err);
+			})
+	}
+
 	componentDidMount() {
 		this.modal = new VanillaModal()
 		if (window.localStorage.length === 1) {
 			this.setState({ isLogin: true })
 		}
+
+		if (this.props.userDetail.partnership) {
+			axios.get('http://localhost:8000/api/finance-product/' + this.props.userDetail.partnership + '/')
+			.then(response => {
+				this.setState({ products: response.data })
+			})
+			.catch(err => {
+				console.log(err);
+			})
+		}
+		else {
+			axios.get('http://localhost:8000/api/finance-product/')
+			.then(response => {
+				this.setState({ products: response.data })
+			})
+			.catch(err => {
+				console.log(err)
+			})
+		}
 	}
+
 	componentWillUnmount() {
 		this.modal.destroy()
 	}
-	chooseThisPhone() {
-		window.localStorage.setItem('product', JSON.stringify(this.state))
+
+	productModals() {
+		if (this.state.modalProduct !== -1) {
+			let data = this.state.products[this.state.modalProduct]
+			console.log('product modals', this.state.modalProduct);
+			console.log('phone data', data.product);
+			return (
+				<div>
+				<center><img src={data.product.image} alt="" /></center>
+				<br />
+				<div className="row product-spec-row">
+					<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
+						<b>Brand</b>
+					</div>
+					<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
+						<p>{data.product.brand}</p>
+					</div>
+				</div>
+				<div className="row product-spec-row">
+					<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
+						<b>Model</b>
+					</div>
+					<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
+						<p>{data.product.model}</p>
+						<br />
+					</div>
+				</div>
+				<div className="row product-spec-row">
+					<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
+						<b>Deskripsi</b>
+					</div>
+					<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
+						<p>{data.product.desc}</p>
+					</div>
+				</div>
+				<div>
+					<center><Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone(data)}>Buy This Phone</Link></center>
+				</div>
+				</div>
+			)
+		}
+		return (<p>return something lahh..</p>)
+	}
+
+	chooseThisPhone(data) {
+		console.log(data);
+		this.props.selectPhone(data)
 	}
 	render() {
 		return (
@@ -98,15 +181,26 @@ class PhoneSelection extends Component {
 										</div>
 									</div>
 								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 1<small>Rp. 1.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 1', price: 'Rp. 1.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
+								{
+									this.state.products !== ''
+									? this.state.products.map((data, index) => {
+										return (
+											<div key={data.id} className="col-sm-12 col-md-6 col-lg-4">
+												<div className="card fluid">
+													<div className="section text-center">
+														<img src={data.product.image} alt={data.product.model} />
+														<h4 >{data.product.model}<small>Rp. {data.product.price}</small></h4>
+														<small>{Math.ceil(data.product.price/data.tenore)} per {data.unit} for {data.tenore} month</small>
+														<small>{data.interest_source} month</small>
+														<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
+													</div>
+												</div>
+											</div>
+										)
+									})
+									: <p>Fetching data</p>
+								}
+
 								<div className="col-sm-12 col-md-6 col-lg-4">
 									<div className="card fluid">
 										<div className="section text-center">
@@ -171,44 +265,7 @@ class PhoneSelection extends Component {
 									</div>
 									{/* End modal container template */}
 									<div id="product-specs">
-										<center><img src="img/phone1.jpg" alt="" /></center>
-										<br />
-										<div className="row product-spec-row">
-											<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
-												<b>Memory</b>
-											</div>
-											<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-												4GB LPDDR4 RAM
-											</div>
-										</div>
-										<div className="row product-spec-row">
-											<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
-												<b>Display</b>
-											</div>
-											<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-												5.0 inches<br />
-												FHD AMOLED at 441ppi<br />
-												2.5D Corning® Gorilla® Glass 4
-											</div>
-										</div>
-										<div className="row product-spec-row">
-											<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
-												<b>Battery</b>
-											</div>
-											<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-												2,770 mAh battery<br />
-												Standby time (LTE): up to 19 days<br />
-												Talk time (3g/WCDMA): up to 26 hours<br />
-												Internet use time (Wi-Fi): up to 13 hours<br />
-												Internet use time (LTE): up to 13 hours<br />
-												Video playback: up to 13 hours<br />
-												Audio playback (via headset): up to 110 hours<br />
-												Fast charging: up to 7 hours of use from only 15 minutes of charging
-											</div>
-										</div>
-										<div>
-											<center><Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone()}>Buy This Phone</Link></center>
-										</div>
+										{this.productModals()}
 									</div>
 								</div>
 							</div>
@@ -221,4 +278,13 @@ class PhoneSelection extends Component {
 	}
 }
 
-export default PhoneSelection
+const mapStateToProps = state => ({
+	user: state.user,
+	userDetail: state.userDetail
+})
+
+const mapDispatchToProps = dispatch => (
+	bindActionCreators({ selectPhone }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneSelection)

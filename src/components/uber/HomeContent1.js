@@ -1,11 +1,15 @@
 import React from 'react';
 import VanillaModal from 'vanilla-modal';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { partnershipId } from '../../actions'
 
 class HomeContent1 extends React.Component {
-  componentDidMount() {
-    this.modal = new VanillaModal()
-  }
+  // componentDidMount() {
+  //   this.modal = new VanillaModal()
+  // }
   render() {
     return (
       <div className="container" style={{margin: '25px 0'}}>
@@ -77,4 +81,8 @@ class HomeContent1 extends React.Component {
   }
 }
 
-export default HomeContent1
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ partnershipId }, dispatch)
+)
+
+export default connect(null, mapDispatchToProps)(HomeContent1)

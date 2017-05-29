@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
+import { loginRequest, getUserDetail } from '../actions';
 
 class Login extends Component {
   constructor () {
@@ -22,27 +24,25 @@ class Login extends Component {
   setPasswordField (event) {
     this.setState({ password: event.target.value })
   }
+
   clickLogin (event) {
-    event.preventDefault();
+    event.preventDefault()
     let {email, password} = this.state
-    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/login/", {email, password})
-    .then(result => {
+    this.props.loginRequest(email, password)
+    console.log(this.props.loginRequest);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user.isLogin && !this.props.user.isLogin) {
+      window.localStorage.setItem('userDetail', JSON.stringify(nextProps.user))
+      console.log(nextProps.user);
+      this.props.getUserDetail(nextProps.user)
       this.setState({ isSucceed: true, isLogin: true })
-      window.localStorage.setItem('userDetail', JSON.stringify(result.data))
-    })
-    .catch(err => {
-      if (err) this.setState({ isSucceed: false })
-    });
-  }
-  componentWillMount() {
-    if (window.localStorage.getItem('userDetail') !== null) {
-      if (window.localStorage.length !== 0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0) {
-        this.setState({
-          isLogin: true
-        })
-      }
     }
+    else
+      this.setState({isSucceed: false})
   }
+
   render () {
     if (this.state.isLogin) {
       return <Redirect to="/phone" />
@@ -57,7 +57,7 @@ class Login extends Component {
                 <h4 className="fnt-blue">Login</h4>
               </div>
               <div className="panel-bottom">
-                <form className="clean-form">
+                <div className="clean-form">
                   <h5 className="fnt-grey">Email</h5>
                   <input type="text" name className="input-full" onChange={event => this.setUsernameField(event)} />
                   <div className="form-spacer" />
@@ -68,11 +68,6 @@ class Login extends Component {
                       <button className="tertiary input-full" onClick={event => this.clickLogin(event)}>Login</button>
                       { this.state.isSucceed === false && <span style={{ color: 'red' }}>Anda tidak bisa melakukan login. Silakan daftar/Sign Up terlebih dahulu</span>}
                     </div>
-                  </div>
-                </form>
-                <div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
-                  <div className="col-sm-12 col-md-12 col-lg-12 text-center">
-                    <img src="img/facebook_login.png" alt="" />
                   </div>
                 </div>
                 <div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
@@ -96,4 +91,12 @@ class Login extends Component {
   }
 }
 
-export default Login
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ loginRequest, getUserDetail }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
