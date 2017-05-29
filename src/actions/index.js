@@ -1,5 +1,6 @@
 import axios from 'axios'
-const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
+// const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
+const BASE_URL = 'http://localhost:8000/'
 
 export const loginRequest = (email, password) => dispatch => {
   axios.post(BASE_URL + 'auth/login/', {email, password})
@@ -25,5 +26,12 @@ export const loginRequest = (email, password) => dispatch => {
       type: 'LOGIN_FAILED',
       payload: err
     })
+  })
+}
+
+export const setPartnership = id => {
+  return ({
+    type: 'SET_PARTNER_ID',
+    payload: {id}
   })
 }

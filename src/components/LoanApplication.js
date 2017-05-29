@@ -241,7 +241,7 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.post("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/userdetail/", this.state, {header:{
+    axios.post("http://localhost:8000/api/loan/", this.state, {header:{
       token: JSON.parse(localStorage.userDetail).token
     }})
     .then(result => {
