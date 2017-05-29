@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Header extends React.Component {
 	constructor () {
@@ -53,6 +53,9 @@ class Header extends React.Component {
 							<Link to="/faq">FAQ</Link>
 							{
 								this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
+							}
+							{
+								localStorage.getItem('product') && <Link to='/loan-application'><b>Loan Application</b></Link>
 							}
 							{
 								this.state.isLogin ? <Link onClick={() => this.logout()} to='/' style={{cursor: 'pointer'}}>Logout</Link> : <Link to="/login"><b>Login</b></Link>

@@ -1,8 +1,21 @@
-import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from 'react-redux'
 
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
+
+const Styles = {
+  uploadImage: {
+    borderBottom: '1px solid lightgray',
+    borderRight: '1px solid lightgray',
+    borderTop: '1px solid lightgray',
+    borderLeft: '1px solid lightgray',
+    padding: 10, margin: 15,
+    cursor: 'pointer'
+  }
+}
 
 class LoanApplication extends Component {
   constructor () {
@@ -10,22 +23,41 @@ class LoanApplication extends Component {
     this.state = {
       full_name: '',
       nik: '',
-      gender: '',
+      gender: 'L',
       phone: '',
       birthplace: '',
       birthdate: '',
+      married_status: 'Belum Kawin',
+      wife_husband_name: '',
+      children: '',
+      education_level: '',
+      earning: '',
+      start_date_job: '',
+      employment: '',
       address: '',
-      kecamatan: '',
-      kelurahan: '',
+      kec: '',
+      city: '',
+      kel: '',
       provinsi: '',
       kodepos: '',
-      urlktp: '',
-      urlprofilephoto: '',
       lat: '',
       lng: '',
+      ktp: '',
+      fileKTP: '',
+      ktp_selfie: '',
+      fileKTPSelfie: '',
+      proof_address: '',
+      fileProofAddress: '',
+      family_card: '',
+      fileFamilyCard: '',
+      proof_income1: '',
+      fileProofIncome1: '',
+      proof_income2: '',
+      fileProofIncome2: '',
+      proof_income3: '',
+      fileProofIncome3: '',
+      product: '',
       isApplied: false,
-      KTPfile: '',
-      imagePreviewUrl: ''
     }
   }
   uploadKTP(event) {
@@ -43,12 +75,18 @@ class LoanApplication extends Component {
       full_name: event.target.value
     })
   }
+  setPhone(event) {
+    this.setState({
+      phone: event.target.value
+    })
+  }
   setNIK(event) {
     this.setState({
       nik: event.target.value
     })
   }
   setGender(event) {
+    console.log(event.target.value);
     this.setState({
       gender: event.target.value
     })
@@ -63,6 +101,37 @@ class LoanApplication extends Component {
       birthdate: event.target.value
     })
   }
+  setMarriedStatus(event) {
+    console.log(event.target.value);
+    this.setState({
+      married_status: event.target.value
+    })
+  }
+  setSpouseName(event) {
+    this.setState({
+      wife_husband_name: event.target.value
+    })
+  }
+  setChildren(event) {
+    this.setState({
+      children: event.target.value
+    })
+  }
+  setEducationLevel(event) {
+    this.setState({
+      education_level: event.target.value
+    })
+  }
+  setEarning(event) {
+    this.setState({
+      earning: event.target.value
+    })
+  }
+  setStartDateJob(event) {
+    this.setState({
+      start_date_job: event.target.value
+    })
+  }
   setAddress(event) {
     this.setState({
       address: event.target.value
@@ -70,17 +139,22 @@ class LoanApplication extends Component {
   }
   setKelurahan(event) {
     this.setState({
-      kelurahan: event.target.value
+      kel: event.target.value
     })
   }
   setKecamatan(event) {
     this.setState({
-      kecamatan: event.target.value
+      kec: event.target.value
+    })
+  }
+  setCity(event) {
+    this.setState({
+      city: event.target.value
     })
   }
   setProvince(event) {
     this.setState({
-      province: event.target.value
+      provinsi: event.target.value
     })
   }
   setPostcode(event) {
@@ -88,25 +162,107 @@ class LoanApplication extends Component {
       kodepos: event.target.value
     })
   }
+  uploadKTPImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        ktp: file['name'],
+        ktp64: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadKTPSelfieImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        ktp_selfie64: reader.result,
+        ktp_selfie: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofAddressImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_address64: reader.result,
+        proof_address: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadFamilyCardImage(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        family_card64: reader.result,
+        family_card: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofIncome1(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_income164: reader.result,
+        proof_income1: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofIncome2(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_income264: reader.result,
+        proof_income2: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+  uploadProofIncome3(event) {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        proof_income364: reader.result,
+        proof_income3: file
+      });
+    }
+    reader.readAsDataURL(file)
+  }
   clickLoanApplication(event) {
     event.preventDefault();
     this.setState({
       isApplied: true
     })
     console.log(this.state);
-  }
-  handleImageChange(event) {
-    event.preventDefault();
-    let reader = new FileReader();
-    let file = event.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
-    }
-    console.log(reader.readAsDataURL(file))
+    axios.put("http://localhost:8000/api/userdetail/", this.state, {
+      headers: {
+        Authorization: 'JWT ' + this.props.user.token
+    }})
+    .then(result => {
+      console.log(result.data);
+      this.setState({ product: JSON.parse(localStorage.product).phone })
+      localStorage.setItem('loanApplication', this.state)
+      this.setState({ isApplied: true })
+    })
+    .catch(err => console.log(err));
   }
   componentWillMount() {
     if (window.localStorage.getItem('userDetail') !== null) {
@@ -120,7 +276,7 @@ class LoanApplication extends Component {
   render() {
     if (this.state.isLogin) {
       if (this.state.isApplied) {
-        return <Redirect to='/thankyou' />
+        return <Redirect to='/status' />
       } else {
         return (
           <div>
@@ -134,8 +290,13 @@ class LoanApplication extends Component {
             			<div className='panel-bottom'>
             				<br />
             				<div className='text-center'>
-            					<img src={require('../assets/images/phone1.jpg')} alt='' />
-            					<h4>{ JSON.parse(localStorage.product).phone }<small>{ JSON.parse(localStorage.product).price }</small></h4>
+                      {
+                        this.props.product.interest_source
+                        ? <div><img src={this.props.product.product.image} alt='' />
+                        <h4>{ this.props.product.product.model }<small>{ this.props.product.product.price }</small></h4></div>
+                        : <h4>Please pick product first</h4>
+                      }
+
             					<Link className='button primary' to='/phone'>Choose a Different Phone</Link>
             				</div>
             				<br />
@@ -151,20 +312,46 @@ class LoanApplication extends Component {
           						<h4>Personal Information</h4>
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Upload KTP</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 120 }}>upload foto ktp</label>
-                      <h5 className='fnt-grey'>Upload Kartu Keluarga</h5>
-                      <input type="file" id="file-input" onChange={(event) => this.handleImageChange(event)} value={this.state.imagePreviewUrl} />
-                      <label htmlFor="file-input" className='button' style={{ width: 200 }}>upload foto kartu keluarga</label>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadKTPImage(event)} />
+                      </div>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Foto diri & KTP</h5>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadKTPSelfieImage(event)} />
+                      </div>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Bukti Alamat</h5>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofAddressImage(event)} />
+                      </div>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Kartu Keluarga</h5>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadFamilyCardImage(event)} />
+                      </div>
+                      <h5 className='fnt-grey'>Bukti Pendapatan 3 Bulan Terakhir</h5>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofIncome1(event)} />
+                      </div>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofIncome2(event)} />
+                      </div>
+                      <div style={Styles.uploadImage}>
+                        <input type="file" id="file-input" onChange={(event) => this.uploadProofIncome3(event)} />
+                      </div>
           						<h5 className='fnt-grey'>Nama Lengkap</h5>
           						<input className='input-full' type='text' onChange={event => this.setFullname(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Nomor Handphone</h5>
+          						<input className='input-full' type='text' onChange={event => this.setPhone(event)}/>
           						<div className='form-spacer' />
-          						<h5 className='fnt-grey'>Nomor Induk Kependudukan</h5>
+          						<h5 className='fnt-grey'>Nomor Induk Kependudukan (No KTP)</h5>
           						<input className='input-full' type='text' onChange={event => this.setNIK(event)} />
           						<div className='form-spacer' />
-                      <h5 className='fnt-grey'>gender</h5>
+                      <h5 className='fnt-grey'>Jenis Kelamin</h5>
                       <select onChange={event => this.setGender(event)}>
-          							<option value='L'>Laki-laki</option>
+          							<option value='L' selected>Laki-laki</option>
           							<option value='P'>Perempuan</option>
           						</select>
           						<div className='form-spacer' />
@@ -173,6 +360,28 @@ class LoanApplication extends Component {
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Tanggal Lahir</h5>
           						<input className='input-full' type='text' placeholder='DD/MM/YYYY' onChange={event => this.setBirthday(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Married Status</h5>
+                      <select onChange={event => this.setMarriedStatus(event)}>
+          							<option value='kawin'>Kawin</option>
+          							<option value='belum kawin'>Belum Kawin</option>
+                        <option value='janda/duda'>Janda/Duda</option>
+          						</select>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Nama Istri/Suami</h5>
+          						<input className='input-full' type='text' onChange={event => this.setSpouseName(event)}/>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Jumlah Anak</h5>
+          						<input className='input-full' type='text' onChange={event => this.setChildren(event)}/>
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Pendidikan Terakhir</h5>
+          						<input className='input-full' type='text' onChange={event => this.setEducationLevel(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Gaji/Pendapatan</h5>
+          						<input className='input-full' type='text' onChange={event => this.setEarning(event)} />
+                      <div className='form-spacer' />
+                      <h5 className='fnt-grey'>Mulai Bekerja</h5>
+          						<input className='input-full' type='text' onChange={event => this.setStartDateJob(event)} placeholder='DD/MM/YYYY' />
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Address</h5>
           						<input className='input-full' type='text' onChange={event => this.setAddress(event)} />
@@ -182,6 +391,8 @@ class LoanApplication extends Component {
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Kecamatan</h5>
           						<input className='input-full' type='text' onChange={event => this.setKecamatan(event)} />
+                      <h5 className='fnt-grey'>Kota</h5>
+          						<input className='input-full' type='text' onChange={event => this.setCity(event)} />
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Provinsi</h5>
           						<input className='input-full' type='text' onChange={event => this.setProvince(event)} />
@@ -210,4 +421,9 @@ class LoanApplication extends Component {
   }
 }
 
-export default LoanApplication
+const mapStateToProps = state => ({
+  user: state.user,
+  product: state.product,
+})
+
+export default connect(mapStateToProps, null)(LoanApplication);
