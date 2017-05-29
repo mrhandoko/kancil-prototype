@@ -276,7 +276,7 @@ class LoanApplication extends Component {
   render() {
     if (this.state.isLogin) {
       if (this.state.isApplied) {
-        return <Redirect to='/status' />
+        return <Redirect to='/loan-review' />
       } else {
         return (
           <div>
