@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Header from './Header';
+import Header from '../Header';
 import Swiper1 from './Swiper1';
 import HomeContent2 from './HomeContent2';
 import Footer from '../Footer';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -74,7 +74,9 @@ class LoanApplication extends Component {
     })
   }
   setPhone(event) {
-    phone: event.target.value
+    this.setState({
+      phone: event.target.value
+    })
   }
   setNIK(event) {
     this.setState({
@@ -263,7 +265,7 @@ class LoanApplication extends Component {
   render() {
     if (this.state.isLogin) {
       if (this.state.isApplied) {
-        return <Redirect to='/thankyou' />
+        return <Redirect to='/status' />
       } else {
         return (
           <div>

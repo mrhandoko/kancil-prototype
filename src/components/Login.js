@@ -29,6 +29,7 @@ class Login extends Component {
     event.preventDefault()
     let {email, password} = this.state
     this.props.loginRequest(email, password)
+    console.log(this.props.loginRequest);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,7 +56,7 @@ class Login extends Component {
                 <h4 className="fnt-blue">Login</h4>
               </div>
               <div className="panel-bottom">
-                <form className="clean-form">
+                <div className="clean-form">
                   <h5 className="fnt-grey">Email</h5>
                   <input type="text" name className="input-full" onChange={event => this.setUsernameField(event)} />
                   <div className="form-spacer" />
@@ -67,7 +68,7 @@ class Login extends Component {
                       { this.state.isSucceed === false && <span style={{ color: 'red' }}>Anda tidak bisa melakukan login. Silakan daftar/Sign Up terlebih dahulu</span>}
                     </div>
                   </div>
-                </form>
+                </div>
                 <div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
                   <div className="col-sm-12 col-md-12 col-lg-12 text-center">
                     <Link className="forgot-password fnt-sz-s1" to='/signup'>Sign Up</Link>
