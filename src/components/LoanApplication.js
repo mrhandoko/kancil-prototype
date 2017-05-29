@@ -23,11 +23,11 @@ class LoanApplication extends Component {
     this.state = {
       full_name: '',
       nik: '',
-      gender: '',
+      gender: 'L',
       phone: '',
       birthplace: '',
       birthdate: '',
-      married_status: '',
+      married_status: 'Belum Kawin',
       wife_husband_name: '',
       children: '',
       education_level: '',
@@ -35,9 +35,9 @@ class LoanApplication extends Component {
       start_date_job: '',
       employment: '',
       address: '',
-      kecamatan: '',
-      kota: '',
-      kelurahan: '',
+      kec: '',
+      city: '',
+      kel: '',
       provinsi: '',
       kodepos: '',
       lat: '',
@@ -86,6 +86,7 @@ class LoanApplication extends Component {
     })
   }
   setGender(event) {
+    console.log(event.target.value);
     this.setState({
       gender: event.target.value
     })
@@ -101,6 +102,7 @@ class LoanApplication extends Component {
     })
   }
   setMarriedStatus(event) {
+    console.log(event.target.value);
     this.setState({
       married_status: event.target.value
     })
@@ -137,12 +139,12 @@ class LoanApplication extends Component {
   }
   setKelurahan(event) {
     this.setState({
-      kelurahan: event.target.value
+      kel: event.target.value
     })
   }
   setKecamatan(event) {
     this.setState({
-      kecamatan: event.target.value
+      kec: event.target.value
     })
   }
   setCity(event) {
@@ -152,7 +154,7 @@ class LoanApplication extends Component {
   }
   setProvince(event) {
     this.setState({
-      province: event.target.value
+      provinsi: event.target.value
     })
   }
   setPostcode(event) {
@@ -250,17 +252,17 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.put("http://localhost:8000/api/userdetail/", this.state, {
-      headers: {
-        Authorization: 'JWT ' + this.props.user.token
-    }})
-    .then(result => {
-      console.log(result.data);
-      this.setState({ product: JSON.parse(localStorage.product).phone })
-      localStorage.setItem('loanApplication', this.state)
-      this.setState({ isApplied: true })
-    })
-    .catch(err => console.log(err));
+    // axios.put("http://localhost:8000/api/userdetail/", this.state, {
+    //   headers: {
+    //     Authorization: 'JWT ' + this.props.user.token
+    // }})
+    // .then(result => {
+    //   console.log(result.data);
+    //   this.setState({ product: JSON.parse(localStorage.product).phone })
+    //   localStorage.setItem('loanApplication', this.state)
+    //   this.setState({ isApplied: true })
+    // })
+    // .catch(err => console.log(err));
   }
   componentWillMount() {
     if (window.localStorage.getItem('userDetail') !== null) {
@@ -288,8 +290,13 @@ class LoanApplication extends Component {
             			<div className='panel-bottom'>
             				<br />
             				<div className='text-center'>
-            					<img src={require('../assets/images/phone1.jpg')} alt='' />
-            					<h4>{ JSON.parse(localStorage.product).phone }<small>{ JSON.parse(localStorage.product).price }</small></h4>
+                      {
+                        this.props.product.interest_source
+                        ? <div><img src={this.props.product.product.image} alt='' />
+                        <h4>{ this.props.product.product.model }<small>{ this.props.product.product.price }</small></h4></div>
+                        : <h4>Please pick product first</h4>
+                      }
+
             					<Link className='button primary' to='/phone'>Choose a Different Phone</Link>
             				</div>
             				<br />
@@ -344,7 +351,7 @@ class LoanApplication extends Component {
           						<div className='form-spacer' />
                       <h5 className='fnt-grey'>Jenis Kelamin</h5>
                       <select onChange={event => this.setGender(event)}>
-          							<option value='L'>Laki-laki</option>
+          							<option value='L' selected>Laki-laki</option>
           							<option value='P'>Perempuan</option>
           						</select>
           						<div className='form-spacer' />
@@ -415,7 +422,8 @@ class LoanApplication extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  product: state.product,
 })
 
 export default connect(mapStateToProps, null)(LoanApplication);

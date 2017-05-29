@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import VanillaModal from 'vanilla-modal'
 import { Link, Redirect } from 'react-router-dom'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import axios from 'axios'
 
 import Header from './Header'
 import Footer from './Footer'
+
+import { selectPhone } from '../actions'
 
 class PhoneSelection extends Component {
 	constructor () {
@@ -18,16 +21,26 @@ class PhoneSelection extends Component {
 			modalProduct: -1
 		}
 	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.userDetail.partnership)
+			axios.get('http://localhost:8000/api/finance-product/' + nextProps.userDetail.partnership + '/')
+			.then(response => {
+				this.setState({ products: response.data })
+			})
+			.catch(err => {
+				console.log(err);
+			})
+	}
+
 	componentDidMount() {
 		this.modal = new VanillaModal()
 		if (window.localStorage.length === 1) {
 			this.setState({ isLogin: true })
 		}
-		console.log(this.props.user);
-		if (this.props.user.isLogin) {
+
+		if (this.props.userDetail.partnership) {
 			axios.get('http://localhost:8000/api/finance-product/' + this.props.userDetail.partnership + '/')
 			.then(response => {
-				console.log(response.data);
 				this.setState({ products: response.data })
 			})
 			.catch(err => {
@@ -37,15 +50,14 @@ class PhoneSelection extends Component {
 		else {
 			axios.get('http://localhost:8000/api/finance-product/')
 			.then(response => {
-				console.log(response.data);
 				this.setState({ products: response.data })
-				console.log(this.state.products);
 			})
 			.catch(err => {
 				console.log(err)
 			})
 		}
 	}
+
 	componentWillUnmount() {
 		this.modal.destroy()
 	}
@@ -85,7 +97,7 @@ class PhoneSelection extends Component {
 					</div>
 				</div>
 				<div>
-					<center><Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone()}>Buy This Phone</Link></center>
+					<center><Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone(data)}>Buy This Phone</Link></center>
 				</div>
 				</div>
 			)
@@ -93,8 +105,9 @@ class PhoneSelection extends Component {
 		return (<p>return something lahh..</p>)
 	}
 
-	chooseThisPhone() {
-		window.localStorage.setItem('product', JSON.stringify(this.state))
+	chooseThisPhone(data) {
+		console.log(data);
+		this.props.selectPhone(data)
 	}
 	render() {
 		return (
@@ -178,6 +191,7 @@ class PhoneSelection extends Component {
 														<img src={data.product.image} alt={data.product.model} />
 														<h4 >{data.product.model}<small>Rp. {data.product.price}</small></h4>
 														<small>{Math.ceil(data.product.price/data.tenore)} per {data.unit} for {data.tenore} month</small>
+														<small>{data.interest_source} month</small>
 														<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
 													</div>
 												</div>
@@ -269,6 +283,8 @@ const mapStateToProps = state => ({
 	userDetail: state.userDetail
 })
 
-// this.chooseThisPhone(phone.id, )
+const mapDispatchToProps = dispatch => (
+	bindActionCreators({ selectPhone }, dispatch)
+)
 
-export default connect(mapStateToProps, null)(PhoneSelection)
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneSelection)

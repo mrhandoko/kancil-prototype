@@ -1,5 +1,11 @@
 const initialState = {}
 
 export const productReducer = (state = initialState, action) => {
-  return state
+  switch(action.type) {
+    case 'SELECT_PHONE':
+      console.log(action.payload);
+      return action.payload
+    default:
+      return state
+  }
 }

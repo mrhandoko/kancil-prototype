@@ -28,6 +28,8 @@ export const loginRequest = (email, password) => dispatch => {
 }
 
 export const setUserData = user => {
+  user['isLogin'] = true
+  user['isSucceed'] = true
   return {
     type: 'SET_USER_DATA',
     payload: user
@@ -43,6 +45,14 @@ export const getUserDetail = user => dispatch => {
     })
   })
   .catch(err => console.log(err))
+}
+
+export const selectPhone = data => {
+  console.log('fireedd');
+  return {
+    type: 'SELECT_PHONE',
+    payload: data
+  }
 }
 
 export const setUserDetail = data => ({
