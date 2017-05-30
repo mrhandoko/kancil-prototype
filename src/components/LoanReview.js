@@ -23,7 +23,7 @@ class LoanReview extends Component {
   }
   render() {
     if (this.state.isSubmit) {
-      return <Redirect to="/status" />
+      return <Redirect to="/thankyou" />
     } else {
       return (
         <div>

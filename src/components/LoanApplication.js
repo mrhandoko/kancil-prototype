@@ -258,7 +258,7 @@ class LoanApplication extends Component {
     }})
     .then(result => {
       console.log(result.data);
-      this.setState({ product: JSON.parse(localStorage.product).phone })
+      // this.setState({ product: JSON.parse(localStorage.product).phone })
       localStorage.setItem('loanApplication', this.state)
       this.setState({ isApplied: true })
     })
