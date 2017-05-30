@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import VanillaModal from 'vanilla-modal'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -39,7 +39,7 @@ class PhoneSelection extends Component {
 		}
 
 		if (this.props.userDetail.partnership) {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
+			axios.get('http://http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})
@@ -48,7 +48,7 @@ class PhoneSelection extends Component {
 			})
 		}
 		else {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
+			axios.get('http://http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})
@@ -217,7 +217,6 @@ class PhoneSelection extends Component {
 							</div>
 						</div>
 					</div>
-				</div>
 				<Footer />
 			</div>
 		)

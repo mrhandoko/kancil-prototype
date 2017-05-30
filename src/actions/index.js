@@ -1,5 +1,4 @@
 import axios from 'axios'
-// const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
 const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
 
 export const loginRequest = (email, password) => dispatch => {

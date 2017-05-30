@@ -1,5 +1,5 @@
 import React from 'react';
-import VanillaModal from 'vanilla-modal';
+// import VanillaModal from 'vanilla-modal';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

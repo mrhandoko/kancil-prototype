@@ -1,26 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomeContent = () => (
   <div>
-    <div className="container" style={{margin: '10vh 0'}}>
+    <div className="container" style={{margin: '5vh 0'}}>
       <div className="row">
         <div className="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
-          <center><h1>HOW IT WORKS</h1></center>
+          <center><h1>CARA KERJA</h1></center>
           <br />
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <div className="row">
+            <div className="col-sm-12 col-md-4 col-lg-4 text-center" style={{padding: '0px 15px'}}>
+              <img src="img/list.png" width={105} alt="" /><br />
+              Ajukan program cicilan  Kawan Cicil dengan  mendaftarkan akun FB, kartu identitas, dan bukti keuangan
+            </div>
+            <div className="col-sm-12 col-md-4 col-lg-4 text-center" style={{padding: '0px 15px'}}>
+              <img src="img/hand_phone.png" width={100} alt="" /><br />
+              Pilih smartphone dan rencana cicilan hanya dalam waktu 10 menit
+            </div>
+            <div className="col-sm-12 col-md-4 col-lg-4 text-center" style={{padding: '0px 15px'}}>
+              <img src="img/checked.png" width={130} alt="" /><br />
+              Smartphone impianmu akan segera dikirimkan setelah aplikasi cicilan-mu diterima!
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <section className="parallax parallax-1">
-      <h1>content two</h1>
-    </section>
-    <div className="container" style={{margin: '25px 0'}}>
       <div className="row">
-        <div className="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
-          hello
+        <div className="col-sm-6 col-md-6 col-lg-6 col-sm-offset-3 text-center" style={{padding: '0px 15px'}}>
+          <Link to="phone"><img src="img/phone.png" width={190} className="hidden-sm" alt="" />
+            <img src="img/phone.png" className="hidden-lg hidden-md" alt="" /></Link>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 )
 

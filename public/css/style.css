@@ -410,11 +410,11 @@ nav a.active {text-decoration:underline;}
 
 .overlay {
 	position: fixed;
-	background: #74e3ec; /* Old Browsers */
-	background: -webkit-linear-gradient(top left,#74e3ec,#c7ffe2); /*Safari 5.1-6*/
-	background: -o-linear-gradient(top left,#74e3ec,#c7ffe2); /*Opera 11.1-12*/
-	background: -moz-linear-gradient(top left,#74e3ec,#c7ffe2); /*Fx 3.6-15*/
-	background: linear-gradient(top left, #74e3ec, #c7ffe2); /*Standard*/
+background: #29c4d0; /* Old Browsers */
+background: -webkit-linear-gradient(top left,#29c4d0,#60ffad); /*Safari 5.1-6*/
+background: -o-linear-gradient(top left,#29c4d0,#60ffad); /*Opera 11.1-12*/
+background: -moz-linear-gradient(top left,#29c4d0,#60ffad); /*Fx 3.6-15*/
+background: linear-gradient(top left, #29c4d0, #60ffad); /*Standard*/
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -484,7 +484,7 @@ nav a.active {text-decoration:underline;}
 .overlay ul li a {
 	display: block;
 	position: relative;
-	color: #0b649a;
+	color: #fff;
 	text-decoration: none;
 	overflow: hidden;
 	font-size:2.5rem;
@@ -502,7 +502,7 @@ nav a.active {text-decoration:underline;}
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
 	height: 3px;
-	background: #0b649a;
+	background: #fff;
 	-webkit-transition: .35s;
 	transition: .35s;
 }

@@ -73,9 +73,9 @@ class SignUp extends React.Component {
 		event.preventDefault()
 		// show loading
 		this.setState({ registerButton: true, disabled: true })
-		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
+		axios.post('http://http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
-			axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : null}, {
+			axios.post('http://http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : null}, {
 			  headers: {
 			    Authorization: 'JWT ' + result.data.token
 			  }
@@ -83,7 +83,6 @@ class SignUp extends React.Component {
 			.then(response => {
 				window.localStorage.setItem('userDetail', JSON.stringify(result.data))
 				this.props.setUserDetail(response.data)
-				console.log('FIIREEEE');
 				this.setState({ redirectLoginSuccess: true })
 			})
 			.catch(err1 => {
