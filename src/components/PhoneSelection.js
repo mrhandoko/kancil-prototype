@@ -200,8 +200,6 @@ class PhoneSelection extends Component {
 									})
 									: <p>Fetching data</p>
 								}
-
-								<div>
 									{/* Modal container template */}
 									<div className="modal">
 										<div className="modal-inner">
