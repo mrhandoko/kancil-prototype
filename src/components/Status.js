@@ -60,7 +60,7 @@ class Status extends Component {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-6 text-right">
                           <br />
-                          <img src="img/accepted.png" width={150} />
+                          <img src="img/accepted.png" width={150} alt="" />
                         </div>
                       </div>
                     </div>
@@ -88,7 +88,7 @@ class Status extends Component {
                               </div>
                               <div className="col-sm-12 col-md-6 col-lg-6 text-right">
                                 <br />
-                                <img src="img/in_review.png" width={150} />
+                                <img src="img/in_review.png" width={150} alt="" />
                               </div>
                             </div>
                           </div>
