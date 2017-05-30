@@ -657,18 +657,6 @@ button:disabled, button[disabled], [type="button"]:disabled, [type="button"][dis
 	cursor: not-allowed;
 	opacity: .75
 }
-input[type="file"] {
-	border: 0;
-	height: 1px;
-	width: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	clip: rect(0 0 0 0);
-	-webkit-clip-path: inset(100%);
-	clip-path: inset(100%)
-}
 [type="checkbox"], [type="radio"] {
 	height: 1px;
 	width: 1px;
