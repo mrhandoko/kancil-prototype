@@ -50,7 +50,7 @@ class PhoneSelection extends Component {
 			})
 		}
 		else {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
+			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/3/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})
@@ -192,8 +192,7 @@ class PhoneSelection extends Component {
 													<div className="section text-center">
 														<img src={data.product.image} alt={data.product.model} />
 														<h4 >{data.product.model}<small>Rp. {data.product.price}</small></h4>
-														<small>{Math.ceil(data.product.price/data.tenore)} per {data.unit} for {data.tenore} month</small>
-														<small>{data.interest_source} month</small>
+														<small>{Math.ceil((data.product.price + (data.product.price * data.partnership.interest / 100))/data.tenore)} per {data.unit} for {data.tenore} month</small>
 														<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
 													</div>
 												</div>

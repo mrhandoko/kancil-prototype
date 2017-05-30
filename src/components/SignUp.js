@@ -75,7 +75,7 @@ class SignUp extends React.Component {
 		this.setState({ registerButton: true, disabled: true })
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
-			axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : null}, {
+			axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : 3}, {
 			  headers: {
 			    Authorization: 'JWT ' + result.data.token
 			  }
