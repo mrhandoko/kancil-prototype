@@ -137,11 +137,11 @@ class SignUp extends React.Component {
 											</div>
 										</div>
 									</form>
-									<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
+									{/* <div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 										<div className="col-sm-12 col-md-12 col-lg-12 text-center">
 											<img src="img/facebook_login.png" alt="" />
 										</div>
-									</div>
+									</div> */}
 									<div className="row" style={{ borderTop: '1px solid #eaeaea', padding: '1rem', backgroundColor: '#eee' }}>
 										<div className="col-sm-12 col-md-12 col-lg-12 text-center">
 											<Link to="/login" className="forgot-password fnt-sz-s1">

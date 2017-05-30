@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import VanillaModal from 'vanilla-modal'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -11,7 +11,7 @@ import Footer from './Footer'
 import { selectPhone } from '../actions'
 
 class PhoneSelection extends Component {
-	constructor () {
+	constructor() {
 		super()
 		this.state = {
 			isLogin: false,
@@ -23,13 +23,18 @@ class PhoneSelection extends Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.userDetail.partnership)
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + nextProps.userDetail.partnership + '/')
-			.then(response => {
-				this.setState({ products: response.data })
-			})
-			.catch(err => {
-				console.log(err);
-			})
+			axios
+				.get(
+					'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' +
+						nextProps.userDetail.partnership +
+						'/'
+				)
+				.then(response => {
+					this.setState({ products: response.data })
+				})
+				.catch(err => {
+					console.log(err)
+				})
 	}
 
 	componentDidMount() {
@@ -39,22 +44,29 @@ class PhoneSelection extends Component {
 		}
 
 		if (this.props.userDetail.partnership) {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
-			.then(response => {
-				this.setState({ products: response.data })
-			})
-			.catch(err => {
-				console.log(err);
-			})
-		}
-		else {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
-			.then(response => {
-				this.setState({ products: response.data })
-			})
-			.catch(err => {
-				console.log(err)
-			})
+			axios
+				.get(
+					'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' +
+						this.props.userDetail.partnership +
+						'/'
+				)
+				.then(response => {
+					this.setState({ products: response.data })
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		} else {
+			axios
+				.get(
+					'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/'
+				)
+				.then(response => {
+					this.setState({ products: response.data })
+				})
+				.catch(err => {
+					console.log(err)
+				})
 		}
 	}
 
@@ -65,48 +77,55 @@ class PhoneSelection extends Component {
 	productModals() {
 		if (this.state.modalProduct !== -1) {
 			let data = this.state.products[this.state.modalProduct]
-			console.log('product modals', this.state.modalProduct);
-			console.log('phone data', data.product);
+			console.log('product modals', this.state.modalProduct)
+			console.log('phone data', data.product)
 			return (
 				<div>
-				<center><img src={data.product.image} alt="" /></center>
-				<br />
-				<div className="row product-spec-row">
-					<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
-						<b>Brand</b>
+					<center><img src={data.product.image} alt="" /></center>
+					<center>
+						<Link
+							className="button primary"
+							to="/loan-application"
+							onClick={() => this.chooseThisPhone(data)}
+						>
+							Buy This Phone
+						</Link>
+					</center>
+					<br />
+					<div className="row product-spec-row">
+						<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
+							<b>Brand</b>
+						</div>
+						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
+							<p>{data.product.brand}</p>
+						</div>
 					</div>
-					<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-						<p>{data.product.brand}</p>
+					<div className="row product-spec-row">
+						<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
+							<b>Model</b>
+						</div>
+						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
+							<p>{data.product.model}</p>
+							<br />
+						</div>
 					</div>
-				</div>
-				<div className="row product-spec-row">
-					<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
-						<b>Model</b>
+					<div className="row product-spec-row">
+						<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
+							<b>Deskripsi</b>
+						</div>
+						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
+							<p>{data.product.desc}</p>
+						</div>
 					</div>
-					<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-						<p>{data.product.model}</p>
-						<br />
-					</div>
-				</div>
-				<div className="row product-spec-row">
-					<div className="col-sm-12 col-md-3 col-lg-3 fnt-grey">
-						<b>Deskripsi</b>
-					</div>
-					<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-						<p>{data.product.desc}</p>
-					</div>
-				</div>
-				<div>
-					<center><Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone(data)}>Buy This Phone</Link></center>
-				</div>
+					<div />
 				</div>
 			)
 		}
-		return (<p>return something lahh..</p>)
+		return <p>return something lahh..</p>
 	}
 
 	chooseThisPhone(data) {
-		console.log(data);
+		console.log(data)
 		this.props.selectPhone(data)
 	}
 	render() {
@@ -117,7 +136,13 @@ class PhoneSelection extends Component {
 					<div className="row">
 						<div className="col-sm-12 col-md-3 col-md-offset-1 col-lg-2 col-lg-offset-2">
 							<div className="text-right">
-								<a href="#side-panel" className="button hidden-md hidden-lg primary" data-modal-open>Filters</a>
+								<a
+									href="#side-panel"
+									className="button hidden-md hidden-lg primary"
+									data-modal-open
+								>
+									Filters
+								</a>
 							</div>
 							<div className="hidden-sm" id="side-panel">
 								<div className="panel-top">
@@ -143,7 +168,7 @@ class PhoneSelection extends Component {
 											<label htmlFor="chk4">&nbsp;Lenovo</label>
 										</div>
 										<div className="form-spacer" />
-											<h5>Price Range</h5>
+										{/* <h5>Price Range</h5>
 											<select>
 												<option>0 - 1jt</option>
 												<option>1jt - 2jt</option>
@@ -156,14 +181,14 @@ class PhoneSelection extends Component {
 											<option>15cm</option>
 											<option>20cm</option>
 										</select>
-										<br />
+										<br /> */}
 									</form>
 								</div>
 							</div>
 						</div>
 						<div className="col-sm-12 col-md-7 col-lg-6">
 							<div className="row">
-								<div className="col-sm-12 col-md-12 col-lg-12">
+								{/* <div className="col-sm-12 col-md-12 col-lg-12">
 									<div className="row" style={{ borderBottom: '1px solid #eaeaea' }}>
 										<div className="col-sm-6 col-md-6 col-lg-6">
 											<div style={{ marginTop: 10 }} className="fnt-sz-s1">
@@ -180,42 +205,69 @@ class PhoneSelection extends Component {
 											</form>
 										</div>
 									</div>
-								</div>
-								{
-									this.state.products !== ''
+								</div> */}
+								{this.state.products !== ''
 									? this.state.products.map((data, index) => {
-										return (
-											<div key={data.id} className="col-sm-12 col-md-6 col-lg-4">
-												<div className="card fluid">
-													<div className="section text-center">
-														<img src={data.product.image} alt={data.product.model} />
-														<h4 >{data.product.model}<small>Rp. {data.product.price}</small></h4>
-														<small>{Math.ceil(data.product.price/data.tenore)} per {data.unit} for {data.tenore} month</small>
-														<small>{data.interest_source} month</small>
-														<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
+											return (
+												<div
+													key={data.id}
+													className="col-sm-12 col-md-6 col-lg-4"
+												>
+													<div className="card fluid">
+														<div className="section text-center">
+															<img
+																src={data.product.image}
+																alt={data.product.model}
+															/>
+															<h4>
+																{data.product.model}
+																<small>Rp. {data.product.price}</small>
+															</h4>
+															<small>
+																{Math.ceil(data.product.price / data.tenore)}
+																{' '}
+																per
+																{' '}
+																{data.unit}
+																{' '}
+																for
+																{' '}
+																{data.tenore}
+																{' '}
+																month
+															</small>
+															<small>{data.interest_source} month</small>
+															<a
+																className="button"
+																href="#product-specs"
+																data-modal-open
+																onClick={() =>
+																	this.setState({ modalProduct: index })}
+															>
+																View Details
+															</a>
+														</div>
 													</div>
 												</div>
-											</div>
-										)
-									})
-									: <p>Fetching data</p>
-								}
+											)
+										})
+									: <p>Fetching data</p>}
 
-									{/* Modal container template */}
-									<div className="modal">
-										<div className="modal-inner">
-											<span data-modal-close>×</span>
-											<div className="modal-content" />
-										</div>
+								{/* Modal container template */}
+								<div className="modal">
+									<div className="modal-inner">
+										<span data-modal-close>×</span>
+										<div className="modal-content" />
 									</div>
-									{/* End modal container template */}
-									<div id="product-specs">
-										{this.productModals()}
-									</div>
+								</div>
+								{/* End modal container template */}
+								<div id="product-specs">
+									{this.productModals()}
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 				<Footer />
 			</div>
 		)
@@ -227,8 +279,7 @@ const mapStateToProps = state => ({
 	userDetail: state.userDetail
 })
 
-const mapDispatchToProps = dispatch => (
+const mapDispatchToProps = dispatch =>
 	bindActionCreators({ selectPhone }, dispatch)
-)
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhoneSelection)
