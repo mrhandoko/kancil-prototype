@@ -27,16 +27,17 @@ Index:
 
 /*@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');*/
 /*@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500,700');*/
-@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro:400,700');
 
 html {
-	font-size: 1em;
+	font-size: 1rem;
 }
 html, * {
-	font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Maven Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 1.5;
-	-webkit-text-size-adjust: 100%
-	font-size: 1rem
+	-webkit-text-size-adjust: 100%;
+	font-size: 1rem;
+	font-weight:400;
 }
 
 
@@ -54,8 +55,8 @@ html, * {
 	width:120px;
 	height:120px;
 	position:absolute;
-	left:50%; 
-	top:50%; 
+	left:50%;
+	top:50%;
 	background-image:url(../img/status.svg);
 	background-position:center;
 	margin: -60px 0 0 -60px;
@@ -105,7 +106,7 @@ html, * {
 .fnt-blue {color:#18386d;}
 
 .fnt-light-red {}
-.fnt-red {}	
+.fnt-red {}
 
 .fnt-light-green {}
 .fnt-green {}
@@ -291,11 +292,11 @@ input:checked + section.box .box-title:before {
 }
 
 /* slider */
-.hero-1 {font-size: 2em;}
-.hero-2 {font-size: 1em;}
+.hero-1 {font-size: 2em; font-weight:400; line-height:120%; margin-bottom:2vh;}
+.hero-2 {font-size: 1em; font-weight:300;}
 @media screen and (max-width: 767px) {
-	.hero-1 {font-size: 1em;}
-	.hero-2 {font-size: 0.5em;}
+	.hero-1 {font-size: 1.5em;}
+	.hero-2 {font-size: 0.7em;}
 }
 
 
@@ -373,7 +374,7 @@ nav a.active {text-decoration:underline;}
 	transition: opacity .25s ease;
 }
 .button_container_ham:hover {
-	
+
 }
 .button_container_ham.active .top {
 	-webkit-transform: translateY(11px) translateX(0) rotate(45deg);

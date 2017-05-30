@@ -536,7 +536,7 @@ figcaption {
 	}
 }
 form {
-	padding: 0.75rem;
+	padding: 1rem;
 }
 input,
 label,
@@ -549,7 +549,6 @@ textarea
 	vertical-align:middle;
 	white-space:normal;
 	background:none;
-
 }
 fieldset {
 	border: 1px solid #d0d0d0;
@@ -566,6 +565,7 @@ legend {
 	font-size: .875rem;
 	padding: 0.125rem 0.25rem
 }
+select {height:2.5rem; font-size: 1rem;}
 label {
 	padding: .25rem
 }
@@ -656,18 +656,6 @@ button:hover, button:focus, [type="button"]:hover, [type="button"]:focus, [type=
 button:disabled, button[disabled], [type="button"]:disabled, [type="button"][disabled], [type="submit"]:disabled, [type="submit"][disabled], [type="reset"]:disabled, [type="reset"][disabled], a.button:disabled, a.button[disabled], label.button:disabled, label.button[disabled], .button:disabled, .button[disabled], a[role="button"]:disabled, a[role="button"][disabled], label[role="button"]:disabled, label[role="button"][disabled], [role="button"]:disabled, [role="button"][disabled] {
 	cursor: not-allowed;
 	opacity: .75
-}
-input[type="file"] {
-	border: 0;
-	height: 1px;
-	width: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	clip: rect(0 0 0 0);
-	-webkit-clip-path: inset(100%);
-	clip-path: inset(100%)
 }
 [type="checkbox"], [type="radio"] {
 	height: 1px;
