@@ -25,6 +25,7 @@ class PhoneSelection extends Component {
 		if (nextProps.userDetail.partnership)
 			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + nextProps.userDetail.partnership + '/')
 			.then(response => {
+				console.log(response.data);
 				this.setState({ products: response.data })
 			})
 			.catch(err => {
@@ -39,8 +40,9 @@ class PhoneSelection extends Component {
 		}
 
 		if (this.props.userDetail.partnership) {
-			axios.get('http://http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
+			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
 			.then(response => {
+				console.log('enfjwe', response.data);
 				this.setState({ products: response.data })
 			})
 			.catch(err => {
@@ -48,7 +50,7 @@ class PhoneSelection extends Component {
 			})
 		}
 		else {
-			axios.get('http://http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
+			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})

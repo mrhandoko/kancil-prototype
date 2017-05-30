@@ -6,7 +6,7 @@ import Header from '../Header';
 import Swiper2 from './Swiper2';
 import HomeContent4 from './HomeContent4';
 import Footer from '../Footer';
-import setPartnership from '../../actions';
+import { setPartnership } from '../../actions';
 
 class UberHome4 extends React.Component {
   componentDidMount() {
