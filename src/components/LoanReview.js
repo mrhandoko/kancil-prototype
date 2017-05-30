@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -37,7 +37,7 @@ class LoanReview extends Component {
                 <div className="panel-bottom">
                   <div className="clean-form">
                     <h5 className="fnt-grey">Produk</h5>
-                    <img src={this.props.product.product.image} alt="product-image" />
+                    <img src={this.props.product.product.image} alt="" />
                     {
                       this.props.product.product.model
                     }
