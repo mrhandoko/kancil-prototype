@@ -26,6 +26,8 @@ class SignUp extends React.Component {
 		}
 	}
 
+	//TODO: after register set redux for USER
+
 	setUsernameField(event) {
 		this.setState({ username: event.target.value })
 		if(event.target.value.length <= 3) {

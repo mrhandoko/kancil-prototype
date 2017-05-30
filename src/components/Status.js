@@ -1,15 +1,42 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
+import { getLoanData } from '../actions';
 
 class Status extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      isAccepted: false
+      isAccepted: false,
+      listLoan: ''
     }
   }
+  // componentDidMount() {
+  //
+  // }
+  // componentDidUpdate (prevProps, prevState) {
+  //   if (this.props.loan && !prevState.loan) {
+  //     console.log(this.props.loan);
+  //     this.setState({
+  //       listLoan: this.props.loan
+  //     })
+  //   }
+  // }
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.user.isLogin && nextProps.user.isLogin) {
+      this.props.getLoanData(nextProps.user);
+    }
+    if (nextProps.loan) {
+      this.setState({
+        listLoan: nextProps.loan
+      })
+      console.log('list loan', this.state.listLoan);
+    }
+  }
+
   render () {
     return (
       <div>
@@ -42,32 +69,41 @@ class Status extends Component {
               </div>
             </div>
           </div> :
-          <div className="container bg-status-review" style={{padding: '25px 0'}}>
-            <div className="row">
-              <div className="col-sm-12 col-md-8 col-md-offset-2 col-lg-10 col-lg-offset-1 text-center">
-                <h3 className="fnt-white">ACOUNT OVERVIEW</h3>
-                <br />
-                <div className="row">
-                  <div className="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1 text-center">
-                    <div className="status-box">
+            this.state.listLoan.length !== 0 ? <div>{ this.state.listLoan.map((item, index) => {
+              return (
+                <div key={index} className="container bg-status-review" style={{padding: '25px 0'}}>
+                  <div className="row">
+                    <div className="col-sm-12 col-md-8 col-md-offset-2 col-lg-10 col-lg-offset-1 text-center">
+                      <h3 className="fnt-white">ACCOUNT OVERVIEW</h3>
+                      <br />
                       <div className="row">
-                        <div className="col-sm-12 col-md-6 col-lg-6 text-left">
-                          <h4>STATUS</h4>
-                          <h5 style={{marginTop: 10}}>Loan Application in Review<small>Please check back</small></h5>
-                          <h6 style={{marginTop: 10}}>Applied on:<small>May 29, 2017</small></h6>
-                          <h6 style={{marginTop: 10}}>Product:<small> Your phone here my friend </small></h6>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-6 text-right">
-                          <br />
-                          <img src="img/in_review.png" width={150} />
+                        <div className="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1 text-center">
+                          <div className="status-box">
+                            <div className="row">
+                              <div className="col-sm-12 col-md-6 col-lg-6 text-left">
+                                <h4>STATUSZZ</h4>
+                                <h5 style={{marginTop: 10}}>Loan Application in Review<small>Please check back</small></h5>
+                                <h6 style={{marginTop: 10}}>Applied on:<small>{ item.created_at }</small></h6>
+                                <h6 style={{marginTop: 10}}>Status:<small>{ item.status }</small></h6>
+                              </div>
+                              <div className="col-sm-12 col-md-6 col-lg-6 text-right">
+                                <br />
+                                <img src="img/in_review.png" width={150} />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              )
+            })}</div>
+            // <div>{ this.state.listLoan.map((item,index) => {
+            //   return (
+            //   )
+            // }) }</div>
+            : <p>Fetching data</p>
         }
         <Footer />
       </div>
@@ -75,4 +111,12 @@ class Status extends Component {
   }
 }
 
-export default Status
+const mapStateToProps = state => ({
+  loan: state.loanApp,
+  user: state.user,
+})
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({ getLoanData }, dispatch)
+)
+export default connect(mapStateToProps,mapDispatchToProps)(Status)

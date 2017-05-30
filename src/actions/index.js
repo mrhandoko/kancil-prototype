@@ -76,3 +76,14 @@ export const submitLoan = (finance_product, product, user) => dispatch => {
   })
   .catch(err => console.log(err))
 }
+
+export const getLoanData = user => dispatch => {
+  axios.get(BASE_URL + 'api/loan/', {headers: { Authorization: 'JWT ' + user.token }})
+  .then(response => {
+    dispatch({
+      type: 'SET_LOAN_DATA',
+      payload: response.data
+    })
+  })
+  .catch(err => console.log(err))
+}

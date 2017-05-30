@@ -31,7 +31,7 @@ class LoanApplication extends Component {
       wife_husband_name: '',
       children: '',
       education_level: '',
-      earning: '',
+      earnings: '',
       start_date_job: '',
       employment: '',
       address: '',
@@ -124,7 +124,7 @@ class LoanApplication extends Component {
   }
   setEarning(event) {
     this.setState({
-      earning: event.target.value
+      earnings: event.target.value
     })
   }
   setStartDateJob(event) {
@@ -276,7 +276,7 @@ class LoanApplication extends Component {
   render() {
     if (this.state.isLogin) {
       if (this.state.isApplied) {
-        return <Redirect to='/status' />
+        return <Redirect to='/loan-review' />
       } else {
         return (
           <div>
