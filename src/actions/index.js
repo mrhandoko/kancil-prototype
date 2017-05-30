@@ -1,6 +1,5 @@
 import axios from 'axios'
-// const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
-const BASE_URL = 'http://localhost:8000/'
+const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
 
 export const loginRequest = (email, password) => dispatch => {
   axios.post(BASE_URL + 'auth/login/', {email, password})
@@ -65,4 +64,26 @@ export const setPartnership = id => {
     type: 'SET_PARTNER_ID',
     payload: {id}
   })
+}
+
+export const submitLoan = (finance_product, product, user) => dispatch => {
+  axios.post(BASE_URL + 'api/loan/', {finance_product, product}, {headers: { Authorization: 'JWT ' + user.token }})
+  .then(response => {
+    dispatch({
+      type: 'SET_LOAN_DATA',
+      payload: response.data
+    })
+  })
+  .catch(err => console.log(err))
+}
+
+export const getLoanData = user => dispatch => {
+  axios.get(BASE_URL + 'api/loan/', {headers: { Authorization: 'JWT ' + user.token }})
+  .then(response => {
+    dispatch({
+      type: 'SET_LOAN_DATA',
+      payload: response.data
+    })
+  })
+  .catch(err => console.log(err))
 }

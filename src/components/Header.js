@@ -1,17 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 class Header extends React.Component {
 	constructor () {
 		super ()
 		this.state = {
 			isLogin: false,
+			isLogout: false,
 			username: ''
 		}
 	}
 	logout() {
 		window.localStorage.removeItem('userDetail')
 		window.localStorage.removeItem('product')
+		this.state({
+			isLogin: false,
+			isLogout: true
+		})
 	}
 	componentWillMount() {
 		// let setUser = window.localStorage.getItem('userDetail')
@@ -40,31 +45,35 @@ class Header extends React.Component {
 		}
 	}
 	render() {
-		return (
-			<header className="sticky">
-				<div className="row">
-					<div className="col-sm-7 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-2">
-						<img src={require('../assets/images/logo/top_logo.png')} className="top-logo" alt="" />
+		if(this.state.isLogout) {
+			return <Redirect to='/Home' />
+		} else {
+			return (
+				<header className="sticky">
+					<div className="row">
+						<div className="col-sm-7 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-2">
+							<img src={require('../assets/images/logo/top_logo.png')} className="top-logo" alt="" />
+						</div>
+						<div className="align-right col-sm-5 col-md-7 col-lg-4">
+							<nav className="hidden-sm">
+								<Link to="/">Home</Link>
+								<Link to="/phone">Phones</Link>
+								<Link to="/faq">FAQ</Link>
+								{
+									this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
+								}
+								{
+									localStorage.getItem('product') && <Link to='/loan-application'><b>Loan Application</b></Link>
+								}
+								{
+									this.state.isLogin ? <Link onClick={() => this.logout()} to='/' style={{cursor: 'pointer'}}>Logout</Link> : <Link to="/login"><b>Login</b></Link>
+								}
+							</nav>
+						</div>
 					</div>
-					<div className="align-right col-sm-5 col-md-7 col-lg-4">
-						<nav className="hidden-sm">
-							<Link to="/">Home</Link>
-							<Link to="/phone">Phones</Link>
-							<Link to="/faq">FAQ</Link>
-							{
-								this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
-							}
-							{
-								localStorage.getItem('product') && <Link to='/loan-application'><b>Loan Application</b></Link>
-							}
-							{
-								this.state.isLogin ? <Link onClick={() => this.logout()} to='/' style={{cursor: 'pointer'}}>Logout</Link> : <Link to="/login"><b>Login</b></Link>
-							}
-						</nav>
-					</div>
-				</div>
-			</header>
-		)
+				</header>
+			)
+		}
 	}
 }
 

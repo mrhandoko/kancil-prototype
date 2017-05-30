@@ -10,6 +10,7 @@ import LoanApplication from './components/LoanApplication';
 import SignUp from './components/SignUp';
 import Thankyou from './components/Thankyou';
 import Status from './components/Status';
+import LoanReview from './components/LoanReview';
 import FAQ from './components/FAQ';
 import UberHome1 from './components/uber/UberHome1';
 import UberHome2 from './components/uber/UberHome2';
@@ -36,6 +37,7 @@ class App extends React.Component {
           <Route path="/signup" component={SignUp} />
           <Route path="/thankyou" component={Thankyou} />
           <Route path="/status" component={Status} />
+          <Route path="/loan-review" component={LoanReview} />
           <Route path="/faq" component={FAQ} />
           <Route path="/uber1" component={UberHome1} />
           <Route path="/uber2" component={UberHome2} />

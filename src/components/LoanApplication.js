@@ -31,7 +31,7 @@ class LoanApplication extends Component {
       wife_husband_name: '',
       children: '',
       education_level: '',
-      earning: '',
+      earnings: '',
       start_date_job: '',
       employment: '',
       address: '',
@@ -124,7 +124,7 @@ class LoanApplication extends Component {
   }
   setEarning(event) {
     this.setState({
-      earning: event.target.value
+      earnings: event.target.value
     })
   }
   setStartDateJob(event) {
@@ -181,7 +181,7 @@ class LoanApplication extends Component {
     reader.onloadend = () => {
       this.setState({
         ktp_selfie64: reader.result,
-        ktp_selfie: file
+        ktp_selfie: file['name'],
       });
     }
     reader.readAsDataURL(file)
@@ -193,7 +193,7 @@ class LoanApplication extends Component {
     reader.onloadend = () => {
       this.setState({
         proof_address64: reader.result,
-        proof_address: file
+        proof_address: file['name'],
       });
     }
     reader.readAsDataURL(file)
@@ -205,7 +205,7 @@ class LoanApplication extends Component {
     reader.onloadend = () => {
       this.setState({
         family_card64: reader.result,
-        family_card: file
+        family_card: file['name'],
       });
     }
     reader.readAsDataURL(file)
@@ -217,7 +217,7 @@ class LoanApplication extends Component {
     reader.onloadend = () => {
       this.setState({
         proof_income164: reader.result,
-        proof_income1: file
+        proof_income1: file['name'],
       });
     }
     reader.readAsDataURL(file)
@@ -229,7 +229,7 @@ class LoanApplication extends Component {
     reader.onloadend = () => {
       this.setState({
         proof_income264: reader.result,
-        proof_income2: file
+        proof_income2: file['name'],
       });
     }
     reader.readAsDataURL(file)
@@ -241,7 +241,7 @@ class LoanApplication extends Component {
     reader.onloadend = () => {
       this.setState({
         proof_income364: reader.result,
-        proof_income3: file
+        proof_income3: file['name'],
       });
     }
     reader.readAsDataURL(file)
@@ -252,7 +252,7 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.put("http://localhost:8000/api/userdetail/", this.state, {
+    axios.put("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/", {...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, {
       headers: {
         Authorization: 'JWT ' + this.props.user.token
     }})
@@ -276,7 +276,7 @@ class LoanApplication extends Component {
   render() {
     if (this.state.isLogin) {
       if (this.state.isApplied) {
-        return <Redirect to='/status' />
+        return <Redirect to='/loan-review' />
       } else {
         return (
           <div>
@@ -423,6 +423,7 @@ class LoanApplication extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
+  userDetail: state.userDetail,
   product: state.product,
 })
 
