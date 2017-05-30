@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import VanillaModal from 'vanilla-modal'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import axios from 'axios'
