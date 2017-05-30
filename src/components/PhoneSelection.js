@@ -23,7 +23,7 @@ class PhoneSelection extends Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.userDetail.partnership)
-			axios.get('http://localhost:8000/api/finance-product/' + nextProps.userDetail.partnership + '/')
+			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + nextProps.userDetail.partnership + '/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})
@@ -39,7 +39,7 @@ class PhoneSelection extends Component {
 		}
 
 		if (this.props.userDetail.partnership) {
-			axios.get('http://localhost:8000/api/finance-product/' + this.props.userDetail.partnership + '/')
+			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})
@@ -48,7 +48,7 @@ class PhoneSelection extends Component {
 			})
 		}
 		else {
-			axios.get('http://localhost:8000/api/finance-product/')
+			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/')
 			.then(response => {
 				this.setState({ products: response.data })
 			})
@@ -201,60 +201,6 @@ class PhoneSelection extends Component {
 									: <p>Fetching data</p>
 								}
 
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 2<small>Rp. 2.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 2', price: 'Rp. 2.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 3<small>Rp. 3.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 3', price: 'Rp. 3.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 4<small>Rp. 4.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 4', price: 'Rp. 4.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 5<small>Rp. 5.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 5', price: 'Rp. 5.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 6<small>Rp. 6.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 6', price: 'Rp. 6.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
-								<div className="col-sm-12 col-md-6 col-lg-4">
-									<div className="card fluid">
-										<div className="section text-center">
-											<img src="img/phone1.jpg" alt="" />
-											<h4>Samsung Galaxy 7<small>Rp. 7.500.000</small></h4>
-											<a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ phone: 'Samsung Galaxy 7', price: 'Rp. 7.500.000'})}>View Details</a>
-										</div>
-									</div>
-								</div>
 								<div>
 									{/* Modal container template */}
 									<div className="modal">

@@ -10,7 +10,7 @@ import setPartnership from '../../actions';
 
 class UberHome2 extends React.Component {
   componentDidMount() {
-    this.props.setPartnership(4)
+    this.props.setPartnership(1)
   }
 
   render () {

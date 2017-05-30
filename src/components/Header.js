@@ -23,7 +23,7 @@ class Header extends React.Component {
 		// if (setUser !== null) {
 		// 	let userJson = JSON.parse(setUser)
 		// 	axios
-		// 		.post('http://localhost:8000/auth/verify', { token: userJson.token })
+		// 		.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/verify', { token: userJson.token })
 		// 		.then(result => {
 		// 			if (result.data.token === userJson.token) {
 		// 				this.props.setUserData(result.data)

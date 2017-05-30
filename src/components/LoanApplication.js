@@ -252,7 +252,7 @@ class LoanApplication extends Component {
       isApplied: true
     })
     console.log(this.state);
-    axios.put("http://localhost:8000/api/userdetail/", {...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, {
+    axios.put("http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/", {...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, {
       headers: {
         Authorization: 'JWT ' + this.props.user.token
     }})
