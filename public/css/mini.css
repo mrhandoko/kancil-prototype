@@ -549,7 +549,6 @@ textarea
 	vertical-align:middle;
 	white-space:normal;
 	background:none;
-
 }
 fieldset {
 	border: 1px solid #d0d0d0;
@@ -566,6 +565,7 @@ legend {
 	font-size: .875rem;
 	padding: 0.125rem 0.25rem
 }
+select {height:2.5rem; font-size: 1rem;}
 label {
 	padding: .25rem
 }

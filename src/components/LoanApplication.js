@@ -31,7 +31,7 @@ class LoanApplication extends Component {
 			married_status: 'Belum Kawin',
 			wife_husband_name: '',
 			children: '',
-			education_level: '',
+			education: '',
 			earnings: '',
 			start_date_job: '',
 			employment: '',
@@ -58,7 +58,9 @@ class LoanApplication extends Component {
 			proof_income3: '',
 			fileProofIncome3: '',
 			product: '',
-			isApplied: false
+			isApplied: false,
+      validChildren: true,
+      validLastEducation: true
 		}
 	}
 	uploadKTP(event) {
@@ -87,7 +89,6 @@ class LoanApplication extends Component {
 		})
 	}
 	setGender(event) {
-		console.log(event.target.value)
 		this.setState({
 			gender: event.target.value
 		})
@@ -103,7 +104,6 @@ class LoanApplication extends Component {
 		})
 	}
 	setMarriedStatus(event) {
-		console.log(event.target.value)
 		this.setState({
 			married_status: event.target.value
 		})
@@ -114,15 +114,29 @@ class LoanApplication extends Component {
 		})
 	}
 	setChildren(event) {
-		this.setState({
-			children: event.target.value
-		})
+    if (event.target.value !== "none") {
+      this.setState({
+  			children: event.target.value,
+        validChildren: true
+  		})
+    } else {
+      this.setState({
+        validChildren: false
+      })
+    }
 	}
-	setEducationLevel(event) {
-		this.setState({
-			education_level: event.target.value
-		})
-	}
+  setLastEducation(event) {
+    if (event.target.value !== "none") {
+      this.setState({
+        education: event.target.value,
+        validLastEducation: true
+      })
+    } else {
+      this.setState({
+        validLastEducation: false
+      })
+    }
+  }
 	setEarning(event) {
 		this.setState({
 			earnings: event.target.value
@@ -253,28 +267,14 @@ class LoanApplication extends Component {
 			isApplied: true
 		})
 		console.log(this.state)
-		axios
-			.put(
-				'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',
-				{
-					...this.state,
-					partnership: this.props.userDetail.partnership,
-					lat: 6.1818,
-					lng: 106.8230
-				},
-				{
-					headers: {
-						Authorization: 'JWT ' + this.props.user.token
-					}
-				}
-			)
-			.then(result => {
-				console.log(result.data)
-				// this.setState({ product: JSON.parse(localStorage.product).phone })
-				localStorage.setItem('loanApplication', this.state)
-				this.setState({ isApplied: true })
-			})
-			.catch(err => console.log(err))
+		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
+		.then(result => {
+			console.log(result.data)
+			// this.setState({ product: JSON.parse(localStorage.product).phone })
+			localStorage.setItem('loanApplication', this.state)
+			this.setState({ isApplied: true })
+		})
+		.catch(err => console.log(err))
 	}
 	componentWillMount() {
 		if (window.localStorage.getItem('userDetail') !== null) {
@@ -302,19 +302,15 @@ class LoanApplication extends Component {
 									<div className="panel-bottom">
 										<br />
 										<div className="text-center">
-											{this.props.product.interest_source
-												? <div>
-														<img
-															src={this.props.product.product.image}
-															alt=""
-														/>
+											{ this.props.product.interest_source ?
+                        <div>
+                          <img src={this.props.product.product.image} alt="" />
 														<h4>
 															{this.props.product.product.model}
 															<small>{this.props.product.product.price}</small>
 														</h4>
 													</div>
 												: <h4>Please pick product first</h4>}
-
 											<Link className="button primary" to="/phone">
 												Choose a Different Phone
 											</Link>
@@ -450,19 +446,26 @@ class LoanApplication extends Component {
 											/>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jumlah Anak</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setChildren(event)}
-											/>
+                      <select onChange={event => this.setChildren(event)}>
+                        <option value="none">-- Jumlah Anak --</option>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+                        <option value="3+">3+</option>
+											</select>
+                      { !this.state.validChildren && <span style={{ color: 'red'}}>Anda belum memilih jumlah anak</span>}
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Pendidikan Terakhir</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setEducationLevel(event)}
-											/>
-											<div className="form-spacer" />
+											<select onChange={event => this.setLastEducation(event)}>
+                        <option value="none">-- Pendidikan Terakhir --</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP/Sederajat</option>
+                        <option value="SMA">SMA/Sederajat</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                      </select>
+                      { !this.state.validLastEducation && <span style={{ color: 'red'}}>Anda belum memilih tingkat pendidikan terakhir</span>}
+                      <div className="form-spacer" />
 											<h5 className="fnt-grey">Gaji/Pendapatan</h5>
 											<input
 												className="input-full"
