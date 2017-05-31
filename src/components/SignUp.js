@@ -22,42 +22,52 @@ class SignUp extends React.Component {
 			redirectLoginSuccess: false,
 			wrongPassword: false,
 			wrongUsername: false,
-			isLogin: false
+			isLogin: false,
+			validEmail: true
 		}
 	}
 
 	//TODO: after register set redux for USER
-
 	setUsernameField(event) {
 		this.setState({ username: event.target.value })
 		if(event.target.value.length <= 3) {
 			this.setState({
 				wrongUsername: true
 			})
-		} else if(event.target.value.length >= 4) {
+		} else if(event.target.value.length >= 6) {
 			this.setState({
 				wrongUsername: false
 			})
 		}
 	}
 	setPassword1Field(event) {
-		this.setState({ password1: event.target.value })
-		if (this.state.password2 !== event.target.value) {
-			this.setState({
-				wrongPassword: true
-			})
-		} else {
-			this.setState({
-				wrongPassword: false
-			})
+		const regex = /(?=.*\d)(?=.*[a-z]).{6,}/g;
+    if(regex.test(event.target.value)) {
+			this.setState({ password1: event.target.value })
+			if (this.state.password2 !== event.target.value) {
+				this.setState({
+					wrongPassword: true
+				})
+			} else {
+				this.setState({
+					wrongPassword: false
+				})
+			}
 		}
 	}
 	setPassword2Field(event) {
-		this.setState({ password2: event.target.value })
-		if (this.state.password1 !== event.target.value) {
-			this.setState({
-				wrongPassword: true
-			})
+		const regex = /(?=.*\d)(?=.*[a-z]).{6,}/g;
+    if(regex.test(event.target.value)) {
+			this.setState({ password2: event.target.value })
+			if (this.state.password1 !== event.target.value) {
+				this.setState({
+					wrongPassword: true
+				})
+			} else {
+				this.setState({
+					wrongPassword: false
+				})
+			}
 		} else {
 			this.setState({
 				wrongPassword: false
@@ -66,7 +76,15 @@ class SignUp extends React.Component {
 	}
 	setEmailField(event) {
 		let email = event.target.value
-		this.setState({ email: email })
+		const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (regexEmail.test(email)) {
+			this.setState({
+				email: email,
+				validEmail: true
+			})
+		} else {
+			this.setState({ validEmail: false })
+		}
 	}
 
 	registerButtonOnClick(event) {
@@ -121,16 +139,18 @@ class SignUp extends React.Component {
 									<form className="clean-form">
 										<h5 className="fnt-grey">User Name</h5>
 										<input type="text" className="input-full" onChange={event => this.setUsernameField(event)} disabled={this.state.fieldDisable} />
-										{ this.state.wrongUsername ? <span style={{ color: 'red' }}>Username must min. 6 character</span> : <span></span> }
+										{ this.state.wrongUsername && <span style={{ color: 'red' }}>Username harus minimal 6 karakter</span> }
 										<div className="form-spacer" />
 										<h5 className="fnt-grey">Email</h5>
 										<input type="text" className="input-full" onChange={event => this.setEmailField(event)} disabled={this.state.fieldDisable} />
+										{ !this.state.validEmail && <span style={{ color: 'red' }}>Format Email salah</span>}
 										<div className="form-spacer" />
 										<h5 className="fnt-grey">Type Password</h5>
 										<input type="password" className="input-full" onChange={event => this.setPassword1Field(event)} disabled={this.state.fieldDisable} />
 										<h5 className="fnt-grey">Re-type Password</h5>
 										<input type="password" className="input-full" onChange={event => this.setPassword2Field(event)} disabled={this.state.fieldDisable} />
-										{ this.state.wrongPassword ? <span style={{ color: 'red' }}>Password tidak cocok</span> : <span></span> }
+										<div className="fnt-grey" style={{ fontSize: 10 }}>Kombinasi password harus dengan huruf & angka dan minimal 8 karakter</div>
+										{ this.state.wrongPassword && <span style={{ color: 'red' }}>Password tidak cocok</span> }
 										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 											<div className="col-sm-12 col-md-12 col-lg-12">
 												<button className="tertiary input-full" onClick={(event) => this.registerButtonOnClick(event)}>Sign Up</button>

@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import NumberFormat from 'react-number-format';
-import TextField from 'material-ui/TextField';
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -147,12 +146,6 @@ class LoanApplication extends Component {
       })
     }
   }
-	setEarning(event, value) {
-		const formattedValue = event.target.value;
-		this.setState({
-			earnings: value
-		})
-	}
 	setStartDateJob(date) {
 		this.setState({
 			start_date_job: moment(date).format('DDMMYYYY'),
@@ -488,7 +481,7 @@ class LoanApplication extends Component {
                         selected={this.state.datePickerStartJob}
                         onChange={(event) => this.setStartDateJob(event)}
                         locale="en-gb"
-                        placeholderText="Lama Bekerja" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
+                        placeholderText="Mulai Bekerja" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Address</h5>
 											<input
