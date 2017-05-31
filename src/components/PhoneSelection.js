@@ -199,7 +199,7 @@ class PhoneSelection extends Component {
 				              </div>
 				            )
 				          })
-				          : <p>Fetching data</p>
+				          : <center><div><i className="spin extra-large"></i></div></center>
 				        }
 								{/* Modal container template */}
 			          <div className="modal">

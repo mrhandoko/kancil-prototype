@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
 import { connect } from 'react-redux'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import NumberFormat from 'react-number-format';
+import TextField from 'material-ui/TextField';
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 import Header from './Header'
 import Footer from './Footer'
+import { formatIDR } from '../helper'
 
 const Styles = {
 	uploadImage: {
@@ -28,12 +35,14 @@ class LoanApplication extends Component {
 			phone: '',
 			birthplace: '',
 			birthdate: '',
+      datePickerBirthdate: '',
 			married_status: 'Belum Kawin',
 			wife_husband_name: '',
 			children: '',
 			education: '',
 			earnings: '',
 			start_date_job: '',
+      datePickerStartJob: '',
 			employment: '',
 			address: '',
 			kec: '',
@@ -98,10 +107,11 @@ class LoanApplication extends Component {
 			birthplace: event.target.value
 		})
 	}
-	setBirthday(event) {
-		this.setState({
-			birthdate: event.target.value
-		})
+	setBirthday(date) {
+    this.setState({
+      birthdate: moment(date).format('DDMMYYYY'),
+      datePickerBirthdate: date
+    });
 	}
 	setMarriedStatus(event) {
 		this.setState({
@@ -137,14 +147,16 @@ class LoanApplication extends Component {
       })
     }
   }
-	setEarning(event) {
+	setEarning(event, value) {
+		const formattedValue = event.target.value;
 		this.setState({
-			earnings: event.target.value
+			earnings: value
 		})
 	}
-	setStartDateJob(event) {
+	setStartDateJob(date) {
 		this.setState({
-			start_date_job: event.target.value
+			start_date_job: moment(date).format('DDMMYYYY'),
+      datePickerStartJob: date
 		})
 	}
 	setAddress(event) {
@@ -412,7 +424,7 @@ class LoanApplication extends Component {
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jenis Kelamin</h5>
 											<select onChange={event => this.setGender(event)}>
-												<option value="L" selected>Laki-laki</option>
+												<option value="L">Laki-laki</option>
 												<option value="P">Perempuan</option>
 											</select>
 											<div className="form-spacer" />
@@ -424,12 +436,11 @@ class LoanApplication extends Component {
 											/>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Tanggal Lahir</h5>
-											<input
-												className="input-full"
-												type="text"
-												placeholder="DD/MM/YYYY"
-												onChange={event => this.setBirthday(event)}
-											/>
+                      <DatePicker
+                        selected={this.state.datePickerBirthdate}
+                        onChange={(event) => this.setBirthday(event)}
+                        locale="en-gb"
+                        placeholderText="Tanggal Lahir" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Married Status</h5>
 											<select onChange={event => this.setMarriedStatus(event)}>
@@ -467,19 +478,17 @@ class LoanApplication extends Component {
                       { !this.state.validLastEducation && <span style={{ color: 'red'}}>Anda belum memilih tingkat pendidikan terakhir</span>}
                       <div className="form-spacer" />
 											<h5 className="fnt-grey">Gaji/Pendapatan</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setEarning(event)}
-											/>
+											<NumberFormat value={this.state.earnings} prefix={'Rp '} decimalSeparator={'.'} thousandSeparator={true} placeholder={'Gaji/Pendapatan per bulan'} onChange={(event, value) => {
+										    const formattedValue = event.target.value;
+										    this.setState({earnings: value})
+										  }}/>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Mulai Bekerja</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setStartDateJob(event)}
-												placeholder="DD/MM/YYYY"
-											/>
+                      <DatePicker
+                        selected={this.state.datePickerStartJob}
+                        onChange={(event) => this.setStartDateJob(event)}
+                        locale="en-gb"
+                        placeholderText="Lama Bekerja" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Address</h5>
 											<input

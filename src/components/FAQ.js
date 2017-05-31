@@ -22,7 +22,7 @@ const FAQ = () => (
             <section className="box">
               <label className="box-title" htmlFor="cb2">Apakah Kawan Cicil dapat dipercaya?</label>
               <label className="box-close" htmlFor="acc-close" />
-              <div className="box-content">Kawan Cicil adalah sebuah nama dagang dari PT XXX yang merupakan anak perusahaan dari Sinarmas, perusahaan yang terdaftar di Otoritas Jasa Keuangan (OJK) Republik Indonesia.</div>
+              <div className="box-content">Kawan Cicil adalah sebuah nama dagang dari PT Kancil yang merupakan anak perusahaan dari Sinarmas, perusahaan yang terdaftar di Otoritas Jasa Keuangan (OJK) Republik Indonesia.</div>
             </section>
             <input type="radio" name="accordion" id="cb3" />
             <section className="box">
