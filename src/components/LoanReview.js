@@ -57,11 +57,11 @@ class LoanReview extends Component {
 										{' '}
 										{this.props.product.unit}
 										{' '}
-										for
+										untuk
 										{' '}
 										{this.props.product.tenore}
 										{' '}
-										MONTH
+										Bulan
 										<div
 											className="row"
 											style={{

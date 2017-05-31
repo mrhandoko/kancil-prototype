@@ -15,14 +15,35 @@ class Login extends Component {
       password: '',
       isRegistered: false,
       isSucceed: true,
-      isLogin: false
+      isLogin: false,
+      validEmail: true,
+      validPassword: true
     }
   }
-  setUsernameField (event) {
-    this.setState({ email: event.target.value })
+  setEmailField (event) {
+    let email = event.target.value
+		const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (regexEmail.test(email)) {
+			this.setState({
+				email: email,
+				validEmail: true
+			})
+		} else {
+			this.setState({ validEmail: false })
+		}
   }
   setPasswordField (event) {
-    this.setState({ password: event.target.value })
+    const regex = /(?=.*\d)(?=.*[a-z]).{6,}/g;
+    if(regex.test(event.target.value)) {
+			this.setState({
+        password: event.target.value,
+        validPassword: true
+       })
+		} else {
+			this.setState({
+				validPassword: false
+			})
+		}
   }
 
   clickLogin (event) {
@@ -58,11 +79,13 @@ class Login extends Component {
             </div>
             <div className="panel-bottom">
               <form className="clean-form">
-                <h5 className="fnt-grey">User Name</h5>
-                <input type="text" name className="input-full" onChange={event => this.setUsernameField(event)} />
+                <h5 className="fnt-grey">Email</h5>
+                <input type="text" name className="input-full" onChange={event => this.setEmailField(event)} />
+                { !this.state.validEmail && <span style={{ color: 'red' }}>Format Email salah</span>}
                 <div className="form-spacer" />
                 <h5 className="fnt-grey">Password</h5>
                 <input type="text" className="input-full" onChange={event => this.setPasswordField(event)} />
+                { !this.state.validPassword && <span style={{ color: 'red' }}>Format Email salah</span>}
                 <div className="row" style={{borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem'}}>
                   <div className="col-sm-12 col-md-12 col-lg-12">
                     <button className="tertiary input-full" onClick={event => this.clickLogin(event)}>Login</button>
