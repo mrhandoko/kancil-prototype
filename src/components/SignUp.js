@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
-import { setUserDetail } from '../actions'
+import { setUserDetail } from '../actions';
 
 class SignUp extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			registerErr: '',
 			email: '',
@@ -23,7 +23,7 @@ class SignUp extends React.Component {
 			wrongPassword: false,
 			wrongUsername: false,
 			isLogin: false,
-			validEmail: true
+			validEmail: true,
 		}
 	}
 
@@ -104,7 +104,6 @@ class SignUp extends React.Component {
 				this.setState({ redirectLoginSuccess: true })
 			})
 			.catch(err1 => {
-				console.log('error while set register with partner', err1)
 				this.setState({ registerErr: err1 })
 			})
 		})
@@ -117,7 +116,7 @@ class SignUp extends React.Component {
 
 	displayErr() {
 		return Object.keys(this.state.registerErr).map(key => (
-			<li key={key}>{key} - {this.state.registerErr[key]}</li>
+			<li key={key} style={{ color: "red" }}>{this.state.registerErr[key]}</li>
 		))
 	}
 
@@ -144,11 +143,7 @@ class SignUp extends React.Component {
 									<h4 className="fnt-blue">Sign Up</h4>
 								</div>
 								<div className="panel-bottom">
-								{
-									this.state.registerErr == ''
-									? <b></b>
-									: <ul>{this.displayErr()}</ul>
-								}
+								{ this.state.registerErr == '' ? <b></b> : <ul>{ this.displayErr() }</ul> }
 									<form className="clean-form">
 										<h5 className="fnt-grey">User Name</h5>
 										<input type="text" className="input-full" onChange={event => this.setUsernameField(event)} disabled={this.state.fieldDisable} />
@@ -167,6 +162,7 @@ class SignUp extends React.Component {
 										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 											<div className="col-sm-12 col-md-12 col-lg-12">
 												<button className="tertiary input-full" onClick={(event) => this.registerButtonOnClick(event)}>Sign Up</button>
+
 											</div>
 										</div>
 									</form>

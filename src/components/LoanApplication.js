@@ -1,16 +1,15 @@
-import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import axios from 'axios'
-import { connect } from 'react-redux'
-import DatePicker from 'react-datepicker'
-import moment from 'moment'
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import NumberFormat from 'react-number-format';
 
-import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css';
 
-import Header from './Header'
-import Footer from './Footer'
-import { formatIDR } from '../helper'
+import Header from './Header';
+import Footer from './Footer';
 
 const Styles = {
 	uploadImage: {
@@ -22,11 +21,11 @@ const Styles = {
 		margin: 15,
 		cursor: 'pointer'
 	}
-}
+};
 
 class LoanApplication extends Component {
 	constructor(props) {
-		super(props)
+  	super(props);
 		this.state = {
 			full_name: '',
 			nik: '',
@@ -67,34 +66,62 @@ class LoanApplication extends Component {
 			fileProofIncome3: '',
 			product: '',
 			isApplied: false,
+			validFullname: true,
+			validPhone: true,
+			validNIK: true,
+			validBirthplace: true,
+			validBirthdate: true,
+			validMarriedStatus: true,
+			validSpouseName: true,
       validChildren: true,
-      validLastEducation: true
+      validLastEducation: true,
+			validStartDateJob: true,
+			validAddress: true,
+			validKelurahan: true,
+			validKecamatan: true,
+			validCity: true,
+			validProvinsi: true,
+			validKodepos: true
 		}
 	}
-	uploadKTP(event) {
-		this.setState({
-			full_name: event.target.value
-		})
-	}
-	uploadProfile(event) {
-		this.setState({
-			nik: event.target.value
-		})
-	}
 	setFullname(event) {
-		this.setState({
-			full_name: event.target.value
-		})
+		const regexFullname = /[A-Za-z]/g;
+		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
+			this.setState({
+				full_name: event.target.value,
+				validFullname: true
+			})
+		} else {
+			this.setState({
+				validFullname: false
+			})
+		}
 	}
 	setPhone(event) {
-		this.setState({
-			phone: event.target.value
-		})
+		const regexPhone = /^(^\+62\s?|^0)(\d{3,4}?){2}\d{3,4}$/g;
+		if (regexPhone.test(event.target.value)) {
+			this.setState({
+				phone: event.target.value,
+				validPhone : true
+			});
+		} else {
+			this.setState({
+				validPhone: false
+			});
+		}
 	}
 	setNIK(event) {
-		this.setState({
-			nik: event.target.value
-		})
+		const regexNIK = /[0-9]/g;
+		if (event.target.value.length >= 10 && regexNIK.test(event.target.value) && event.target.value !== '') {
+			this.setState({
+				nik: event.target.value,
+				validNIK: true
+			});
+		} else {
+			this.setState({
+				validNIK: false
+			});
+		}
 	}
 	setGender(event) {
 		this.setState({
@@ -102,25 +129,58 @@ class LoanApplication extends Component {
 		})
 	}
 	setBirthPlace(event) {
-		this.setState({
-			birthplace: event.target.value
-		})
+		const regexBirthplace = /[A-Za-z]/g;
+		if (event.target.value.length >=4 && regexBirthplace.test(event.target.value)) {
+			this.setState({
+				birthplace: event.target.value,
+				validBirthplace: true
+			});
+		} else {
+			this.setState({
+				validBirthplace: false
+			});
+		}
 	}
 	setBirthday(date) {
-    this.setState({
-      birthdate: moment(date).format('DDMMYYYY'),
-      datePickerBirthdate: date
-    });
+		this.setState({
+			datePickerBirthdate: date
+		})
+		if (new Date().getFullYear() - moment(date).format('YYYY') >= 18) {
+			this.setState({
+	      birthdate: moment(date).format('DDMMYYYY'),
+				validBirthdate: true
+	    });
+		} else {
+			this.setState({
+				validBirthdate: false
+			});
+		}
 	}
 	setMarriedStatus(event) {
-		this.setState({
-			married_status: event.target.value
-		})
+		const regexMarriedStatus = /[A-Za-z]/g;
+		if (regexMarriedStatus.test(event.target.value)) {
+			this.setState({
+				married_status: event.target.value,
+				validMarriedStatus: true
+			});
+		} else {
+			this.setState({
+				validMarriedStatus: false
+			})
+		}
 	}
 	setSpouseName(event) {
-		this.setState({
-			wife_husband_name: event.target.value
-		})
+		const regexSpouseName = /[A-Za-z]/g;
+		if (regexSpouseName.test(event.target.value) && event.target.value !== '') {
+			this.setState({
+				wife_husband_name: event.target.value,
+				validSpouseName: true,
+			});
+		} else {
+			this.setState({
+				validSpouseName: false,
+			});
+		}
 	}
 	setChildren(event) {
     if (event.target.value !== "none") {
@@ -147,40 +207,90 @@ class LoanApplication extends Component {
     }
   }
 	setStartDateJob(date) {
-		this.setState({
-			start_date_job: moment(date).format('DDMMYYYY'),
-      datePickerStartJob: date
-		})
+		if (date !== '') {
+			this.setState({
+				start_date_job: moment(date).format('DDMMYYYY'),
+	      datePickerStartJob: date,
+				validStartDateJob: true,
+			});
+		} else {
+			this.setState({
+				validStartDateJob: false
+			});
+		}
 	}
 	setAddress(event) {
-		this.setState({
-			address: event.target.value
-		})
+		if (event.target.value !== '') {
+			this.setState({
+				address: event.target.value,
+				validAddress: true
+			})
+		} else {
+			this.setState({
+				validAddress: false
+			});
+		}
 	}
 	setKelurahan(event) {
-		this.setState({
-			kel: event.target.value
-		})
+		if (event.target.value !== '') {
+			this.setState({
+				kel: event.target.value,
+				validKelurahan: true
+			});
+		} else {
+			this.setState({
+				validKelurahan: false
+			});
+		}
 	}
 	setKecamatan(event) {
-		this.setState({
-			kec: event.target.value
-		})
+		if (event.target.value !== '') {
+			this.setState({
+				kec: event.target.value,
+				validKecamatan: true
+			});
+		} else {
+			this.setState({
+				validKecamatan: false
+			});
+		}
 	}
 	setCity(event) {
-		this.setState({
-			city: event.target.value
-		})
+		if (event.target.value !== '') {
+			this.setState({
+				city: event.target.value,
+				validCity: true,
+			});
+		} else {
+			this.setState({
+				validCity: false,
+			})
+		}
 	}
 	setProvince(event) {
-		this.setState({
-			provinsi: event.target.value
-		})
+		if (event.target.value !== '') {
+			this.setState({
+				provinsi: event.target.value,
+				validProvinsi: true,
+			})
+		} else {
+			this.setState({
+				validProvinsi: false
+			})
+		}
 	}
 	setPostcode(event) {
-		this.setState({
-			kodepos: event.target.value
-		})
+		const regexPostcode = /[0-9]/g;
+		if (event.target.value !== '' && regexPostcode.test(event.target.value)) {
+			this.setState({
+				kodepos: event.target.value,
+				validKodepos: true,
+			});
+		} else {
+			this.setState({
+				validKodepos: false,
+			})
+		}
 	}
 	uploadKTPImage(event) {
 		event.preventDefault()
@@ -329,11 +439,20 @@ class LoanApplication extends Component {
 		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
 		.then(result => {
 			console.log(result.data)
-			// this.setState({ product: JSON.parse(localStorage.product).phone })
 			localStorage.setItem('loanApplication', this.state)
 			this.setState({ isApplied: true })
 		})
-		.catch(err => console.log(err))
+		.catch(error => {
+			this.setState({
+				loanApplicationErr: error.response.data
+			})
+		})
+	}
+
+	displayErr() {
+		return Object.keys(this.state.loanApplicationErr).map(key => (
+			<li key={key} style={{ color: "red" }}>{this.state.loanApplicationErr[key]}</li>
+		))
 	}
 	componentWillMount() {
 		if (window.localStorage.getItem('userDetail') !== null) {
@@ -388,39 +507,22 @@ class LoanApplication extends Component {
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Upload KTP</h5>
 											<div style={Styles.uploadImage}>
-												<input
-													type="file"
-													id="file-input"
-													onChange={event => this.uploadKTPImage(event)}
-												/>
+												<input type="file" id="file-input" onChange={event => this.uploadKTPImage(event)} />
 											</div>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Foto diri & KTP</h5>
 											<div style={Styles.uploadImage}>
-												<input
-													type="file"
-													id="file-input"
-													onChange={event => this.uploadKTPSelfieImage(event)}
-												/>
+												<input type="file" id="file-input" onChange={event => this.uploadKTPSelfieImage(event)} />
 											</div>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Bukti Alamat</h5>
 											<div style={Styles.uploadImage}>
-												<input
-													type="file"
-													id="file-input"
-													onChange={event =>
-														this.uploadProofAddressImage(event)}
-												/>
+												<input type="file" id="file-input" onChange={event => this.uploadProofAddressImage(event)} />
 											</div>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Kartu Keluarga</h5>
 											<div style={Styles.uploadImage}>
-												<input
-													type="file"
-													id="file-input"
-													onChange={event => this.uploadFamilyCardImage(event)}
-												/>
+												<input type="file" id="file-input" onChange={event => this.uploadFamilyCardImage(event)} />
 											</div>
 											<h5 className="fnt-grey">
 												Bukti Pendapatan 3 Bulan Terakhir
@@ -440,34 +542,19 @@ class LoanApplication extends Component {
 												/>
 											</div>
 											<div style={Styles.uploadImage}>
-												<input
-													type="file"
-													id="file-input"
-													onChange={event => this.uploadProofIncome3(event)}
-												/>
+												<input type="file" id="file-input" onChange={event => this.uploadProofIncome3(event)} />
 											</div>
 											<h5 className="fnt-grey">Nama Lengkap</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setFullname(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setFullname(event)} />
+											{ !this.state.validFullname ? <span style={{ color: 'red' }}>Nama Tidak boleh kurang dari 5 karakter.</span> : <span></span>}
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Nomor Handphone</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setPhone(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setPhone(event)} />
+											{ !this.state.validPhone ? <span style={{ color: 'red' }}>Format salah. Nomor handphone harus diawali dengan angka 0</span> : <span></span> }
 											<div className="form-spacer" />
-											<h5 className="fnt-grey">
-												Nomor Induk Kependudukan (No KTP)
-											</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setNIK(event)}
-											/>
+											<h5 className="fnt-grey">Nomor Induk Kependudukan (No KTP)</h5>
+											<input className="input-full" type="text" onChange={event => this.setNIK(event)} />
+											{ !this.state.validNIK ? <span style={{ color: 'red' }}>Format NIK KTP masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jenis Kelamin</h5>
 											<select onChange={event => this.setGender(event)}>
@@ -476,11 +563,8 @@ class LoanApplication extends Component {
 											</select>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Tempat Lahir</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setBirthPlace(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setBirthPlace(event)} />
+											{ !this.state.validBirthplace ? <span style={{ color: 'red' }}>Format masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Tanggal Lahir</h5>
                       <DatePicker
@@ -488,6 +572,7 @@ class LoanApplication extends Component {
                         onChange={(event) => this.setBirthday(event)}
                         locale="en-gb"
                         placeholderText="Tanggal Lahir" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
+												{ !this.state.validBirthdate ? <div style={{ color: 'red' }}>Usia minimal harus 18 tahun</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Married Status</h5>
 											<select onChange={event => this.setMarriedStatus(event)}>
@@ -495,13 +580,11 @@ class LoanApplication extends Component {
 												<option value="belum kawin">Belum Kawin</option>
 												<option value="janda/duda">Janda/Duda</option>
 											</select>
+											{ !this.state.validMarriedStatus ? <div style={{ color: 'red' }}>Anda belum memilih status pernikahan</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Nama Istri/Suami</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setSpouseName(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setSpouseName(event)} />
+											{ !this.state.validSpouseName ? <div style={{ color: 'red' }}>Format masih salah</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jumlah Anak</h5>
                       <select onChange={event => this.setChildren(event)}>
@@ -527,7 +610,7 @@ class LoanApplication extends Component {
 											<h5 className="fnt-grey">Gaji/Pendapatan</h5>
 											<NumberFormat value={this.state.earnings} prefix={'Rp '} decimalSeparator={'.'} thousandSeparator={true} placeholder={'Gaji/Pendapatan per bulan'} onChange={(event, value) => {
 										    const formattedValue = event.target.value;
-										    this.setState({earnings: value})
+										    this.setState({earnings: value});
 										  }}/>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Mulai Bekerja</h5>
@@ -536,58 +619,35 @@ class LoanApplication extends Component {
                         onChange={(event) => this.setStartDateJob(event)}
                         locale="en-gb"
                         placeholderText="Mulai Bekerja" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
+											{ !this.state.validStartDateJob ? <div style={{ color: 'red'}}>Format tanggal mulai bekerja masih salah</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Address</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setAddress(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setAddress(event)} />
+											{ !this.state.validAddress ? <span style={{ color: 'red'}}>Format Alamat Anda masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Kelurahan</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setKelurahan(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setKelurahan(event)} />
+											{ !this.state.validKelurahan ? <span style={{ color: 'red'}}>Format kelurahan tempat tinggal Anda masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Kecamatan</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setKecamatan(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setKecamatan(event)} />
+											{ !this.state.validKecamatan ? <span style={{ color: 'red'}}>Format Kecamatan tempat tinggal Anda masih salah</span> : <span></span> }
 											<h5 className="fnt-grey">Kota</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setCity(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setCity(event)} />
+											{ !this.state.validCity ? <span style={{ color: 'red'}}>Format Kota tempat tinggal Anda masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Provinsi</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setProvince(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setProvince(event)} />
+											{ !this.state.validProvinsi ? <span style={{ color: 'red'}}>Format Provinsi tempat tinggal Anda masih salah</span> : <span></span> }
 											<h5 className="fnt-grey">Kodepos</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setPostcode(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setPostcode(event)} />
+											{ !this.state.validKodepos ? <span style={{ color: 'red'}}>Format Kodepos tempat tinggal Anda masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<br />
 											<br />
 											<div className="row">
 												<div className="col-sm-12 col-md-12 col-lg-12 text-right">
-													<button
-														className="tertiary"
-														disabled={this.props.disableSubmitButton}
-														onClick={event => this.clickLoanApplication(event)}
-													>
-														Submit
-													</button>
+													<button className="tertiary" disabled={this.props.disableSubmitButton} onClick={event => this.clickLoanApplication(event)}>Submit</button>
 												</div>
 											</div>
 										</form>

@@ -1,9 +1,9 @@
-import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 class Header extends React.Component {
-	constructor () {
-		super ()
+	constructor() {
+		super()
 		this.state = {
 			isLogin: false,
 			isLogout: false,
@@ -45,7 +45,7 @@ class Header extends React.Component {
 		}
 	}
 	render() {
-		if(this.state.isLogout) {
+		if (this.state.isLogout) {
 			return <Redirect to='/Home' />
 		} else {
 			return (
@@ -77,4 +77,4 @@ class Header extends React.Component {
 	}
 }
 
-export default Header
+export default Header;
