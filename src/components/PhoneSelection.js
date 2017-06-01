@@ -105,7 +105,7 @@ class PhoneSelection extends Component {
 							<b>Deskripsi</b>
 						</div>
 						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-							<p>{data.product.desc}</p>
+							<div dangerouslySetInnerHTML={{__html: data.product.desc}} />
 						</div>
 					</div>
 					<div />
