@@ -10,7 +10,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import Header from './Header';
 import Footer from './Footer';
-import { formatIDR } from '../helper';
 
 const Styles = {
 	uploadImage: {
@@ -22,7 +21,7 @@ const Styles = {
 		margin: 15,
 		cursor: 'pointer'
 	}
-}
+};
 
 class LoanApplication extends Component {
 	constructor(props) {
@@ -67,29 +66,36 @@ class LoanApplication extends Component {
 			fileProofIncome3: '',
 			product: '',
 			isApplied: false,
+			validFullname: true,
       validChildren: true,
       validLastEducation: true
 		}
 	}
-	uploadKTP(event) {
-		this.setState({
-			full_name: event.target.value
-		})
-	}
-	uploadProfile(event) {
-		this.setState({
-			nik: event.target.value
-		})
-	}
 	setFullname(event) {
-		this.setState({
-			full_name: event.target.value
-		})
+		const regexFullname = /[A-Za-z]/g;
+		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
+			this.setState({
+				full_name: event.target.value,
+				validFullname: true
+			})
+		} else {
+			this.setState({
+				validFullname: false
+			})
+		}
 	}
 	setPhone(event) {
-		this.setState({
-			phone: event.target.value
-		})
+		const regexPhone = /^(^\+62\s?|^0)(\d{3,4}?){2}\d{3,4}$/g;
+		if (regexPhone.test(event.target.value)) {
+			this.setState({
+				phone: event.target.value,
+				validPhone : true
+			})
+		} else {
+			this.setState({
+				validPhone: false
+			})
+		}
 	}
 	setNIK(event) {
 		this.setState({
@@ -393,27 +399,14 @@ class LoanApplication extends Component {
 												/>
 											</div>
 											<h5 className="fnt-grey">Nama Lengkap</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setFullname(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setFullname(event)} />
+											{ this.state.validFullname === false ? <span style={{ color: 'red' }}>Nama Tidak boleh kurang dari 5 karakter.</span> : <span></span>}
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Nomor Handphone</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setPhone(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setPhone(event)} />
 											<div className="form-spacer" />
-											<h5 className="fnt-grey">
-												Nomor Induk Kependudukan (No KTP)
-											</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setNIK(event)}
-											/>
+											<h5 className="fnt-grey">Nomor Induk Kependudukan (No KTP)</h5>
+											<input className="input-full" type="text" onChange={event => this.setNIK(event)} />
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jenis Kelamin</h5>
 											<select onChange={event => this.setGender(event)}>
