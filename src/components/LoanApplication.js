@@ -186,11 +186,38 @@ class LoanApplication extends Component {
 		event.preventDefault()
 		let reader = new FileReader()
 		let file = event.target.files[0]
-		reader.onloadend = () => {
-			this.setState({
-				ktp: file['name'],
-				ktp64: reader.result
-			})
+
+		reader.onloadend = (readerEvent) => {
+			let image = new Image()
+			image.onload = (imageEvent) => {
+				let canvas = document.createElement('canvas')
+				let maxSizeWidth = 640
+				let maxSizeHeight = 480
+				let width = image.width
+				let height = image.height
+
+				if (width > height) {
+					if (width > maxSizeWidth) {
+						height *= maxSizeWidth / width
+						width = maxSizeWidth
+					}
+				} else {
+					if (height > maxSizeHeight) {
+						width *= maxSizeHeight / height
+						height = maxSizeHeight
+					}
+				}
+
+				canvas.width = width
+				canvas.height = height
+				canvas.getContext('2d').drawImage(image, 0, 0, width, height)
+				let dataUrl = canvas.toDataURL('image/jpeg')
+				this.setState({
+					ktp: file['name'],
+					ktp64: dataUrl
+				})
+			}
+			image.src = readerEvent.target.result
 		}
 		reader.readAsDataURL(file)
 	}
@@ -198,11 +225,37 @@ class LoanApplication extends Component {
 		event.preventDefault()
 		let reader = new FileReader()
 		let file = event.target.files[0]
-		reader.onloadend = () => {
-			this.setState({
-				ktp_selfie64: reader.result,
-				ktp_selfie: file['name']
-			})
+		reader.onloadend = (readerEvent) => {
+			let image = new Image()
+			image.onload = (imageEvent) => {
+				let canvas = document.createElement('canvas')
+				let maxSizeWidth = 640
+				let maxSizeHeight = 480
+				let width = image.width
+				let height = image.height
+
+				if (width > height) {
+					if (width > maxSizeWidth) {
+						height *= maxSizeWidth / width
+						width = maxSizeWidth
+					}
+				} else {
+					if (height > maxSizeHeight) {
+						width *= maxSizeHeight / height
+						height = maxSizeHeight
+					}
+				}
+
+				canvas.width = width
+				canvas.height = height
+				canvas.getContext('2d').drawImage(image, 0, 0, width, height)
+				let dataUrl = canvas.toDataURL('image/jpeg')
+				this.setState({
+					ktp_selfie: file['name'],
+					ktp_selfie64: dataUrl
+				})
+			}
+			image.src = readerEvent.target.result
 		}
 		reader.readAsDataURL(file)
 	}
@@ -271,7 +324,8 @@ class LoanApplication extends Component {
 		this.setState({
 			isApplied: true
 		})
-		console.log(this.state)
+		console.log(this.state.ktp64);
+		console.log(this.state.ktp_selfie64);
 		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
 		.then(result => {
 			console.log(result.data)

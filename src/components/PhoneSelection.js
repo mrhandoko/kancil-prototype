@@ -43,7 +43,6 @@ class PhoneSelection extends Component {
 		if (this.props.userDetail.partnership) {
 			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
 			.then(response => {
-				console.log('enfjwe', response.data);
 				this.setState({ products: response.data })
 			})
 			.catch(err => {
