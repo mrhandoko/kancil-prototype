@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import axios from 'axios'
-import { connect } from 'react-redux'
-import DatePicker from 'react-datepicker'
-import moment from 'moment'
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import NumberFormat from 'react-number-format';
 
-import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css';
 
-import Header from './Header'
-import Footer from './Footer'
-import { formatIDR } from '../helper'
+import Header from './Header';
+import Footer from './Footer';
+import { formatIDR } from '../helper';
 
 const Styles = {
 	uploadImage: {
