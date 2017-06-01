@@ -108,9 +108,17 @@ class SignUp extends React.Component {
 				this.setState({ registerErr: err1 })
 			})
 		})
-		.catch(err => {
-			this.setState({ registerErr: err })
+		.catch(error => {
+			this.setState({
+				registerErr: error.response.data
+			})
 		})
+	}
+
+	displayErr() {
+		return Object.keys(this.state.registerErr).map(key => (
+			<li key={key}>{key} - {this.state.registerErr[key]}</li>
+		))
 	}
 
 	componentDidMount() {
@@ -136,6 +144,11 @@ class SignUp extends React.Component {
 									<h4 className="fnt-blue">Sign Up</h4>
 								</div>
 								<div className="panel-bottom">
+								{
+									this.state.registerErr == ''
+									? <b></b>
+									: <ul>{this.displayErr()}</ul>
+								}
 									<form className="clean-form">
 										<h5 className="fnt-grey">User Name</h5>
 										<input type="text" className="input-full" onChange={event => this.setUsernameField(event)} disabled={this.state.fieldDisable} />
