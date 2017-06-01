@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
-import { setUserDetail } from '../actions'
+import { setUserDetail } from '../actions';
 
 class SignUp extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			registerErr: '',
 			email: '',
@@ -154,6 +154,8 @@ class SignUp extends React.Component {
 										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 											<div className="col-sm-12 col-md-12 col-lg-12">
 												<button className="tertiary input-full" onClick={(event) => this.registerButtonOnClick(event)}>Sign Up</button>
+												{ this.state.registerErr ? <span style={{ color: 'red' }}>Terjadi kesalahan gunakan username & email lain</span> : <span></span>}
+												{ this.state.registerErr1 ? <span style={{ color: 'red' }}>Terjadi kesalahan gunakan username & email lain</span> : <span></span>}
 											</div>
 										</div>
 									</form>
