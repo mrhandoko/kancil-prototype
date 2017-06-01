@@ -25,7 +25,7 @@ const Styles = {
 
 class LoanApplication extends Component {
 	constructor(props) {
-		super(props)
+  	super(props);
 		this.state = {
 			full_name: '',
 			nik: '',
@@ -67,6 +67,12 @@ class LoanApplication extends Component {
 			product: '',
 			isApplied: false,
 			validFullname: true,
+			validPhone: true,
+			validNIK: true,
+			validBirthplace: true,
+			validBirthdate: true,
+			validMarriedStatus: true,
+			validSpouseName: true,
       validChildren: true,
       validLastEducation: true
 		}
@@ -90,17 +96,25 @@ class LoanApplication extends Component {
 			this.setState({
 				phone: event.target.value,
 				validPhone : true
-			})
+			});
 		} else {
 			this.setState({
 				validPhone: false
-			})
+			});
 		}
 	}
 	setNIK(event) {
-		this.setState({
-			nik: event.target.value
-		})
+		const regexNIK = /[0-9]/g;
+		if (event.target.value.length >= 10 && regexNIK.test(event.target.value)) {
+			this.setState({
+				nik: event.target.value,
+				validNIK: true
+			});
+		} else {
+			this.setState({
+				validNIK: false
+			});
+		}
 	}
 	setGender(event) {
 		this.setState({
@@ -108,25 +122,58 @@ class LoanApplication extends Component {
 		})
 	}
 	setBirthPlace(event) {
-		this.setState({
-			birthplace: event.target.value
-		})
+		const regexBirthplace = /[A-Za-z]/g;
+		if (event.target.value.length >=4 && regexBirthplace.test(event.target.value)) {
+			this.setState({
+				birthplace: event.target.value,
+				validBirthplace: true
+			});
+		} else {
+			this.setState({
+				validBirthplace: false
+			});
+		}
 	}
 	setBirthday(date) {
-    this.setState({
-      birthdate: moment(date).format('DDMMYYYY'),
-      datePickerBirthdate: date
-    });
+		this.setState({
+			datePickerBirthdate: date
+		})
+		if (new Date().getFullYear() - moment(date).format('YYYY') >= 18) {
+			this.setState({
+	      birthdate: moment(date).format('DDMMYYYY'),
+				validBirthdate: true
+	    });
+		} else {
+			this.setState({
+				validBirthdate: false
+			});
+		}
 	}
 	setMarriedStatus(event) {
-		this.setState({
-			married_status: event.target.value
-		})
+		const regexMarriedStatus = /[A-Za-z]/g;
+		if (regexMarriedStatus.test(event.target.value)) {
+			this.setState({
+				married_status: event.target.value,
+				validMarriedStatus: true
+			});
+		} else {
+			this.setState({
+				validMarriedStatus: false
+			})
+		}
 	}
 	setSpouseName(event) {
-		this.setState({
-			wife_husband_name: event.target.value
-		})
+		const regexSpouseName = /[A-Za-z]/g;
+		if (regexSpouseName.test(event.target.value)) {
+			this.setState({
+				wife_husband_name: event.target.value,
+				validSpouseName: true,
+			});
+		} else {
+			this.setState({
+				validSpouseName: false,
+			});
+		}
 	}
 	setChildren(event) {
     if (event.target.value !== "none") {
@@ -392,21 +439,19 @@ class LoanApplication extends Component {
 												/>
 											</div>
 											<div style={Styles.uploadImage}>
-												<input
-													type="file"
-													id="file-input"
-													onChange={event => this.uploadProofIncome3(event)}
-												/>
+												<input type="file" id="file-input" onChange={event => this.uploadProofIncome3(event)} />
 											</div>
 											<h5 className="fnt-grey">Nama Lengkap</h5>
 											<input className="input-full" type="text" onChange={event => this.setFullname(event)} />
-											{ this.state.validFullname === false ? <span style={{ color: 'red' }}>Nama Tidak boleh kurang dari 5 karakter.</span> : <span></span>}
+											{ !this.state.validFullname ? <span style={{ color: 'red' }}>Nama Tidak boleh kurang dari 5 karakter.</span> : <span></span>}
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Nomor Handphone</h5>
 											<input className="input-full" type="text" onChange={event => this.setPhone(event)} />
+											{ !this.state.validPhone ? <span style={{ color: 'red' }}>Format salah. Nomor handphone harus diawali dengan angka 0</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Nomor Induk Kependudukan (No KTP)</h5>
 											<input className="input-full" type="text" onChange={event => this.setNIK(event)} />
+											{ !this.state.validNIK ? <span style={{ color: 'red' }}>Format NIK KTP masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jenis Kelamin</h5>
 											<select onChange={event => this.setGender(event)}>
@@ -415,11 +460,8 @@ class LoanApplication extends Component {
 											</select>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Tempat Lahir</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setBirthPlace(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setBirthPlace(event)} />
+											{ !this.state.validBirthplace ? <span style={{ color: 'red' }}>Format masih salah</span> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Tanggal Lahir</h5>
                       <DatePicker
@@ -427,6 +469,7 @@ class LoanApplication extends Component {
                         onChange={(event) => this.setBirthday(event)}
                         locale="en-gb"
                         placeholderText="Tanggal Lahir" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
+												{ !this.state.validBirthdate ? <div style={{ color: 'red' }}>Usia minimal harus 18 tahun</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Married Status</h5>
 											<select onChange={event => this.setMarriedStatus(event)}>
@@ -434,13 +477,11 @@ class LoanApplication extends Component {
 												<option value="belum kawin">Belum Kawin</option>
 												<option value="janda/duda">Janda/Duda</option>
 											</select>
+											{ !this.state.validMarriedStatus ? <div style={{ color: 'red' }}>Anda belum memilih status pernikahan</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Nama Istri/Suami</h5>
-											<input
-												className="input-full"
-												type="text"
-												onChange={event => this.setSpouseName(event)}
-											/>
+											<input className="input-full" type="text" onChange={event => this.setSpouseName(event)} />
+											{ !this.state.validSpouseName ? <div style={{ color: 'red' }}>Format masih salah</div> : <span></span> }
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Jumlah Anak</h5>
                       <select onChange={event => this.setChildren(event)}>
@@ -466,7 +507,7 @@ class LoanApplication extends Component {
 											<h5 className="fnt-grey">Gaji/Pendapatan</h5>
 											<NumberFormat value={this.state.earnings} prefix={'Rp '} decimalSeparator={'.'} thousandSeparator={true} placeholder={'Gaji/Pendapatan per bulan'} onChange={(event, value) => {
 										    const formattedValue = event.target.value;
-										    this.setState({earnings: value})
+										    this.setState({earnings: value});
 										  }}/>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Mulai Bekerja</h5>
