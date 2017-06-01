@@ -67,23 +67,30 @@ export const setPartnership = id => {
 }
 
 export const submitLoan = (finance_product, product, user) => dispatch => {
+  dispatch({
+    type: 'ADD_LOAN_REQUEST'
+  })
   axios.post(BASE_URL + 'api/loan/', {finance_product, product}, {headers: { Authorization: 'JWT ' + user.token }})
   .then(response => {
     dispatch({
-      type: 'SET_LOAN_DATA',
+      type: 'ADD_LOAN_SUCCESS',
       payload: response.data
     })
   })
-  .catch(err => console.log(err))
+  .catch(err => dispatch({
+    type: 'ADD_LOAN_ERROR',
+    payload: err
+  }))
 }
 
 export const getLoanData = user => dispatch => {
+  dispatch({ type: 'FETCH_LOAN_REQUEST' });
   axios.get(BASE_URL + 'api/loan/', {headers: { Authorization: 'JWT ' + user.token }})
   .then(response => {
     dispatch({
-      type: 'SET_LOAN_DATA',
+      type: 'FETCH_LOAN_SUCCESS',
       payload: response.data
     })
   })
-  .catch(err => console.log(err))
+  .catch(err => dispatch({ type: 'FETCH_LOAN_ERROR', payload: err }));
 }

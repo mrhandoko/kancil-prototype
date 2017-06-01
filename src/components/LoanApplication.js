@@ -25,8 +25,8 @@ const Styles = {
 }
 
 class LoanApplication extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			full_name: '',
 			nik: '',
@@ -529,6 +529,7 @@ class LoanApplication extends Component {
 												<div className="col-sm-12 col-md-12 col-lg-12 text-right">
 													<button
 														className="tertiary"
+														disabled={this.props.disableSubmitButton}
 														onClick={event => this.clickLoanApplication(event)}
 													>
 														Submit
@@ -553,7 +554,8 @@ class LoanApplication extends Component {
 const mapStateToProps = state => ({
 	user: state.user,
 	userDetail: state.userDetail,
-	product: state.product
+	product: state.product,
+	disableSubmitButton: state.loanApp.isLoading,
 })
 
 export default connect(mapStateToProps, null)(LoanApplication)
