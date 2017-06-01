@@ -84,8 +84,8 @@ class Login extends Component {
                 { !this.state.validEmail && <span style={{ color: 'red' }}>Format Email salah</span>}
                 <div className="form-spacer" />
                 <h5 className="fnt-grey">Password</h5>
-                <input type="text" className="input-full" onChange={event => this.setPasswordField(event)} />
-                { !this.state.validPassword && <span style={{ color: 'red' }}>Format Email salah</span>}
+                <input type="password" className="input-full" onChange={event => this.setPasswordField(event)} />
+                { !this.state.validPassword && <span style={{ color: 'red' }}>Password masih salah</span>}
                 <div className="row" style={{borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem'}}>
                   <div className="col-sm-12 col-md-12 col-lg-12">
                     <button className="tertiary input-full" onClick={event => this.clickLogin(event)}>Login</button>

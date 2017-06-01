@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import NumberFormat from 'react-number-format';
 
 import Header from './Header'
 import Footer from './Footer'
@@ -191,8 +192,12 @@ class PhoneSelection extends Component {
 				                <div className="card fluid">
 				                  <div className="section text-center">
 				                    <img src={data.product.image} alt={data.product.model} />
-				                    <h4 >{data.product.model}<small>Rp. {data.product.price}</small></h4>
-				                    <small>{Math.ceil((data.product.price + (data.product.price * data.partnership.interest / 100))/data.tenore)} per {data.unit} for {data.tenore} month</small>
+				                    <h4>{data.product.model}<small><NumberFormat value={data.product.price} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /></small></h4>
+														<div>
+															<small><NumberFormat value={Math.ceil((data.product.price + (data.product.price * data.partnership.interest / 100))/data.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} style={{ fontSize: 12 }} />
+				                    	{/* per {data.unit} untuk  */}
+															/{data.tenore} Bulan</small>
+														</div>
 				                    <a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
 				                  </div>
 				                </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import NumberFormat from 'react-number-format';
 
 import Header from './Header'
 import Footer from './Footer'
@@ -40,28 +41,16 @@ class LoanReview extends Component {
 								</div>
 								<div className="panel-bottom">
 									<div className="clean-form">
+										<center>
 										<h5 className="fnt-grey">Produk</h5>
-										<img src={this.props.product.product.image} alt="" />
-										{this.props.product.product.model}
-										<div className="form-spacer" />
-										<h5 className="fnt-grey">Cicilan/Bulan</h5>
-										{Math.ceil(
-											(this.props.product.product.price +
-												this.props.product.product.price *
-													this.props.product.partnership.interest /
-													100) /
-												this.props.product.tenore
-										)}
-										{' '}
-										per
-										{' '}
-										{this.props.product.unit}
-										{' '}
-										untuk
-										{' '}
-										{this.props.product.tenore}
-										{' '}
-										Bulan
+											<img src={this.props.product.product.image} alt="" />
+											<div>{this.props.product.product.model}</div>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Cicilan/Bulan</h5>
+											<NumberFormat value={Math.ceil((this.props.product.product.price + this.props.product.product.price * this.props.product.partnership.interest/100)/this.props.product.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} />
+											{/* per {this.props.product.unit} {' '} untuk  */}
+											/{this.props.product.tenore} Bulan
+										</center>
 										<div
 											className="row"
 											style={{
