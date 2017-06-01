@@ -6,7 +6,7 @@ import Footer from './Footer';
 const FAQ = () => (
   <div>
     <Header />
-    <div className="container" style={{padding: '10vh 0'}}>
+    <div className="container" style={{ padding: '10vh 0' }}>
       <div className="row">
         <div className="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
           <h1>FAQ</h1>
@@ -42,6 +42,6 @@ const FAQ = () => (
     </div>
     <Footer />
   </div>
-)
+);
 
-export default FAQ
+export default FAQ;

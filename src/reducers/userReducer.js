@@ -1,4 +1,4 @@
-const initialState = {isLogin: false};
+const initialState = { isLogin: false };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -8,6 +8,8 @@ export const userReducer = (state = initialState, action) => {
       return action.payload;
     case 'LOGOUT_TOKEN':
       return state;
+    case 'LOGIN_FAILED':
+      return action.payload;
     default:
       return state;
   }

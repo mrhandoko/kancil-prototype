@@ -1,12 +1,13 @@
-import axios from 'axios'
-const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/'
+import axios from 'axios';
+
+const BASE_URL = 'http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/';
 
 export const loginRequest = (email, password) => dispatch => {
-  axios.post(BASE_URL + 'auth/login/', {email, password})
+  axios.post(BASE_URL + 'auth/login/', { email, password })
   .then(response => {
     if (response.data.user.email === email) {
-      response.data['isSucceed'] = true
-      response.data['isLogin'] = true
+      response.data['isSucceed'] = true;
+      response.data['isLogin'] = true;
       dispatch({
         type: 'SET_USER_DATA',
         payload: response.data

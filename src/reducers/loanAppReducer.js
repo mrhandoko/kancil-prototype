@@ -1,6 +1,6 @@
 const initialState = {
   isLoading: false,
-  loans: []
+  loans: [],
 };
 
 export const loanAppReducer = (state = initialState, action) => {
