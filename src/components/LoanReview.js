@@ -1,30 +1,35 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
 
-import { submitLoan } from '../actions'
+import { submitLoan } from '../actions';
 
 class LoanReview extends Component {
 	constructor() {
-		super()
+		super();
 		this.state = {
-			isSubmit: false
-		}
+			isSubmit: false,
+		};
 	}
 	submitLoan() {
 		this.props.submitLoan(
 			this.props.product.id,
 			this.props.product.product.id,
-			this.props.user
-		)
+			this.props.user,
+		);
 		this.setState({
-			isSubmit: true
-		})
+			isSubmit: true,
+		});
+	}
+	componentDidMount() {
+		if (this.props.product.product.brand !== '') {
+			localStorage.setItem('loanReview', JSON.stringify(this.props.product));
+		}
 	}
 	render() {
 		if (this.state.isSubmit) {
@@ -43,27 +48,17 @@ class LoanReview extends Component {
 									<div className="clean-form">
 										<center>
 										<h5 className="fnt-grey">Produk</h5>
-											<img src={this.props.product.product.image} alt="" />
-											<div>{this.props.product.product.model}</div>
+											<img src={JSON.parse(localStorage.loanReview).product.image} alt="" />
+											<div>{JSON.parse(localStorage.loanReview).product.model}</div>
 											<div className="form-spacer" />
 											<h5 className="fnt-grey">Cicilan/Bulan</h5>
-											<NumberFormat value={Math.ceil((this.props.product.product.price + this.props.product.product.price * this.props.product.partnership.interest/100)/this.props.product.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} />
-											{/* per {this.props.product.unit} {' '} untuk  */}
-											/{this.props.product.tenore} Bulan
+											<NumberFormat value={Math.ceil((JSON.parse(localStorage.loanReview).product.price + JSON.parse(localStorage.loanReview).product.price * JSON.parse(localStorage.loanReview).partnership.interest/100)/JSON.parse(localStorage.loanReview).tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} />
+											{/* per {JSON.parse(localStorage.loanReview).unit} {' '} untuk  */}
+											/{JSON.parse(localStorage.loanReview).tenore} Bulan
 										</center>
-										<div
-											className="row"
-											style={{
-												borderTop: '1px solid #eaeaea',
-												margin: '1rem 0',
-												paddingTop: '1rem'
-											}}
-										>
+										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 											<div className="col-sm-12 col-md-12 col-lg-12">
-												<button
-													className="tertiary input-full"
-													onClick={event => this.submitLoan(event)}
-												>
+												<button className="tertiary input-full" onClick={event => this.submitLoan(event)}>
 													Kirim Aplikasi Pinjaman
 												</button>
 											</div>
@@ -75,17 +70,16 @@ class LoanReview extends Component {
 					</div>
 					<Footer />
 				</div>
-			)
+			);
 		}
 	}
 }
 
 const mapStateToProps = state => ({
 	product: state.product,
-	user: state.user
-})
+	user: state.user,
+});
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators({ submitLoan }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ submitLoan }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoanReview)
+export default connect(mapStateToProps, mapDispatchToProps)(LoanReview);
