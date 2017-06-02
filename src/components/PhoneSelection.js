@@ -1,84 +1,69 @@
-import React, { Component } from 'react'
-import VanillaModal from 'vanilla-modal'
-import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import axios from 'axios'
+import React, { Component } from 'react';
+import VanillaModal from 'vanilla-modal';
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
 
-import { selectPhone } from '../actions'
+import { selectPhone, getDataPhone } from '../actions';
 
 class PhoneSelection extends Component {
 	constructor() {
-		super()
+		super();
 		this.state = {
 			isLogin: false,
 			phone: '',
 			price: '',
 			products: '',
-			modalProduct: -1
-		}
-	}
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.userDetail.partnership)
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + nextProps.userDetail.partnership + '/')
-			.then(response => {
-				console.log(response.data);
-				this.setState({ products: response.data })
-			})
-			.catch(err => {
-				console.log(err);
-			})
+			modalProduct: -1,
+		};
 	}
 
 	componentDidMount() {
-		this.modal = new VanillaModal()
-		if (window.localStorage.length === 1) {
-			this.setState({ isLogin: true })
-		}
+		this.modal = new VanillaModal();
 
-		if (this.props.userDetail.partnership) {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
-			.then(response => {
-				console.log('enfjwe', response.data);
-				this.setState({ products: response.data })
-			})
-			.catch(err => {
-				console.log(err);
-			})
-		}
-		else {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/3/')
-			.then(response => {
-				this.setState({ products: response.data })
-			})
-			.catch(err => {
-				console.log(err)
-			})
-		}
+		// if (this.props.userDetail.partnership) {
+		// 	axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
+		// 	.then(response => {
+		// 		this.setState({ products: response.data });
+		// 	})
+		// 	.catch(err => {
+		// 		console.log(err);
+		// 	});
+		// 	this.props.getDataPhone(this.props.userDetail.partnership);
+		// } else {
+		// 	this.props.getDataPhone('');
+		// }
+		this.props.getDataPhone('');
+	}
+
+	componentWillReceiveProps(nextProps) {
+		// if (nextProps.userDetail.partnership) {
+		// 	axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + nextProps.userDetail.partnership + '/')
+		// 	.then(response => {
+		// 		this.setState({ products: response.data });
+		// 	})
+		// 	.catch(err => {
+		// 		console.log(err);
+		// 	});
+		// }
 	}
 
 	componentWillUnmount() {
-		this.modal.destroy()
+		this.modal.destroy();
 	}
 
 	productModals() {
 		if (this.state.modalProduct !== -1) {
-			let data = this.state.products[this.state.modalProduct]
-			console.log('product modals', this.state.modalProduct)
-			console.log('phone data', data.product)
+			const data = this.state.products[this.state.modalProduct];
 			return (
 				<div>
 					<center><img src={data.product.image} alt="" /></center>
 					<center>
-						<Link
-							className="button primary"
-							to="/loan-application"
-							onClick={() => this.chooseThisPhone(data)}
-						>
+						<Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone(data)}>
 							Buy This Phone
 						</Link>
 					</center>
@@ -110,14 +95,13 @@ class PhoneSelection extends Component {
 					</div>
 					<div />
 				</div>
-			)
+			);
 		}
-		return <p></p>
+		return <p />;
 	}
 
 	chooseThisPhone(data) {
-		console.log(data)
-		this.props.selectPhone(data)
+		this.props.selectPhone(data);
 	}
 	render() {
 		return (
@@ -223,16 +207,16 @@ class PhoneSelection extends Component {
 	      </div>
 				<Footer />
 			</div>
-		)
+		);
 	}
 }
 
 const mapStateToProps = state => ({
 	user: state.user,
-	userDetail: state.userDetail
-})
+	userDetail: state.userDetail,
+	products: state.product,
+});
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators({ selectPhone }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ selectPhone, getDataPhone }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhoneSelection)
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneSelection);

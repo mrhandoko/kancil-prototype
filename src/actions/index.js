@@ -48,23 +48,47 @@ export const getUserDetail = user => dispatch => {
 }
 
 export const selectPhone = data => {
-  console.log('fireedd');
   return {
     type: 'SELECT_PHONE',
-    payload: data
+    payload: data,
+  };
+}
+
+export const getDataPhone = id => dispatch => {
+  if (id = '') {
+    axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/3/')
+    .then(response => dispatch({
+      type: 'GET_DATA_PHONE',
+      payload: response.data
+    }))
+    .catch(error => dispatch({
+      type: 'GET_DATA_PHONE_ERROR',
+      payload: error.response.data
+    }));
+  } else {
+    console.log('actions', id);
+    axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + id + '/')
+    .then(response => dispatch({
+      type: 'GET_DATA_PHONE',
+      payload: response.data
+    }))
+    .catch(error => dispatch({
+      type: 'GET_DATA_PHONE_ERROR',
+      payload: error.response.data
+    }));
   }
 }
 
 export const setUserDetail = data => ({
   type: 'SET_USER_DETAIL',
-  payload: data
-})
+  payload: data,
+});
 
 export const setPartnership = id => {
   return ({
     type: 'SET_PARTNER_ID',
-    payload: {id}
-  })
+    payload: {id},
+  });
 }
 
 export const submitLoan = (finance_product, product, user) => dispatch => {
