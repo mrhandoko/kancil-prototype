@@ -26,9 +26,9 @@ class LoanReview extends Component {
 	chosenTenore() {
 		const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
 		const price = JSON.parse(localStorage.loanReview)[0].price;
-		const finance = JSON.parse(localStorage.loanReview)[0].finance_option
-		const financeOption = finance.map(data => data.id)
-		const financeOptionID = financeOption.indexOf(parseInt(tenoreID))
+		const finance = JSON.parse(localStorage.loanReview)[0].finance_option;
+		const financeOption = finance.map(data => data.id);
+		const financeOptionID = financeOption.indexOf(parseInt(tenoreID));
 		this.setState({
 			financeID: financeOption,
 			tenore: finance[financeOptionID].tenore,
@@ -62,24 +62,27 @@ class LoanReview extends Component {
 									<div className="clean-form">
 										<center>
 										<h5 className="fnt-grey">Produk</h5>
-											{
-												JSON.parse(localStorage.loanReview).map((item, index) => {
-													return (
-														<div>
-															<img src={item.image} alt="" />
-															<div>{item.model}</div>
-															<div className="form-spacer" />
-															<h5 className="fnt-grey">Cicilan/Bulan</h5>
-															<NumberFormat
-																value={this.chosenTenore()}
-																displayType={'text'}
-																prefix={'Rp. '}
-																thousandSeparator={true}
-															/> x {this.state.tenore} Bulan
-														</div>
-													)
-												})
-											}
+										<div>
+										{
+											JSON.parse(localStorage.loanReview).length !== 0 &&
+											JSON.parse(localStorage.loanReview).map((item, index) => {
+												return (
+													<div>
+														<img src={item.image} alt="" />
+														<div>{item.model}</div>
+														<div className="form-spacer" />
+														<h5 className="fnt-grey">Cicilan/Bulan</h5>
+														<NumberFormat
+															value={this.chosenTenore()}
+															displayType={'text'}
+															prefix={'Rp. '}
+															thousandSeparator={true}
+														/> x {this.state.tenore} Bulan
+													</div>
+												)
+											})
+										}
+										</div>
 										</center>
 										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 											<div className="col-sm-12 col-md-12 col-lg-12">
