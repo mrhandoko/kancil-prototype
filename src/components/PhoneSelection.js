@@ -211,7 +211,7 @@ class PhoneSelection extends Component {
 																data.finance_option.length !== 0 ?
 																data.finance_option.map((item, index) => {
 																	return (
-																		<li key={index} style={{ listStyleType: "none" }}><NumberFormat value={Math.ceil(data.price/item.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} style={{ fontSize: 13 }} /><span style={{ fontSize: 13 }}>/{item.tenore} Bln</span></li>
+																		<li key={index} style={{ listStyleType: "none" }}><NumberFormat value={Math.ceil((data.price + data.price * item.partnership.interest/100)/item.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} style={{ fontSize: 13 }} /><span style={{ fontSize: 13 }}>/{item.tenore} Bln</span></li>
 																	)
 																}) : <li></li>
 															}

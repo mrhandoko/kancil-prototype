@@ -13,12 +13,13 @@ class LoanReview extends Component {
 	constructor() {
 		super();
 		this.state = {
+			financeID: 0,
 			isSubmit: false,
 		};
 	}
 	submitLoan() {
 		this.props.submitLoan(
-			this.props.product.id,
+			this.state.financeID,
 			this.props.product.id,
 			this.props.user,
 		);
@@ -32,9 +33,15 @@ class LoanReview extends Component {
 		}
 	}
 	chosenTenore() {
-		// const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID)
-		// const price = JSON.parse(localStorage.loanReview).price
-		// const
+		const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
+		const price = JSON.parse(localStorage.loanReview)[0].price;
+		const finance = JSON.parse(localStorage.loanReview)[0].finance_option
+		const financeOption = finance.map(data => data.id)
+		const financeOptionID = financeOption.indexOf(parseInt(tenoreID))
+		this.setState({
+			financeID: financeOption
+		});
+		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore)
 	}
 	render() {
 		if (this.state.isSubmit) {

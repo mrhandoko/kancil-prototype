@@ -303,26 +303,79 @@ class LoanApplication extends Component {
 	}
 
 	uploadKTPImage(event) {
-		event.preventDefault();
-		const reader = new FileReader();
-		const file = event.target.files[0];
-		reader.onloadend = () => {
-			this.setState({
-				ktp: file[name],
-				ktp64: reader.result,
-			});
-		};
-		reader.readAsDataURL(file);
+		event.preventDefault()
+		let reader = new FileReader()
+		let file = event.target.files[0]
+
+		reader.onloadend = (readerEvent) => {
+			let image = new Image()
+			image.onload = (imageEvent) => {
+				let canvas = document.createElement('canvas')
+				let maxSizeWidth = 640
+				let maxSizeHeight = 480
+				let width = image.width
+				let height = image.height
+
+				if (width > height) {
+					if (width > maxSizeWidth) {
+						height *= maxSizeWidth / width
+						width = maxSizeWidth
+					}
+				} else {
+					if (height > maxSizeHeight) {
+						width *= maxSizeHeight / height
+						height = maxSizeHeight
+					}
+				}
+
+				canvas.width = width
+				canvas.height = height
+				canvas.getContext('2d').drawImage(image, 0, 0, width, height)
+				let dataUrl = canvas.toDataURL('image/jpeg')
+				this.setState({
+					ktp: file['name'],
+					ktp64: dataUrl
+				})
+			}
+			image.src = readerEvent.target.result
+		}
+		reader.readAsDataURL(file)
 	}
 	uploadKTPSelfieImage(event) {
-		event.preventDefault();
-		const reader = new FileReader();
-		const file = event.target.files[0];
-		reader.onloadend = () => {
-			this.setState({
-				ktp_selfie64: reader.result,
-				ktp_selfie: file[name]
-			})
+		event.preventDefault()
+		let reader = new FileReader()
+		let file = event.target.files[0]
+		reader.onloadend = (readerEvent) => {
+			let image = new Image()
+			image.onload = (imageEvent) => {
+				let canvas = document.createElement('canvas')
+				let maxSizeWidth = 640
+				let maxSizeHeight = 480
+				let width = image.width
+				let height = image.height
+
+				if (width > height) {
+					if (width > maxSizeWidth) {
+						height *= maxSizeWidth / width
+						width = maxSizeWidth
+					}
+				} else {
+					if (height > maxSizeHeight) {
+						width *= maxSizeHeight / height
+						height = maxSizeHeight
+					}
+				}
+
+				canvas.width = width
+				canvas.height = height
+				canvas.getContext('2d').drawImage(image, 0, 0, width, height)
+				let dataUrl = canvas.toDataURL('image/jpeg')
+				this.setState({
+					ktp_selfie: file['name'],
+					ktp_selfie64: dataUrl
+				})
+			}
+			image.src = readerEvent.target.result;
 		}
 		reader.readAsDataURL(file)
 	}
@@ -450,7 +503,7 @@ class LoanApplication extends Component {
 																	item.finance_option.map((cicilan, index) => {
 																		return (
 																			<option key={index} value={cicilan.id}>
-																				<NumberFormat value={Math.ceil(item.price/cicilan.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /><span>/{cicilan.tenore}Bulan</span>
+																				<NumberFormat value={Math.ceil((item.price + item.price * cicilan.partnership.interest/100)/cicilan.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /><span>/{cicilan.tenore}Bulan</span>
 																			</option>
 																		)
 																	}) : <option></option>
