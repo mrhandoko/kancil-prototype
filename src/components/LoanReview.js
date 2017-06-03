@@ -14,18 +14,9 @@ class LoanReview extends Component {
 		super();
 		this.state = {
 			financeID: 0,
+			tenore: 0,
 			isSubmit: false,
 		};
-	}
-	submitLoan() {
-		this.props.submitLoan(
-			this.state.financeID,
-			this.props.product.id,
-			this.props.user,
-		);
-		this.setState({
-			isSubmit: true,
-		});
 	}
 	componentWillMount() {
 		if (this.props.product.length !== 0) {
@@ -39,9 +30,20 @@ class LoanReview extends Component {
 		const financeOption = finance.map(data => data.id)
 		const financeOptionID = financeOption.indexOf(parseInt(tenoreID))
 		this.setState({
-			financeID: financeOption
+			financeID: financeOption,
+			tenore: finance[financeOptionID].tenore,
 		});
-		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore)
+		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore);
+	}
+	submitLoan() {
+		this.props.submitLoan(
+			this.state.financeID,
+			this.props.product.id,
+			this.props.user,
+		);
+		this.setState({
+			isSubmit: true,
+		});
 	}
 	render() {
 		if (this.state.isSubmit) {
@@ -73,7 +75,7 @@ class LoanReview extends Component {
 																displayType={'text'}
 																prefix={'Rp. '}
 																thousandSeparator={true}
-															/>
+															/> x {this.state.tenore} Bulan
 														</div>
 													)
 												})
