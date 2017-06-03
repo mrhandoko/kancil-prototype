@@ -55,18 +55,18 @@ export const selectPhone = data => {
 }
 
 export const getDataPhone = id => dispatch => {
-  if (id = '') {
+  console.log('cek id', id);
+  if (id === '') {
     axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/3/')
     .then(response => dispatch({
       type: 'GET_DATA_PHONE',
-      payload: response.data
+      payload: response.data,
     }))
     .catch(error => dispatch({
       type: 'GET_DATA_PHONE_ERROR',
-      payload: error.response.data
+      payload: error,
     }));
   } else {
-    console.log('actions', id);
     axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + id + '/')
     .then(response => dispatch({
       type: 'GET_DATA_PHONE',
@@ -74,7 +74,7 @@ export const getDataPhone = id => dispatch => {
     }))
     .catch(error => dispatch({
       type: 'GET_DATA_PHONE_ERROR',
-      payload: error.response.data
+      payload: error
     }));
   }
 }

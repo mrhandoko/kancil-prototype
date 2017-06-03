@@ -23,9 +23,9 @@ class PhoneSelection extends Component {
 		};
 	}
 
-	// componentWillMount() {
-	// 	this.props.getDataPhone('')
-	// }
+	componentWillMount() {
+		this.props.getDataPhone('')
+	}
 
 	componentDidMount() {
 		this.modal = new VanillaModal();
@@ -43,29 +43,20 @@ class PhoneSelection extends Component {
 		// 	axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/3/')
 		// 	.then(response => {
 		// 		this.setState({ products: this.props.products });
+		// 		console.log('fuckt', this.state.products);
 		// 	})
 		// 	.catch(err => {
 		// 		console.log(err);
 		// 	});
 		// }
-
-		if (this.props.userDetail.partnership) {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
-				.then(response => {
-					this.setState({ products: response.data });
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		} else {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
-				.then(response => {
-					this.setState({ products: response.data });
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		}
+		axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/')
+			.then(response => {
+				console.log(response.data);
+				this.setState({ products: response.data });
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
 
 	// componentWillReceiveProps(nextProps) {
@@ -89,7 +80,7 @@ class PhoneSelection extends Component {
 			const data = this.state.products[this.state.modalProduct];
 			return (
 				<div>
-					<center><img src={data.image} alt="" /></center>
+					<center><img src={data.product.image} alt="" /></center>
 					<center>
 						<Link className="button primary" to="/loan-application" onClick={() => this.chooseThisPhone(data)}>
 							Buy This Phone
@@ -101,7 +92,7 @@ class PhoneSelection extends Component {
 							<b>Brand</b>
 						</div>
 						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-							<p>{data.brand}</p>
+							<p>{data.product.brand}</p>
 						</div>
 					</div>
 					<div className="row product-spec-row">
@@ -109,7 +100,7 @@ class PhoneSelection extends Component {
 							<b>Model</b>
 						</div>
 						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-							<p>{data.model}</p>
+							<p>{data.product.model}</p>
 							<br />
 						</div>
 					</div>
@@ -118,7 +109,7 @@ class PhoneSelection extends Component {
 							<b>Deskripsi</b>
 						</div>
 						<div className="col-sm-12 col-md-9 col-lg-9 fnt-grey">
-							<p>{data.desc}</p>
+							<p>{data.product.desc}</p>
 						</div>
 					</div>
 					<div />
@@ -203,21 +194,14 @@ class PhoneSelection extends Component {
 				              <div key={data.id} className="col-sm-12 col-md-6 col-lg-4">
 				                <div className="card fluid">
 				                  <div className="section text-center">
-				                    <img src={data.image} alt={data.model} />
-				                    <h4>{data.model}<small><NumberFormat value={data.price} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /></small></h4>
+				                    <img src={data.product.image} alt={data.product.model} />
+				                    <h4>{data.product.model}<small><NumberFormat value={data.product.price} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /></small></h4>
 														<div>
-															<ul>
-															{
-																data.finance_option.length !== 0 ?
-																data.finance_option.map((item, index) => {
-																	return (
-																		<li key={index} style={{ listStyleType: "none" }}><NumberFormat value={Math.ceil((data.price + data.price * item.partnership.interest/100)/item.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} style={{ fontSize: 13 }} /><span style={{ fontSize: 13 }}>/{item.tenore} Bln</span></li>
-																	)
-																}) : <li></li>
-															}
-															</ul>
+															<small><NumberFormat value={Math.ceil((data.product.price + (data.product.price * data.partnership.interest / 100))/data.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} style={{ fontSize: 12 }} />
+				                    	{/* per {data.unit} untuk  */}
+															/{data.tenore} Bulan</small>
 														</div>
-				                    <a className="button" style={{ width: '80%' }} href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
+				                    <a className="button" href="#product-specs" data-modal-open onClick={() => this.setState({ modalProduct: index })}>View Details</a>
 				                  </div>
 				                </div>
 				              </div>
