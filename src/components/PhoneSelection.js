@@ -23,31 +23,8 @@ class PhoneSelection extends Component {
 		};
 	}
 
-	// componentWillMount() {
-	// 	this.props.getDataPhone('')
-	// }
-
 	componentDidMount() {
 		this.modal = new VanillaModal();
-
-		// if (this.props.userDetail.partnership) {
-		// 	axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/' + this.props.userDetail.partnership + '/')
-		// 	.then(response => {
-		// 		this.setState({ products: this.props.products });
-		// 	})
-		// 	.catch(err => {
-		// 		console.log(err);
-		// 	});
-		// } else {
-		// 	console.log('haaarrddd');
-		// 	axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/finance-product/3/')
-		// 	.then(response => {
-		// 		this.setState({ products: this.props.products });
-		// 	})
-		// 	.catch(err => {
-		// 		console.log(err);
-		// 	});
-		// }
 
 		if (this.props.userDetail.partnership) {
 			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
@@ -135,11 +112,11 @@ class PhoneSelection extends Component {
 		return (
 			<div>
 				<Header />
-				<div className="container" style={{padding: '25px 0'}}>
-	        <div className="row">
+				<div className="container" style={{ padding: '25px 0' }}>
+					<div className="row">
 	          <div className="col-sm-12 col-md-3 col-md-offset-1 col-lg-2 col-lg-offset-2">
-	            <div className="text-right">
-	              <a href="#side-panel" className="button hidden-md hidden-lg primary" data-modal-open>Filters</a>
+							<div className="text-right">
+								<a href="#side-panel" className="button hidden-md hidden-lg primary" data-modal-open>Filters</a>
 	            </div>
 	            <div className="hidden-sm" id="side-panel">
 	              <div className="panel-top">
