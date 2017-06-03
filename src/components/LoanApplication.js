@@ -65,6 +65,7 @@ class LoanApplication extends Component {
 			proof_income3: '',
 			fileProofIncome3: '',
 			product: '',
+			financeProductID: 33,
 			isApplied: false,
 			validFullname: true,
 			validPhone: true,
@@ -84,6 +85,11 @@ class LoanApplication extends Component {
 			validKodepos: true,
 			isChecked: true,
 		};
+	}
+	chooseTenore(event) {
+		this.setState({
+			financeProductID: event.target.value,
+		});
 	}
 	setFullname(event) {
 		const regexFullname = /[A-Za-z]/g;
@@ -342,7 +348,7 @@ class LoanApplication extends Component {
 				family_card: file['name']
 			})
 		}
-		reader.readAsDataURL(file)
+		reader.readAsDataURL(file);
 	}
 	uploadProofIncome1(event) {
 		event.preventDefault()
@@ -375,20 +381,20 @@ class LoanApplication extends Component {
 		reader.onloadend = () => {
 			this.setState({
 				proof_income364: reader.result,
-				proof_income3: file['name']
+				proof_income3: file[name],
 			})
-		}
-		reader.readAsDataURL(file)
+		};
+		reader.readAsDataURL(file);
 	}
 	clickLoanApplication(event) {
-		event.preventDefault()
-		if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
+		event.preventDefault();
+		localStorage.setItem('loanApplication', JSON.stringify(this.state));
+		// if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
 			this.setState({
 				isApplied: true
 			});
 			axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
 			.then(result => {
-				localStorage.setItem('loanApplication', this.state);
 				this.setState({ isApplied: true })
 			})
 			.catch(error => {
@@ -397,11 +403,11 @@ class LoanApplication extends Component {
 					loanApplicationErr: error.response.data,
 				});
 			});
-		} else {
-			this.setState({
-				isChecked: false,
-			});
-		}
+		// } else {
+		// 	this.setState({
+		// 		isChecked: false,
+		// 	});
+		// }
 	}
 
 	displayErr() {
@@ -427,14 +433,34 @@ class LoanApplication extends Component {
 									<div className="panel-bottom">
 										<br />
 										<div className="text-center">
-											{ this.props.product.interest_source ?
+											{ this.props.product.length !== 0 ?
 												<div>
-													<img src={this.props.product.product.image} alt="" />
-														<h4>
-															{this.props.product.product.model}
-															<small>{this.props.product.product.price}</small>
-														</h4>
-													</div>
+													{ this.props.product.map((item, index) => {
+														return (
+															<div key={index}>
+																<img src={item.image} alt="" />
+																<h4>
+																	{item.model}
+																	<small>{item.price}</small>
+																</h4>
+																<div>
+																<select style={{ width: '90%' }} onChange={event => this.chooseTenore(event)}>
+																{
+																	item.finance_option.length !== 0 ?
+																	item.finance_option.map((cicilan, index) => {
+																		return (
+																			<option key={index} value={cicilan.id}>
+																				<NumberFormat value={Math.ceil(item.price/cicilan.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /><span>/{cicilan.tenore}Bulan</span>
+																			</option>
+																		)
+																	}) : <option></option>
+																}
+																</select>
+																</div>
+															</div>
+														);
+													})}
+												</div>
 												: <h4>Please pick product first</h4>}
 											<Link className="button primary" to="/phone">
 												Choose a Different Phone

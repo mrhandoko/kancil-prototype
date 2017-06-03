@@ -27,14 +27,9 @@ class LoanReview extends Component {
 		});
 	}
 	componentWillMount() {
-		if (this.props.product.length !== 0) {
+		if (this.props.product.id !== '') {
 			localStorage.setItem('loanReview', JSON.stringify(this.props.product));
 		}
-	}
-	chosenTenore() {
-		// const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID)
-		// const price = JSON.parse(localStorage.loanReview).price
-		// const
 	}
 	render() {
 		if (this.state.isSubmit) {
@@ -53,24 +48,13 @@ class LoanReview extends Component {
 									<div className="clean-form">
 										<center>
 										<h5 className="fnt-grey">Produk</h5>
-											{
-												JSON.parse(localStorage.loanReview).map((item, index) => {
-													return (
-														<div>
-															<img src={item.image} alt="" />
-															<div>{item.model}</div>
-															<div className="form-spacer" />
-															<h5 className="fnt-grey">Cicilan/Bulan</h5>
-															<NumberFormat
-																value={this.chosenTenore()}
-																displayType={'text'}
-																prefix={'Rp. '}
-																thousandSeparator={true}
-															/>
-														</div>
-													)
-												})
-											}
+											<img src={JSON.parse(localStorage.loanReview).product.image} alt="" />
+											<div>{JSON.parse(localStorage.loanReview).product.model}</div>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Cicilan/Bulan</h5>
+											<NumberFormat value={Math.ceil((JSON.parse(localStorage.loanReview).product.price + JSON.parse(localStorage.loanReview).product.price * JSON.parse(localStorage.loanReview).partnership.interest/100)/JSON.parse(localStorage.loanReview).tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} />
+											{/* per {JSON.parse(localStorage.loanReview).unit} {' '} untuk  */}
+											/{JSON.parse(localStorage.loanReview).tenore} Bulan
 										</center>
 										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 											<div className="col-sm-12 col-md-12 col-lg-12">
