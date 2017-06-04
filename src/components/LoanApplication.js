@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -65,7 +65,8 @@ class LoanApplication extends Component {
 			proof_income3: '',
 			fileProofIncome3: '',
 			product: '',
-			financeProductID: 33,
+			financeProductID: 0,
+			isLogin: false,
 			isApplied: false,
 			validFullname: true,
 			validPhone: true,
@@ -83,12 +84,23 @@ class LoanApplication extends Component {
 			validCity: true,
 			validProvinsi: true,
 			validKodepos: true,
+			validFinanceProductID: true,
 			isChecked: true,
 		};
 	}
+	// componentWillMount() {
+	// 	if (window.localStorage.getItem('userDetail') !== null) {
+	// 		if (window.localStorage.length !== 0) {
+	// 			this.setState({
+	// 				isLogin: true
+	// 			})
+	// 		}
+	// 	}
+	// }
 	chooseTenore(event) {
 		this.setState({
 			financeProductID: event.target.value,
+			validFinanceProductID: true,
 		});
 	}
 	setFullname(event) {
@@ -292,15 +304,6 @@ class LoanApplication extends Component {
 			});
 		}
 	}
-	componentWillMount() {
-		if (window.localStorage.getItem('userDetail') !== null) {
-			if (window.localStorage.length !== 0) {
-				this.setState({
-					isLogin: true,
-				});
-			}
-		}
-	}
 
 	uploadKTPImage(event) {
 		event.preventDefault()
@@ -392,9 +395,9 @@ class LoanApplication extends Component {
 		reader.readAsDataURL(file)
 	}
 	uploadFamilyCardImage(event) {
-		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		event.preventDefault();
+		let reader = new FileReader();
+		let file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				family_card64: reader.result,
@@ -404,9 +407,9 @@ class LoanApplication extends Component {
 		reader.readAsDataURL(file);
 	}
 	uploadProofIncome1(event) {
-		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		event.preventDefault();
+		let reader = new FileReader();
+		let file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				proof_income164: reader.result,
@@ -429,33 +432,40 @@ class LoanApplication extends Component {
 	}
 	uploadProofIncome3(event) {
 		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		let reader = new FileReader();
+		let file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				proof_income364: reader.result,
 				proof_income3: file[name],
-			})
+			});
 		};
 		reader.readAsDataURL(file);
 	}
 	clickLoanApplication(event) {
 		event.preventDefault();
+		if (this.state.financeProductID !== 0) {
 		localStorage.setItem('loanApplication', JSON.stringify(this.state));
+			console.log(this.state.financeProductID);
 		// if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
 			this.setState({
 				isApplied: true
 			});
-			axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
-			.then(result => {
-				this.setState({ isApplied: true })
+		} else {
+			this.setState({
+				isApplied: false,
+				validFinanceProductID: false,
 			})
-			.catch(error => {
-				console.log(error);
-				this.setState({
-					loanApplicationErr: error.response.data,
-				});
-			});
+		}
+			// axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
+			// .then(result => {
+			// 	// this.setState({ isApplied: true })
+			// })
+			// .catch(error => {
+			// 	this.setState({
+			// 		loanApplicationErr: error.response.data,
+			// 	});
+			// });
 		// } else {
 		// 	this.setState({
 		// 		isChecked: false,
@@ -470,7 +480,7 @@ class LoanApplication extends Component {
 		// ));
 	}
 	render() {
-		if (this.state.isLogin) {
+		if (this.props.user.isLogin) {
 			if (this.state.isApplied) {
 				return <Redirect to="/loan-review" />
 			} else {
@@ -500,9 +510,9 @@ class LoanApplication extends Component {
 																<select style={{ width: '90%' }} onChange={event => this.chooseTenore(event)}>
 																{
 																	item.finance_option.length !== 0 ?
-																	item.finance_option.map((cicilan, index) => {
+																	item.finance_option.map((cicilan, idx) => {
 																		return (
-																			<option key={index} value={cicilan.id}>
+																			<option key={idx} value={cicilan.id}>
 																				<NumberFormat value={Math.ceil((item.price + item.price * cicilan.partnership.interest/100)/cicilan.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /><span>/{cicilan.tenore}Bulan</span>
 																			</option>
 																		)
@@ -513,6 +523,9 @@ class LoanApplication extends Component {
 															</div>
 														);
 													})}
+													{
+														this.state.validFinanceProductID ? <span /> : <span style={{ color: 'red' }}>Anda belum memilih cicilan</span>
+													}
 												</div>
 												: <h4>Please pick product first</h4>}
 											<Link className="button primary" to="/phone">
@@ -672,7 +685,8 @@ class LoanApplication extends Component {
 											<div className="row">
 												<div className="col-sm-12 col-md-12 col-lg-12 text-right">
 													<button className="tertiary" disabled={this.props.disableSubmitButton} onClick={event => this.clickLoanApplication(event)}>Submit</button>
-													{!this.state.isChecked && <span style={{ color: 'red' }}>Harap isi form dengan baik dan benar. Silakan cek kembali form Anda</span>}
+													{!this.state.isChecked && <span style={{ color: 'red' }}><center>Harap isi form dengan baik dan benar. Silakan cek kembali form Anda</center></span>}
+													{this.state.validFinanceProductID ? <span /> : <span style={{ color: 'red' }}><center>Anda belum memilih cicilan</center></span>}
 												</div>
 											</div>
 										</form>

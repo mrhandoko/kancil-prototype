@@ -15,6 +15,7 @@ class LoanReview extends Component {
 		this.state = {
 			financeID: 0,
 			tenore: 0,
+			payment: 0,
 			isSubmit: false,
 		};
 	}
@@ -22,18 +23,16 @@ class LoanReview extends Component {
 		if (this.props.product.length !== 0) {
 			localStorage.setItem('loanReview', JSON.stringify(this.props.product));
 		}
-	}
-	chosenTenore() {
 		const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
 		const price = JSON.parse(localStorage.loanReview)[0].price;
-		const finance = JSON.parse(localStorage.loanReview)[0].finance_option
-		const financeOption = finance.map(data => data.id)
-		const financeOptionID = financeOption.indexOf(parseInt(tenoreID))
+		const finance = JSON.parse(localStorage.loanReview)[0].finance_option;
+		const financeOption = finance.map(data => data.id);
+		const financeOptionID = financeOption.indexOf(parseInt(tenoreID));
 		this.setState({
 			financeID: financeOption,
+			payment: Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore),
 			tenore: finance[financeOptionID].tenore,
 		});
-		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore);
 	}
 	submitLoan() {
 		this.props.submitLoan(
@@ -63,22 +62,14 @@ class LoanReview extends Component {
 										<center>
 										<h5 className="fnt-grey">Produk</h5>
 											{
-												JSON.parse(localStorage.loanReview).map((item, index) => {
-													return (
-														<div>
-															<img src={item.image} alt="" />
-															<div>{item.model}</div>
-															<div className="form-spacer" />
-															<h5 className="fnt-grey">Cicilan/Bulan</h5>
-															<NumberFormat
-																value={this.chosenTenore()}
-																displayType={'text'}
-																prefix={'Rp. '}
-																thousandSeparator={true}
-															/> x {this.state.tenore} Bulan
-														</div>
-													)
-												})
+												this.props.product !== 0 ?
+												<div>
+								        <img src={JSON.parse(localStorage.loanReview)[0].image} alt="" />
+								        <div>{JSON.parse(localStorage.loanReview)[0].model}</div>
+								        <div className="form-spacer" />
+								        <h5 className="fnt-grey">Cicilan/Bulan</h5>
+								        <NumberFormat value={this.state.payment} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /><span> x {this.state.tenore} Bulan</span>
+												</div> : <div></div>
 											}
 										</center>
 										<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
