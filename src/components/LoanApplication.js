@@ -307,7 +307,7 @@ class LoanApplication extends Component {
 
 	uploadKTPImage(event) {
 		event.preventDefault()
-		let reader = new FileReader()
+		let reader = new FileReader();
 		let file = event.target.files[0]
 
 		reader.onloadend = (readerEvent) => {
