@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -446,7 +446,6 @@ class LoanApplication extends Component {
 		event.preventDefault();
 		if (this.state.financeProductID !== 0) {
 		localStorage.setItem('loanApplication', JSON.stringify(this.state));
-			console.log(this.state.financeProductID);
 		// if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
 			this.setState({
 				isApplied: true
@@ -457,15 +456,14 @@ class LoanApplication extends Component {
 				validFinanceProductID: false,
 			})
 		}
-			// axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
-			// .then(result => {
-			// 	// this.setState({ isApplied: true })
-			// })
-			// .catch(error => {
-			// 	this.setState({
-			// 		loanApplicationErr: error.response.data,
-			// 	});
-			// });
+		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
+		.then(result => {
+		})
+		.catch(error => {
+			this.setState({
+				loanApplicationErr: error.response.data,
+			});
+		});
 		// } else {
 		// 	this.setState({
 		// 		isChecked: false,

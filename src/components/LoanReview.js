@@ -29,15 +29,18 @@ class LoanReview extends Component {
 		const financeOption = finance.map(data => data.id);
 		const financeOptionID = financeOption.indexOf(parseInt(tenoreID));
 		this.setState({
-			financeID: financeOption,
+			financeID: financeOption[financeOptionID],
 			payment: Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore),
 			tenore: finance[financeOptionID].tenore,
 		});
 	}
 	submitLoan() {
+		console.log('id', this.state.financeID);
+		console.log('product', JSON.parse(localStorage.loanReview)[0].id);
+		console.log('user', this.props.user);
 		this.props.submitLoan(
 			this.state.financeID,
-			this.props.product.id,
+			JSON.parse(localStorage.loanReview)[0].id,
 			this.props.user,
 		);
 		this.setState({
