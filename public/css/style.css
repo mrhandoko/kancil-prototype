@@ -129,6 +129,8 @@ html, * {
 }
 .form-spacer{height:10px;}
 
+.clean-list {margin:0 0 0 5px}
+ul.clean-list {list-style-type: none; margin:0 0 0 5px; padding:0;}
 
 
 /* --Product specs modal-- */
