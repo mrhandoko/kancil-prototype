@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import Header from './Header';
 import Footer from './Footer';
-import { setUserDetail } from '../actions';
+import { setUserDetail, loginRequest } from '../actions';
 
 class SignUp extends React.Component {
 	constructor(props) {
@@ -93,6 +93,9 @@ class SignUp extends React.Component {
 		this.setState({ registerButton: true, disabled: true })
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
+			if (result.data.user.email === this.state.email) {
+				this.props.loginRequest(result.data.user.email, this.state.password1)
+			}
 			axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : 3}, {
 			  headers: {
 			    Authorization: 'JWT ' + result.data.token
@@ -116,7 +119,7 @@ class SignUp extends React.Component {
 
 	displayErr() {
 		return Object.keys(this.state.registerErr).map(key => (
-			<li key={key} style={{ color: "red" }}>{this.state.registerErr[key]}</li>
+			<li key={key} style={{ color: "red" }}><mark className="secondary">{this.state.registerErr[key]}</mark></li>
 		))
 	}
 
@@ -143,24 +146,24 @@ class SignUp extends React.Component {
 								<h4 className="fnt-blue">Sign Up</h4>
 							</div>
 							<div className="panel-bottom">
-								{this.state.registerErr === '' ? <b /> : <ul>{ this.displayErr() }</ul>}
 								<form className="clean-form">
 									<h5 className="fnt-grey">User Name</h5>
 									<input type="text" className="input-full" onChange={event => this.setUsernameField(event)} disabled={this.state.fieldDisable} />
-									{ this.state.wrongUsername && <span style={{ color: 'red' }}>Username harus minimal 6 karakter</span> }
+									{ this.state.wrongUsername && <mark className="secondary clean-list">Username harus minimal 6 karakter</mark> }
 									<div className="form-spacer" />
 									<h5 className="fnt-grey">Email</h5>
 									<input type="text" className="input-full" onChange={event => this.setEmailField(event)} disabled={this.state.fieldDisable} />
-									{ !this.state.validEmail && <span style={{ color: 'red' }}>Format Email salah</span>}
+									{ !this.state.validEmail && <mark className="secondary clean-list">Format Email salah</mark>}
 									<div className="form-spacer" />
 									<h5 className="fnt-grey">Type Password</h5>
 									<input type="password" className="input-full" onChange={event => this.setPassword1Field(event)} disabled={this.state.fieldDisable} />
 									<h5 className="fnt-grey">Re-type Password</h5>
 									<input type="password" className="input-full" onChange={event => this.setPassword2Field(event)} disabled={this.state.fieldDisable} />
 									<div className="fnt-grey" style={{ fontSize: 10 }}>Kombinasi password harus dengan huruf & angka dan minimal 8 karakter</div>
-									{ this.state.wrongPassword && <span style={{ color: 'red' }}>Password tidak cocok</span> }
+									{ this.state.wrongPassword && <mark className="secondary clean-list">Password tidak cocok</mark> }
 									<div className="row" style={{ borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem' }}>
 										<div className="col-sm-12 col-md-12 col-lg-12">
+											{this.state.registerErr === '' ? <b /> : <ul className="clean-list">{ this.displayErr() }</ul>}
 											<button className="tertiary input-full" onClick={(event) => this.registerButtonOnClick(event)}>Sign Up</button>
 										</div>
 									</div>
@@ -192,7 +195,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => (
-	bindActionCreators({ setUserDetail }, dispatch)
+	bindActionCreators({ setUserDetail, loginRequest }, dispatch)
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

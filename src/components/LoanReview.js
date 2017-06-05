@@ -22,20 +22,17 @@ class LoanReview extends Component {
 	componentWillMount() {
 		if (this.props.product.length !== 0) {
 			localStorage.setItem('loanReview', JSON.stringify(this.props.product));
-			const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
-			const price = JSON.parse(localStorage.loanReview)[0].price;
-			const finance = JSON.parse(localStorage.loanReview)[0].finance_option;
-			const financeOption = finance.map(data => data.id);
-			const financeOptionID = financeOption.indexOf(parseInt(tenoreID));
-			this.setState({
-				financeID: financeOption,
-				tenore: finance[financeOptionID].tenore,
-			});
-			this.setState({
-				payment: Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore),
-				tenore: finance[financeOptionID].tenore,
-			});
 		}
+		const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
+		const price = JSON.parse(localStorage.loanReview)[0].price;
+		const finance = JSON.parse(localStorage.loanReview)[0].finance_option;
+		const financeOption = finance.map(data => data.id);
+		const financeOptionID = financeOption.indexOf(parseInt(tenoreID));
+		this.setState({
+			financeID: financeOption[financeOptionID],
+			payment: Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore),
+			tenore: finance[financeOptionID].tenore,
+		});
 	}
 	chosenTenore() {
 		const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
@@ -50,9 +47,12 @@ class LoanReview extends Component {
 		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore);
 	}
 	submitLoan() {
+		console.log('id', this.state.financeID);
+		console.log('product', JSON.parse(localStorage.loanReview)[0].id);
+		console.log('user', this.props.user);
 		this.props.submitLoan(
 			this.state.financeID,
-			this.props.product.id,
+			JSON.parse(localStorage.loanReview)[0].id,
 			this.props.user,
 		);
 		this.setState({
