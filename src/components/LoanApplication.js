@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 
@@ -11,18 +10,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Header from './Header';
 import Footer from './Footer';
 import SwiperForm from './SwiperForm';
-
-const Styles = {
-	uploadImage: {
-		borderBottom: '1px solid lightgray',
-		borderRight: '1px solid lightgray',
-		borderTop: '1px solid lightgray',
-		borderLeft: '1px solid lightgray',
-		padding: 10,
-		margin: 15,
-		cursor: 'pointer',
-	},
-};
 
 class LoanApplication extends Component {
 	constructor(props) {
@@ -591,6 +578,11 @@ class LoanApplication extends Component {
 											uploadProofIncome1={event => this.uploadProofIncome1(event)}
 											uploadProofIncome2={event => this.uploadProofIncome2(event)}
 											uploadProofIncome3={event => this.uploadProofIncome3(event)}
+
+											disableSubmitButton={this.props.disableSubmitButton}
+											clickLoanApplication={event => this.clickLoanApplication(event)}
+											isChecked={this.state.isChecked}
+											validFinanceProductID={this.state.validFinanceProductID}
 										/>
 									</div>
 								</div>

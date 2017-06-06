@@ -8,9 +8,6 @@ import SwiperForm4 from './SwiperFormComponents/SwiperForm4';
 import SwiperForm5 from './SwiperFormComponents/SwiperForm5';
 
 class SwiperComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     new Swiper('.swiper-container', {
       autoHeight: true,
@@ -81,6 +78,11 @@ class SwiperComponent extends React.Component {
               uploadProofIncome1={this.props.uploadProofIncome1}
               uploadProofIncome2={this.props.uploadProofIncome2}
               uploadProofIncome3={this.props.uploadProofIncome3}
+
+              disableSubmitButton={this.props.disableSubmitButton}
+              clickLoanApplication={this.props.clickLoanApplication}
+              isChecked={this.props.isChecked}
+              validFinanceProductID={this.props.validFinanceProductID}
             />
           </div>
           <div className="swiper-pagination"></div>
@@ -89,7 +91,7 @@ class SwiperComponent extends React.Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
 export default SwiperComponent;

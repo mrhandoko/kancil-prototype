@@ -418,7 +418,7 @@ class LoanApplication extends Component {
 		reader.readAsDataURL(file)
 	}
 	uploadProofIncome2(event) {
-		event.preventDefault()
+		event.preventDefault();
 		let reader = new FileReader()
 		let file = event.target.files[0]
 		reader.onloadend = () => {
