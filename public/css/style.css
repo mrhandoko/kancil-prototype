@@ -132,6 +132,18 @@ html, * {
 .clean-list {margin:0 0 0 5px}
 ul.clean-list {list-style-type: none; margin:0 0 0 5px; padding:0;}
 
+.fade  {
+		opacity: 0;
+		-webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in;
+	}
+.fade.in  {opacity: 1;}
+
+
+
 
 /* --Product specs modal-- */
 #product-specs {

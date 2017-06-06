@@ -12,40 +12,22 @@ const Styles = {
 	},
 };
 
-const SwiperForm4 = () => (
+const SwiperForm4 = props => (
   <div className="swiper-slide swiper-slide-form">
     <form>
+		<div className="form-spacer"/>
+		<h5 className="fnt-grey">Nomor Induk Kependudukan (No KTP)</h5>
+		<input className="input-full" type="text" onChange={props.setNIK} />
+		{ !props.validNIK ? <mark className="secondary clean-list">Format NIK KTP masih salah</mark> : <span /> }
     <div className="form-spacer" />
     <h5 className="fnt-grey">Upload KTP</h5>
     <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
+      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" onChange={props.uploadKTPImage} />
     </div>
     <div className="form-spacer" />
     <h5 className="fnt-grey">Foto diri & KTP</h5>
     <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
-    </div>
-    <div className="form-spacer" />
-    <h5 className="fnt-grey">Bukti Alamat</h5>
-    <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
-    </div>
-    <div className="form-spacer" />
-    <h5 className="fnt-grey">Kartu Keluarga</h5>
-    <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
-    </div>
-    <h5 className="fnt-grey">
-      Bukti Pendapatan 3 Bulan Terakhir
-    </h5>
-    <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
-    </div>
-    <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
-    </div>
-    <div style={Styles.uploadImage}>
-      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" />
+      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" onChange={props.uploadKTPSelfieImage} />
     </div>
     </form>
   </div>

@@ -1,11 +1,11 @@
 /* global Swiper */
 import React from 'react';
-import DatePicker from 'react-datepicker';
 
 import SwiperForm1 from './SwiperFormComponents/SwiperForm1';
 import SwiperForm2 from './SwiperFormComponents/SwiperForm2';
 import SwiperForm3 from './SwiperFormComponents/SwiperForm3';
 import SwiperForm4 from './SwiperFormComponents/SwiperForm4';
+import SwiperForm5 from './SwiperFormComponents/SwiperForm5';
 
 class SwiperComponent extends React.Component {
   constructor(props) {
@@ -31,22 +31,13 @@ class SwiperComponent extends React.Component {
               validFullname={this.props.validFullname}
               setPhone={this.props.setPhone}
               validPhone={this.props.validPhone}
-              setNIK={this.props.setNIK}
-              validNIK={this.props.validNIK}
               setGender={this.props.setGender}
               setBirthPlace={this.props.setBirthPlace}
               validBirthplace={this.props.validBirthplace}
-            />
-            <SwiperForm2
-              setMarriedStatus={this.props.setMarriedStatus}
-              validMarriedStatus={this.props.validMarriedStatus}
-              setSpouseName={this.props.setSpouseName}
-              validSpouseName={this.props.validSpouseName}
-              setChildren={this.props.setChildren}
-              validChildren={this.props.validChildren}
+              datePickerBirthdate={this.props.datePickerBirthdate}
+              setBirthday={this.props.setBirthday}
               setLastEducation={this.props.setLastEducation}
               validLastEducation={this.props.validLastEducation}
-              validStartDateJob={this.props.validStartDateJob}
             />
             <SwiperForm3
               setAddress={this.props.setAddress}
@@ -61,6 +52,35 @@ class SwiperComponent extends React.Component {
               validProvince={this.props.validProvince}
               setPostcode={this.props.setPostcode}
               validPostcode={this.props.validPostcode}
+              uploadProofAddressImage={this.props.uploadProofAddressImage}
+            />
+            <SwiperForm2
+              setMarriedStatus={this.props.setMarriedStatus}
+              validMarriedStatus={this.props.validMarriedStatus}
+              setSpouseName={this.props.setSpouseName}
+              validSpouseName={this.props.validSpouseName}
+              setChildren={this.props.setChildren}
+              validChildren={this.props.validChildren}
+            />
+            <SwiperForm5
+              earnings={this.props.earnings}
+              setEarnings={this.props.setEarnings}
+              datePickerStartJob={this.props.datePickerStartJob}
+              setStartDateJob={this.props.setStartDateJob}
+              validStartDateJob={this.props.validStartDateJob}
+              uploadProofIncome1={this.props.uploadProofIncome1}
+              uploadProofIncome2={this.props.uploadProofIncome2}
+              uploadProofIncome3={this.props.uploadProofIncome3}
+            />
+            <SwiperForm4
+              setNIK={this.props.setNIK}
+              validNIK={this.props.validNIK}
+              uploadKTPImage={this.props.uploadKTPImage}
+              uploadKTPSelfieImage={this.props.uploadKTPSelfieImage}
+              uploadFamilyCardImage={this.props.uploadFamilyCardImage}
+              uploadProofIncome1={this.props.uploadProofIncome1}
+              uploadProofIncome2={this.props.uploadProofIncome2}
+              uploadProofIncome3={this.props.uploadProofIncome3}
             />
           </div>
           <div className="swiper-pagination"></div>

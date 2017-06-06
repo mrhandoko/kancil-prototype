@@ -1,5 +1,17 @@
 import React from 'react';
 
+const Styles = {
+	uploadImage: {
+		borderBottom: '1px solid lightgray',
+		borderRight: '1px solid lightgray',
+		borderTop: '1px solid lightgray',
+		borderLeft: '1px solid lightgray',
+		padding: 10,
+		margin: 15,
+		cursor: 'pointer',
+	},
+};
+
 const SwiperForm3 = props => (
   <div className="swiper-slide swiper-slide-form">
     <form>
@@ -25,6 +37,11 @@ const SwiperForm3 = props => (
     <h5 className="fnt-grey">Kodepos</h5>
     <input className="input-full" type="text" onChange={props.setPostcode} />
     { !props.validPostcode ? <mark className="secondary clean-list">Format Kodepos tempat tinggal Anda masih salah</mark> : <span /> }
+    <div className="form-spacer" />
+    <h5 className="fnt-grey">Bukti Alamat</h5>
+    <div style={Styles.uploadImage}>
+      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" onChange={props.uploadProofAddressImage} />
+    </div>
     </form>
   </div>
 );

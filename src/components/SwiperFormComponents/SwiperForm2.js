@@ -1,5 +1,17 @@
 import React from 'react';
 
+const Styles = {
+	uploadImage: {
+		borderBottom: '1px solid lightgray',
+		borderRight: '1px solid lightgray',
+		borderTop: '1px solid lightgray',
+		borderLeft: '1px solid lightgray',
+		padding: 10,
+		margin: 15,
+		cursor: 'pointer',
+	},
+};
+
 const SwiperForm2 = props => (
   <div className="swiper-slide swiper-slide-form">
     <form>
@@ -26,21 +38,10 @@ const SwiperForm2 = props => (
     </select>
     { !props.validChildren && <span style={{ color: 'red'}}>Anda belum memilih jumlah anak</span>}
     <div className="form-spacer" />
-    <h5 className="fnt-grey">Pendidikan Terakhir</h5>
-    <select onChange={props.setLastEducation}>
-      <option value="none">-- Pendidikan Terakhir --</option>
-      <option value="SD">SD</option>
-      <option value="SMP">SMP/Sederajat</option>
-      <option value="SMA">SMA/Sederajat</option>
-      <option value="D3">D3</option>
-      <option value="S1">S1</option>
-    </select>
-    { !props.validLastEducation && <span style={{ color: 'red'}}>Anda belum memilih tingkat pendidikan terakhir</span>}
-    <div className="form-spacer" />
-    <h5 className="fnt-grey">Gaji/Pendapatan</h5>
-    <div className="form-spacer" />
-    <h5 className="fnt-grey">Mulai Bekerja</h5>
-    { !props.validStartDateJob ? <div style={{ color: 'red' }}>Format tanggal mulai bekerja masih salah</div> : <span /> }
+    <h5 className="fnt-grey">Kartu Keluarga</h5>
+    <div style={Styles.uploadImage}>
+      <input type="file" id="file-input" accept="image/x-png,image/gif,image/jpeg" onChange={props.uploadFamilyCardImage} />
+    </div>
     </form>
   </div>
 );

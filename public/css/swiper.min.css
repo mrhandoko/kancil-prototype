@@ -111,7 +111,7 @@
 }
 .swiper-button-next, .swiper-button-prev {
 	position: absolute;
-	bottom: 10%;
+	bottom: 3%;
 	width: 20vw;
 	height: 44px;
 	z-index: 10;

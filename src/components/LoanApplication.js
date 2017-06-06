@@ -447,7 +447,7 @@ class LoanApplication extends Component {
 		localStorage.setItem('loanApplication', JSON.stringify(this.state));
 		// if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
 			this.setState({
-				isApplied: true
+				isApplied: true,
 			});
 		} else {
 			this.setState({
@@ -535,7 +535,14 @@ class LoanApplication extends Component {
 								</div>
 								<div className="col-sm-12 col-md-7 col-lg-6">
 									<div className="panel-top">
-										<h4 className="fnt-blue">Step 1</h4>
+										<div className="row">
+											<div className="col-sm-6 col-md-6 col-lg-6">
+												<h4 className="fnt-blue">Your Phone</h4>
+											</div>
+											<div className="col-sm-6 col-md-6 col-lg-6 text-right">
+												<mark className="tertiary fade">Saved!</mark>
+											</div>
+										</div>
 									</div>
 									<div className="panel-bottom">
 										<SwiperForm
@@ -547,6 +554,8 @@ class LoanApplication extends Component {
 											validNIK={this.state.validNIK}
 											setBirthPlace={event => this.setBirthPlace(event)}
 											validBirthplace={this.state.validBirthplace}
+											datePickerBirthdate={this.state.datePickerBirthdate}
+											setBirthday={event => this.setBirthday(event)}
 
 											setMarriedStatus={event => this.setMarriedStatus(event)}
 											validMarriedStatus={this.state.validMarriedStatus}
@@ -556,6 +565,10 @@ class LoanApplication extends Component {
 											validChildren={this.state.validChildren}
 											setLastEducation={event => this.setLastEducation(event)}
 											validLastEducation={this.state.validLastEducation}
+											earnings={this.state.earnings}
+											setEarnings={(event, value) => this.setState({ earnings: value })}
+											datePickerStartJob={this.state.datePickerStartJob}
+											setStartDateJob={event => this.setStartDateJob(event)}
 											validStartDateJob={this.state.validStartDateJob}
 
 											setAddress={event => this.setAddress(event)}
@@ -570,6 +583,14 @@ class LoanApplication extends Component {
 											validProvince={this.state.validProvince}
 											setPostcode={event => this.setPostcode(event)}
 											validPostcode={this.state.validPostcode}
+
+											uploadKTPImage={event => this.uploadKTPImage(event)}
+											uploadKTPSelfieImage={event => this.uploadKTPSelfieImage(event)}
+											uploadProofAddressImage={event => this.uploadProofAddressImage(event)}
+											uploadFamilyCardImage={event => this.uploadFamilyCardImage(event)}
+											uploadProofIncome1={event => this.uploadProofIncome1(event)}
+											uploadProofIncome2={event => this.uploadProofIncome2(event)}
+											uploadProofIncome3={event => this.uploadProofIncome3(event)}
 										/>
 									</div>
 								</div>
