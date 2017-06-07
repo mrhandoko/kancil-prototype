@@ -1,7 +1,5 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import { DateField, DatePicker } from 'react-date-picker';
-import 'react-date-picker/index.css';
 
 const SwiperForm1 = props => (
   <div className="swiper-slide swiper-slide-form">
