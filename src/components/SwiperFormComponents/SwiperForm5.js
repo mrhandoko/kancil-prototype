@@ -33,7 +33,9 @@ const SwiperForm5 = props => (
         selected={props.datePickerStartJob}
         onChange={props.setStartDateJob}
         locale="en-gb"
-        placeholderText="Mulai Bekerja"/><span className="fnt-grey">Format: DD/MM/YYYY</span>
+        placeholderText="Mulai Bekerja"
+			/>
+			<span className="fnt-grey">Format: DD/MM/YYYY</span>
       { !props.validStartDateJob ? <div style={{ color: 'red' }}>Format tanggal mulai bekerja masih salah</div> : <span /> }
       <h5 className="fnt-grey">
         Bukti Pendapatan 3 Bulan Terakhir
