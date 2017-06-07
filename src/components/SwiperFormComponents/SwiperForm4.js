@@ -31,9 +31,9 @@ const SwiperForm4 = props => (
     </div>
 		<div className="row">
 			<div className="col-sm-12 col-md-12 col-lg-12 text-right">
-				<button className="tertiary" disabled={props.disableSubmitButton} onClick={props.clickLoanApplication}>Submit</button>
-				{!props.isChecked && <span style={{ color: 'red' }}><center>Harap isi form dengan baik dan benar. Silakan cek kembali form Anda</center></span>}
-				{props.validFinanceProductID ? <span /> : <span style={{ color: 'red' }}><center>Anda belum memilih cicilan</center></span>}
+			{!props.isChecked && <span style={{ color: 'red' }}><center>Harap isi form dengan baik dan benar. Silakan cek kembali form Anda</center></span>}
+			{props.validFinanceProductID ? <span /> : <span style={{ color: 'red' }}><center>Anda belum memilih cicilan</center></span>}
+			<button className="tertiary" disabled={props.disableSubmitButton} onClick={props.clickLoanApplication}>Submit</button>
 			</div>
 		</div>
     </form>
