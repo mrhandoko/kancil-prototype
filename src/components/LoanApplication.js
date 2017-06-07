@@ -332,16 +332,16 @@ class LoanApplication extends Component {
 	}
 	uploadKTPSelfieImage(event) {
 		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		let reader = new FileReader();
+		let file = event.target.files[0];
 		reader.onloadend = (readerEvent) => {
-			let image = new Image()
+			let image = new Image();
 			image.onload = (imageEvent) => {
-				let canvas = document.createElement('canvas')
-				let maxSizeWidth = 640
-				let maxSizeHeight = 480
-				let width = image.width
-				let height = image.height
+				let canvas = document.createElement('canvas');
+				let maxSizeWidth = 640;
+				let maxSizeHeight = 480;
+				let width = image.width;
+				let height = image.height;
 
 				if (width > height) {
 					if (width > maxSizeWidth) {
@@ -456,13 +456,6 @@ class LoanApplication extends Component {
 		// 	});
 		// }
 	}
-
-	displayErr() {
-		return this.state.loanApplicationErr;
-		// return Object.keys(this.state.loanApplicationErr).map(key => (
-		// 	<li key={key} style={{ color: "red" }}>{this.state.loanApplicationErr[key]}</li>
-		// ));
-	}
 	render() {
 		if (this.state.isLogin) {
 			if (this.state.isApplied) {
@@ -524,7 +517,7 @@ class LoanApplication extends Component {
 									<div className="panel-top">
 										<div className="row">
 											<div className="col-sm-6 col-md-6 col-lg-6">
-												<h4 className="fnt-blue">Your Phone</h4>
+												<h4 className="fnt-blue">Loan Application</h4>
 											</div>
 											<div className="col-sm-6 col-md-6 col-lg-6 text-right">
 												<mark className="tertiary fade">Saved!</mark>
