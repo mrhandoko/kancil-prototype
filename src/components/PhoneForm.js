@@ -22,6 +22,7 @@ const PhoneForm = props => (
                   </h4>
                   <div>
                   <select style={{ width: '90%' }} onChange={props.chooseTenore}>
+                  <option value={props.financeProductID}>-- Pilih Cicilan --</option>
                   {
                     item.finance_option.length !== 0 ?
                     item.finance_option.map((cicilan, idx) => {
