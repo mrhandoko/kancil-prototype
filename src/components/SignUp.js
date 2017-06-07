@@ -121,7 +121,6 @@ class SignUp extends React.Component {
 			<li key={key} style={{ color: "red" }}><mark className="secondary">{this.state.registerErr[key]}</mark></li>
 		))
 	}
-
 	componentDidMount() {
 		if (window.localStorage.length !== 0) {
       this.setState({

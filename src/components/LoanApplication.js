@@ -77,7 +77,7 @@ class LoanApplication extends Component {
 		};
 	}
 	componentWillMount() {
-		if (JSON.parse(localStorage.userDetail).isLogin) {
+		if (JSON.parse(localStorage.userDetail).token !== '' && this.props.user.isLogin) {
 			this.setState({
 				isLogin: true,
 			});
