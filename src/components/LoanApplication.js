@@ -85,23 +85,17 @@ class LoanApplication extends Component {
 			});
 		}
 	}
-	chooseTenore(event) {
-		this.setState({
-			financeProductID: event.target.value,
-			validFinanceProductID: true,
-		});
-	}
 	setFullname(event) {
 		const regexFullname = /[A-Za-z]/g;
 		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
 			this.setState({
 				full_name: event.target.value,
-				validFullname: true
-			})
+				validFullname: true,
+			});
 		} else {
 			this.setState({
-				validFullname: false
-			})
+				validFullname: false,
+			});
 		}
 	}
 	setPhone(event) {
@@ -122,29 +116,29 @@ class LoanApplication extends Component {
 		if (event.target.value.length >= 10 && regexNIK.test(event.target.value) && event.target.value !== '') {
 			this.setState({
 				nik: event.target.value,
-				validNIK: true
+				validNIK: true,
 			});
 		} else {
 			this.setState({
-				validNIK: false
+				validNIK: false,
 			});
 		}
 	}
 	setGender(event) {
 		this.setState({
-			gender: event.target.value
-		})
+			gender: event.target.value,
+		});
 	}
 	setBirthPlace(event) {
 		const regexBirthplace = /[A-Za-z]/g;
-		if (event.target.value.length >=4 && regexBirthplace.test(event.target.value)) {
+		if (event.target.value.length >= 4 && regexBirthplace.test(event.target.value)) {
 			this.setState({
 				birthplace: event.target.value,
-				validBirthplace: true
+				validBirthplace: true,
 			});
 		} else {
 			this.setState({
-				validBirthplace: false
+				validBirthplace: false,
 			});
 		}
 	}
@@ -154,12 +148,12 @@ class LoanApplication extends Component {
 		});
 		if (new Date().getFullYear() - moment(date).format('YYYY') >= 18) {
 			this.setState({
-	      birthdate: moment(date).format('DDMMYYYY'),
+				birthdate: moment(date).format('DDMMYYYY'),
 				validBirthdate: true,
-	    });
+			});
 		} else {
 			this.setState({
-				validBirthdate: false
+				validBirthdate: false,
 			});
 		}
 	}
@@ -195,16 +189,16 @@ class LoanApplication extends Component {
 		}
 	}
 	setLastEducation(event) {
-    if (event.target.value !== 'none') {
-      this.setState({
-        education: event.target.value,
-        validLastEducation: true,
-      });
-    } else {
-      this.setState({
-        validLastEducation: false,
-      });
-    }
+		if (event.target.value !== 'none') {
+			this.setState({
+				education: event.target.value,
+				validLastEducation: true,
+			});
+		} else {
+			this.setState({
+				validLastEducation: false,
+			});
+		}
 	}
 	setStartDateJob(date) {
 		if (date !== '') {
@@ -272,11 +266,11 @@ class LoanApplication extends Component {
 			this.setState({
 				provinsi: event.target.value,
 				validProvince: true,
-			})
+			});
 		} else {
 			this.setState({
-				validProvince: false
-			})
+				validProvince: false,
+			});
 		}
 	}
 	setPostcode(event) {
@@ -292,136 +286,141 @@ class LoanApplication extends Component {
 			});
 		}
 	}
-
-	uploadKTPImage(event) {
-		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
-
-		reader.onloadend = (readerEvent) => {
-			let image = new Image()
-			image.onload = (imageEvent) => {
-				let canvas = document.createElement('canvas')
-				let maxSizeWidth = 640
-				let maxSizeHeight = 480
-				let width = image.width
-				let height = image.height
-
-				if (width > height) {
-					if (width > maxSizeWidth) {
-						height *= maxSizeWidth / width
-						width = maxSizeWidth
-					}
-				} else {
-					if (height > maxSizeHeight) {
-						width *= maxSizeHeight / height
-						height = maxSizeHeight
-					}
-				}
-
-				canvas.width = width
-				canvas.height = height
-				canvas.getContext('2d').drawImage(image, 0, 0, width, height)
-				let dataUrl = canvas.toDataURL('image/jpeg')
-				this.setState({
-					ktp: file['name'],
-					ktp64: dataUrl
-				})
-			}
-			image.src = readerEvent.target.result
-		}
-		reader.readAsDataURL(file)
+	chooseTenore(event) {
+		this.setState({
+			financeProductID: event.target.value,
+			validFinanceProductID: true,
+		});
 	}
-	uploadKTPSelfieImage(event) {
-		event.preventDefault()
-		let reader = new FileReader();
-		let file = event.target.files[0];
+	uploadKTPImage(event) {
+		event.preventDefault();
+		const reader = new FileReader();
+		const file = event.target.files[0];
+
 		reader.onloadend = (readerEvent) => {
-			let image = new Image();
-			image.onload = (imageEvent) => {
-				let canvas = document.createElement('canvas');
-				let maxSizeWidth = 640;
-				let maxSizeHeight = 480;
+			const image = new Image();
+			image.onload = imageEvent => {
+				const canvas = document.createElement('canvas');
+				const maxSizeWidth = 640;
+				const maxSizeHeight = 480;
 				let width = image.width;
 				let height = image.height;
 
 				if (width > height) {
 					if (width > maxSizeWidth) {
-						height *= maxSizeWidth / width
-						width = maxSizeWidth
+						height *= maxSizeWidth / width;
+						width = maxSizeWidth;
 					}
 				} else {
 					if (height > maxSizeHeight) {
-						width *= maxSizeHeight / height
-						height = maxSizeHeight
+						width *= maxSizeHeight / height;
+						height = maxSizeHeight;
 					}
 				}
 
-				canvas.width = width
-				canvas.height = height
-				canvas.getContext('2d').drawImage(image, 0, 0, width, height)
-				let dataUrl = canvas.toDataURL('image/jpeg')
+				canvas.width = width;
+				canvas.height = height;
+				canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+				const dataUrl = canvas.toDataURL('image/jpeg');
 				this.setState({
-					ktp_selfie: file['name'],
-					ktp_selfie64: dataUrl
-				})
-			}
+					ktp: file[name],
+					ktp64: dataUrl,
+				});
+			};
 			image.src = readerEvent.target.result;
-		}
-		reader.readAsDataURL(file)
+		};
+		reader.readAsDataURL(file);
+	}
+	uploadKTPSelfieImage(event) {
+		event.preventDefault();
+		const reader = new FileReader();
+		const file = event.target.files[0];
+		reader.onloadend = readerEvent => {
+			const image = new Image();
+			image.onload = imageEvent => {
+				const canvas = document.createElement('canvas');
+				const maxSizeWidth = 640;
+				const maxSizeHeight = 480;
+				let width = image.width;
+				let height = image.height;
+
+				if (width > height) {
+					if (width > maxSizeWidth) {
+						height *= maxSizeWidth / width;
+						width = maxSizeWidth;
+					}
+				} else {
+					if (height > maxSizeHeight) {
+						width *= maxSizeHeight / height;
+						height = maxSizeHeight;
+					}
+				}
+
+				canvas.width = width;
+				canvas.height = height;
+				canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+				const dataUrl = canvas.toDataURL('image/jpeg');
+				this.setState({
+					ktp_selfie: file[name],
+					ktp_selfie64: dataUrl,
+				});
+			};
+			image.src = readerEvent.target.result;
+		};
+		reader.readAsDataURL(file);
 	}
 	uploadProofAddressImage(event) {
-		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		event.preventDefault();
+		const reader = new FileReader();
+		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				proof_address64: reader.result,
-				proof_address: file['name']
-			})
-		}
-		reader.readAsDataURL(file)
+				proof_address: file[name],
+			});
+		};
+		reader.readAsDataURL(file);
 	}
 	uploadFamilyCardImage(event) {
 		event.preventDefault();
-		let reader = new FileReader();
-		let file = event.target.files[0];
+		const reader = new FileReader();
+		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				family_card64: reader.result,
-				family_card: file['name']
-			})
-		}
+				family_card: file[name],
+			});
+		};
 		reader.readAsDataURL(file);
 	}
 	uploadProofIncome1(event) {
 		event.preventDefault();
-		let reader = new FileReader();
-		let file = event.target.files[0];
+		const reader = new FileReader();
+		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				proof_income164: reader.result,
-				proof_income1: file['name']
-			})
-		}
-		reader.readAsDataURL(file)
+				proof_income1: file[name],
+			});
+		};
+		reader.readAsDataURL(file);
 	}
 	uploadProofIncome2(event) {
-		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		event.preventDefault();
+		const reader = new FileReader();
+		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				proof_income264: reader.result,
-				proof_income2: file['name']
-			})
-		}
-		reader.readAsDataURL(file)
+				proof_income2: file[name],
+			});
+		};
+		reader.readAsDataURL(file);
 	}
 	uploadProofIncome3(event) {
-		event.preventDefault()
-		let reader = new FileReader();
-		let file = event.target.files[0];
+		event.preventDefault();
+		const reader = new FileReader();
+		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
 				proof_income364: reader.result,
@@ -438,7 +437,7 @@ class LoanApplication extends Component {
 			});
 			localStorage.setItem('loanApplication', JSON.stringify(this.state));
 			if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '' && this.state.wife_husband_name !== '' && this.state.children !== '' && this.state.education !== '' && this.state.earnings !== '' && this.state.start_date_job !== '' && this.state.provinsi !== '' && this.state.kel !== '' && this.state.kec !== '' && this.state.city !== '' && this.state.ktp !== '' && this.state.ktp64 !== '' && this.state.ktp_selfie !== '' && this.state.ktp_selfie64 !== '' && this.state.proof_address !== '' && this.state.proof_address64 !== '' && this.state.proof_income1 !== '' && this.state.proof_income164 && this.state.proof_income2 !== '' && this.state.proof_income264 !== '' && this.state.proof_income3 !== '' && this.state.proof_income364 !== '') {
-				axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token }})
+				axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', { ...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, { headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token } })
 				.then(result => {
 					this.props.setUserDetail(result.data);
 				})
@@ -467,93 +466,78 @@ class LoanApplication extends Component {
 	render() {
 		if (this.state.isLogin) {
 			if (this.state.isApplied) {
-				return <Redirect to="/loan-review" />
-			} else {
-				return (
-					<div>
-						<Header />
-						<div className="container" style={{ margin: 25 }}>
-							<div className="row">
-								<PhoneForm
-									product={this.props.product}
-									chooseTenore={event => this.chooseTenore(event)}
-									financeProductID={this.state.financeProductID}
-									validFinanceProductID={this.state.validFinanceProductID}
-									phoneLink={'/phone'}
-								/>
-								<div className="col-sm-12 col-md-7 col-lg-6">
-									<div className="panel-top">
-										<div className="row">
-											<div className="col-sm-6 col-md-6 col-lg-6">
-												<h4 className="fnt-blue">Loan Application</h4>
-											</div>
-											<div className="col-sm-6 col-md-6 col-lg-6 text-right">
-												<mark className="tertiary fade">Saved!</mark>
-											</div>
-										</div>
-									</div>
-									<div className="panel-bottom">
-										<SwiperForm
-											setFullname={event => this.setFullname(event)}
-											validFullname={this.state.validFullname}
-											setPhone={event => this.setPhone(event)}
-											validPhone={this.state.validPhone}
-											setNIK={event => this.setNIK(event)}
-											validNIK={this.state.validNIK}
-											setBirthPlace={event => this.setBirthPlace(event)}
-											validBirthplace={this.state.validBirthplace}
-											datePickerBirthdate={this.state.datePickerBirthdate}
-											setBirthday={event => this.setBirthday(event)}
-											validBirthdate={this.state.validBirthdate}
-
-											setMarriedStatus={event => this.setMarriedStatus(event)}
-											validMarriedStatus={this.state.validMarriedStatus}
-											setSpouseName={event => this.setSpouseName(event)}
-											validSpouseName={this.state.validSpouseName}
-											setChildren={event => this.setChildren(event)}
-											validChildren={this.state.validChildren}
-											setLastEducation={event => this.setLastEducation(event)}
-											validLastEducation={this.state.validLastEducation}
-											earnings={this.state.earnings}
-											setEarnings={(event, value) => this.setState({ earnings: value })}
-											datePickerStartJob={this.state.datePickerStartJob}
-											setStartDateJob={event => this.setStartDateJob(event)}
-											validStartDateJob={this.state.validStartDateJob}
-
-											setAddress={event => this.setAddress(event)}
-											validAddress={this.state.validAddress}
-											setKelurahan={event => this.setKelurahan(event)}
-											validKelurahan={this.state.validKelurahan}
-											setKecamatan={event => this.setKecamatan(event)}
-											validKecamatan={this.state.validKecamatan}
-											setCity={event => this.setCity(event)}
-											validCity={this.state.validCity}
-											setProvince={event => this.setProvince(event)}
-											validProvince={this.state.validProvince}
-											setPostcode={event => this.setPostcode(event)}
-											validPostcode={this.state.validPostcode}
-
-											uploadKTPImage={event => this.uploadKTPImage(event)}
-											uploadKTPSelfieImage={event => this.uploadKTPSelfieImage(event)}
-											uploadProofAddressImage={event => this.uploadProofAddressImage(event)}
-											uploadFamilyCardImage={event => this.uploadFamilyCardImage(event)}
-											uploadProofIncome1={event => this.uploadProofIncome1(event)}
-											uploadProofIncome2={event => this.uploadProofIncome2(event)}
-											uploadProofIncome3={event => this.uploadProofIncome3(event)}
-
-											disableSubmitButton={this.props.disableSubmitButton}
-											clickLoanApplication={event => this.clickLoanApplication(event)}
-											isChecked={this.state.isChecked}
-											validFinanceProductID={this.state.validFinanceProductID}
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<Footer />
-					</div>
-				);
+				return <Redirect to="/loan-review" />;
 			}
+			return (
+				<div>
+					<Header />
+					<div className="container" style={{ margin: 25 }}>
+						<div className="row">
+							<PhoneForm
+								product={this.props.product}
+								chooseTenore={event => this.chooseTenore(event)}
+								financeProductID={this.state.financeProductID}
+								validFinanceProductID={this.state.validFinanceProductID}
+								phoneLink={'/phone'}
+							/>
+							<SwiperForm
+								setFullname={event => this.setFullname(event)}
+								validFullname={this.state.validFullname}
+								setPhone={event => this.setPhone(event)}
+								validPhone={this.state.validPhone}
+								setNIK={event => this.setNIK(event)}
+								validNIK={this.state.validNIK}
+								setBirthPlace={event => this.setBirthPlace(event)}
+								validBirthplace={this.state.validBirthplace}
+								datePickerBirthdate={this.state.datePickerBirthdate}
+								setBirthday={event => this.setBirthday(event)}
+								validBirthdate={this.state.validBirthdate}
+
+								setMarriedStatus={event => this.setMarriedStatus(event)}
+								validMarriedStatus={this.state.validMarriedStatus}
+								setSpouseName={event => this.setSpouseName(event)}
+								validSpouseName={this.state.validSpouseName}
+								setChildren={event => this.setChildren(event)}
+								validChildren={this.state.validChildren}
+								setLastEducation={event => this.setLastEducation(event)}
+								validLastEducation={this.state.validLastEducation}
+								earnings={this.state.earnings}
+								setEarnings={(event, value) => this.setState({ earnings: value })}
+								datePickerStartJob={this.state.datePickerStartJob}
+								setStartDateJob={event => this.setStartDateJob(event)}
+								validStartDateJob={this.state.validStartDateJob}
+
+								setAddress={event => this.setAddress(event)}
+								validAddress={this.state.validAddress}
+								setKelurahan={event => this.setKelurahan(event)}
+								validKelurahan={this.state.validKelurahan}
+								setKecamatan={event => this.setKecamatan(event)}
+								validKecamatan={this.state.validKecamatan}
+								setCity={event => this.setCity(event)}
+								validCity={this.state.validCity}
+								setProvince={event => this.setProvince(event)}
+								validProvince={this.state.validProvince}
+								setPostcode={event => this.setPostcode(event)}
+								validPostcode={this.state.validPostcode}
+
+								uploadKTPImage={event => this.uploadKTPImage(event)}
+								uploadKTPSelfieImage={event => this.uploadKTPSelfieImage(event)}
+								uploadProofAddressImage={event => this.uploadProofAddressImage(event)}
+								uploadFamilyCardImage={event => this.uploadFamilyCardImage(event)}
+								uploadProofIncome1={event => this.uploadProofIncome1(event)}
+								uploadProofIncome2={event => this.uploadProofIncome2(event)}
+								uploadProofIncome3={event => this.uploadProofIncome3(event)}
+
+								disableSubmitButton={this.props.disableSubmitButton}
+								clickLoanApplication={event => this.clickLoanApplication(event)}
+								isChecked={this.state.isChecked}
+								validFinanceProductID={this.state.validFinanceProductID}
+							/>
+						</div>
+					</div>
+					<Footer />
+				</div>
+			);
 		}
 		return <Redirect to="/signup" />;
 	}
@@ -566,6 +550,6 @@ const mapStateToProps = state => ({
 	disableSubmitButton: state.loanApp.isLoading,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setUserDetail }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserDetail }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoanApplication);
