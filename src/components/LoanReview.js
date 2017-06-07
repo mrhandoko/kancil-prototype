@@ -47,9 +47,6 @@ class LoanReview extends Component {
 		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore);
 	}
 	submitLoan() {
-		console.log('id', this.state.financeID);
-		console.log('product', JSON.parse(localStorage.loanReview)[0].id);
-		console.log('user', this.props.user);
 		this.props.submitLoan(
 			this.state.financeID,
 			JSON.parse(localStorage.loanReview)[0].id,

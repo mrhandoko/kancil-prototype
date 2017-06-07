@@ -33,13 +33,14 @@ class SwiperComponent extends React.Component {
               validBirthplace={this.props.validBirthplace}
               datePickerBirthdate={this.props.datePickerBirthdate}
               setBirthday={this.props.setBirthday}
+              validBirthdate={this.props.validBirthdate}
               setLastEducation={this.props.setLastEducation}
               validLastEducation={this.props.validLastEducation}
             />
             <SwiperForm3
               setAddress={this.props.setAddress}
               validAddress={this.props.validAddress}
-              setKelurahan={this.props.setAddress}
+              setKelurahan={this.props.setKelurahan}
               validKelurahan={this.props.validKelurahan}
               setKecamatan={this.props.setKecamatan}
               validKecamatan={this.props.validKecamatan}

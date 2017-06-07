@@ -39,19 +39,19 @@ class LoanApplication extends Component {
 			lat: '',
 			lng: '',
 			ktp: '',
-			fileKTP: '',
+			ktp64: '',
 			ktp_selfie: '',
-			fileKTPSelfie: '',
+			ktp_selfie64: '',
 			proof_address: '',
-			fileProofAddress: '',
+			proof_address64: '',
 			family_card: '',
-			fileFamilyCard: '',
+			family_card64: '',
 			proof_income1: '',
-			fileProofIncome1: '',
+			proof_income164: '',
 			proof_income2: '',
-			fileProofIncome2: '',
+			proof_income264: '',
 			proof_income3: '',
-			fileProofIncome3: '',
+			proof_income364: '',
 			product: '',
 			financeProductID: 0,
 			isLogin: false,
@@ -77,7 +77,7 @@ class LoanApplication extends Component {
 		};
 	}
 	componentWillMount() {
-		if (JSON.parse(localStorage.userDetail).token !== '' && this.props.user.isLogin) {
+		if (JSON.parse(localStorage.userDetail).token !== '' || this.props.user.isLogin) {
 			this.setState({
 				isLogin: true,
 			});
@@ -332,16 +332,16 @@ class LoanApplication extends Component {
 	}
 	uploadKTPSelfieImage(event) {
 		event.preventDefault()
-		let reader = new FileReader()
-		let file = event.target.files[0]
+		let reader = new FileReader();
+		let file = event.target.files[0];
 		reader.onloadend = (readerEvent) => {
-			let image = new Image()
+			let image = new Image();
 			image.onload = (imageEvent) => {
-				let canvas = document.createElement('canvas')
-				let maxSizeWidth = 640
-				let maxSizeHeight = 480
-				let width = image.width
-				let height = image.height
+				let canvas = document.createElement('canvas');
+				let maxSizeWidth = 640;
+				let maxSizeHeight = 480;
+				let width = image.width;
+				let height = image.height;
 
 				if (width > height) {
 					if (width > maxSizeWidth) {
@@ -442,7 +442,7 @@ class LoanApplication extends Component {
 				validFinanceProductID: false,
 			})
 		}
-		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
+		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token }})
 		.then(result => {
 		})
 		.catch(error => {
@@ -455,13 +455,6 @@ class LoanApplication extends Component {
 		// 		isChecked: false,
 		// 	});
 		// }
-	}
-
-	displayErr() {
-		return this.state.loanApplicationErr;
-		// return Object.keys(this.state.loanApplicationErr).map(key => (
-		// 	<li key={key} style={{ color: "red" }}>{this.state.loanApplicationErr[key]}</li>
-		// ));
 	}
 	render() {
 		if (this.state.isLogin) {
@@ -524,7 +517,7 @@ class LoanApplication extends Component {
 									<div className="panel-top">
 										<div className="row">
 											<div className="col-sm-6 col-md-6 col-lg-6">
-												<h4 className="fnt-blue">Your Phone</h4>
+												<h4 className="fnt-blue">Loan Application</h4>
 											</div>
 											<div className="col-sm-6 col-md-6 col-lg-6 text-right">
 												<mark className="tertiary fade">Saved!</mark>
@@ -543,6 +536,7 @@ class LoanApplication extends Component {
 											validBirthplace={this.state.validBirthplace}
 											datePickerBirthdate={this.state.datePickerBirthdate}
 											setBirthday={event => this.setBirthday(event)}
+											validBirthdate={this.state.validBirthdate}
 
 											setMarriedStatus={event => this.setMarriedStatus(event)}
 											validMarriedStatus={this.state.validMarriedStatus}
@@ -560,7 +554,7 @@ class LoanApplication extends Component {
 
 											setAddress={event => this.setAddress(event)}
 											validAddress={this.state.validAddress}
-											setKelurahan={event => this.setAddress(event)}
+											setKelurahan={event => this.setKelurahan(event)}
 											validKelurahan={this.state.validKelurahan}
 											setKecamatan={event => this.setKecamatan(event)}
 											validKecamatan={this.state.validKecamatan}

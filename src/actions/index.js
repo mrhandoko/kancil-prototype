@@ -92,9 +92,6 @@ export const setPartnership = id => {
 }
 
 export const submitLoan = (finance_product, product, user) => dispatch => {
-  console.log('id', finance_product);
-  console.log('product', product);
-  console.log('user', user);
   dispatch({
     type: 'ADD_LOAN_REQUEST'
   })

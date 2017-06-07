@@ -30,6 +30,7 @@ const SwiperForm1 = props => (
         placeholderText="Tanggal Lahir"
       />
       <span className="fnt-grey">Format: DD/MM/YYYY</span>
+      <div>{ !props.validBirthdate ? <mark className="secondary clean-list">Umur minimal harus 18 tahun</mark> : <span /> }</div>
       <div className="form-spacer" />
       <h5 className="fnt-grey">Pendidikan Terakhir</h5>
       <select onChange={props.setLastEducation}>
