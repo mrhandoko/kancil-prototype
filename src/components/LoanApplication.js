@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
+
+import { setUserDetail } from '../actions';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -29,7 +32,6 @@ class LoanApplication extends Component {
 			earnings: '',
 			start_date_job: '',
 			datePickerStartJob: '',
-			employment: '',
 			address: '',
 			kec: '',
 			city: '',
@@ -430,32 +432,33 @@ class LoanApplication extends Component {
 	}
 	clickLoanApplication(event) {
 		event.preventDefault();
-		if (this.state.financeProductID !== 0) {
 		localStorage.setItem('loanApplication', JSON.stringify(this.state));
-		// if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
-			this.setState({
-				isApplied: true,
+		if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '' && this.state.wife_husband_name !== '' && this.state.children !== '' && this.state.education !== '' && this.state.earnings !== '' && this.state.start_date_job !== '' && this.state.provinsi !== '' && this.state.kel !== '' && this.state.kec !== '' && this.state.city !== '' && this.state.ktp !== '' && this.state.ktp64 !== '' && this.state.ktp_selfie !== '' && this.state.ktp_selfie64 !== '' && this.state.proof_address !== '' && this.state.proof_address64 !== '' && this.state.proof_income1 !== '' && this.state.proof_income164 && this.state.proof_income2 !== '' && this.state.proof_income264 !== '' && this.state.proof_income3 !== '' && this.state.proof_income364 !== '') {
+			if (this.state.financeProductID !== 0) {
+				this.setState({
+					isApplied: true,
+					validFinanceProductID: true,
+				});
+			} else {
+				this.setState({
+					isApplied: false,
+					validFinanceProductID: false,
+				});
+			}
+			axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token }})
+			.then(result => {
+				this.props.setUserDetail(result.data);
+			})
+			.catch(error => {
+				this.setState({
+					loanApplicationErr: error.response.data,
+				});
 			});
 		} else {
 			this.setState({
-				isApplied: false,
-				validFinanceProductID: false,
-			})
-		}
-		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token }})
-		.then(result => {
-			
-		})
-		.catch(error => {
-			this.setState({
-				loanApplicationErr: error.response.data,
+				isChecked: false,
 			});
-		});
-		// } else {
-		// 	this.setState({
-		// 		isChecked: false,
-		// 	});
-		// }
+		}
 	}
 	render() {
 		if (this.state.isLogin) {
@@ -558,4 +561,6 @@ const mapStateToProps = state => ({
 	disableSubmitButton: state.loanApp.isLoading,
 });
 
-export default connect(mapStateToProps, null)(LoanApplication);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserDetail }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoanApplication);
