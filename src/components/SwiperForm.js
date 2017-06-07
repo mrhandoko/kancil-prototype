@@ -33,6 +33,7 @@ class SwiperComponent extends React.Component {
               validBirthplace={this.props.validBirthplace}
               datePickerBirthdate={this.props.datePickerBirthdate}
               setBirthday={this.props.setBirthday}
+              validBirthdate={this.props.validBirthdate}
               setLastEducation={this.props.setLastEducation}
               validLastEducation={this.props.validLastEducation}
             />

@@ -39,19 +39,19 @@ class LoanApplication extends Component {
 			lat: '',
 			lng: '',
 			ktp: '',
-			fileKTP: '',
+			ktp64: '',
 			ktp_selfie: '',
-			fileKTPSelfie: '',
+			ktp_selfie64: '',
 			proof_address: '',
-			fileProofAddress: '',
+			proof_address64: '',
 			family_card: '',
-			fileFamilyCard: '',
+			family_card64: '',
 			proof_income1: '',
-			fileProofIncome1: '',
+			proof_income164: '',
 			proof_income2: '',
-			fileProofIncome2: '',
+			proof_income264: '',
 			proof_income3: '',
-			fileProofIncome3: '',
+			proof_income364: '',
 			product: '',
 			financeProductID: 0,
 			isLogin: false,
@@ -543,6 +543,7 @@ class LoanApplication extends Component {
 											validBirthplace={this.state.validBirthplace}
 											datePickerBirthdate={this.state.datePickerBirthdate}
 											setBirthday={event => this.setBirthday(event)}
+											validBirthdate={this.state.validBirthdate}
 
 											setMarriedStatus={event => this.setMarriedStatus(event)}
 											validMarriedStatus={this.state.validMarriedStatus}
