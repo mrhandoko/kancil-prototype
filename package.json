@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^2.10.4",
     "axios": "^0.16.1",
     "babel-eslint": "^7.2.3",
     "material-ui": "^0.18.1",
@@ -22,6 +23,7 @@
     "vanilla-modal": "^1.6.4"
   },
   "devDependencies": {
+    "babel-plugin-import": "^1.2.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.3.0",

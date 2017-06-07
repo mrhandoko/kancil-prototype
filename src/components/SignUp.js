@@ -24,10 +24,9 @@ class SignUp extends React.Component {
 			wrongUsername: false,
 			isLogin: false,
 			validEmail: true,
-		}
+		};
 	}
 
-	//TODO: after register set redux for USER
 	setUsernameField(event) {
 		this.setState({ username: event.target.value })
 		if(event.target.value.length <= 3) {
@@ -122,7 +121,6 @@ class SignUp extends React.Component {
 			<li key={key} style={{ color: "red" }}><mark className="secondary">{this.state.registerErr[key]}</mark></li>
 		))
 	}
-
 	componentDidMount() {
 		if (window.localStorage.length !== 0) {
       this.setState({

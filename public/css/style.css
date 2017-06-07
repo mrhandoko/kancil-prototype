@@ -132,6 +132,18 @@ html, * {
 .clean-list {margin:0 0 0 5px}
 ul.clean-list {list-style-type: none; margin:0 0 0 5px; padding:0;}
 
+.fade  {
+		opacity: 0;
+		-webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in;
+	}
+.fade.in  {opacity: 1;}
+
+
+
 
 /* --Product specs modal-- */
 #product-specs {
@@ -294,11 +306,11 @@ input:checked + section.box .box-title:before {
 }
 
 /* slider */
-.hero-1 {font-size: 2em; font-weight:400; line-height:120%; margin-bottom:2vh;}
-.hero-2 {font-size: 1em; font-weight:300;}
+.hero-1 {font-size: 10vh;}
+.hero-2 {font-size: 4vh;}
 @media screen and (max-width: 767px) {
-	.hero-1 {font-size: 1.5em;}
-	.hero-2 {font-size: 0.7em;}
+	.hero-1 {font-size: 7vh;}
+	.hero-2 {font-size: 3vh;}
 }
 
 
@@ -323,19 +335,22 @@ nav a.active {text-decoration:underline;}
 
 /* ------------------------------------- %3 SWIPER SLIDER */
 
-	.swiper-container {
-		width: 100%;
-		/*height: 50vh;*/
+.swiper-container {
+
 	}
 	.swiper-slide {
-		text-align: center;
-		font-size: 2rem;
-		background: #ccc;
+		background: #ffffff;
 		/* Center slide text vertically */
 		display: -webkit-box;
 		display: -ms-flexbox;
 		display: -webkit-flex;
 		display: flex;
+		flex-direction: column;
+		-webkit-flex-direction: column;
+
+	}
+	.swiper-slide-home {
+		text-align: center;
 		-webkit-box-pack: center;
 		-ms-flex-pack: center;
 		-webkit-justify-content: center;
@@ -344,22 +359,20 @@ nav a.active {text-decoration:underline;}
 		-ms-flex-align: center;
 		-webkit-align-items: center;
 		align-items: center;
-		flex-direction: column;
-		-webkit-flex-direction: column;
-		-ms- flex-direction: column;
+
+	}
+	.swiper-slide-form {
+		text-align: left;
+		padding-bottom:50px;
 	}
 
-	.swiper-slide.bg-black{background: #000;}
-	.swiper-slide.bg-white{background: #000;}
-
 	.kancil-slide {
+		height: 100vh;
 		background-image:url('../img/slider-1.jpg');
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
-
-	}
-
+}
 /* ------------------------------------- %4 OVERLAY RESPONSIVE MENU */
 .button_container_ham {
 	-ms-transform: scale(-0.6, 0.6);

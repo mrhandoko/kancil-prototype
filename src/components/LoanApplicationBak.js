@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 
@@ -9,7 +10,19 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import Header from './Header';
 import Footer from './Footer';
-import SwiperForm from './SwiperForm';
+import Swiper from './SwiperForm';
+
+const Styles = {
+	uploadImage: {
+		borderBottom: '1px solid lightgray',
+		borderRight: '1px solid lightgray',
+		borderTop: '1px solid lightgray',
+		borderLeft: '1px solid lightgray',
+		padding: 10,
+		margin: 15,
+		cursor: 'pointer',
+	},
+};
 
 class LoanApplication extends Component {
 	constructor(props) {
@@ -77,7 +90,7 @@ class LoanApplication extends Component {
 		};
 	}
 	componentWillMount() {
-		if (JSON.parse(localStorage.userDetail).token !== '' && this.props.user.isLogin) {
+		if (JSON.parse(localStorage.userDetail).isLogin) {
 			this.setState({
 				isLogin: true,
 			});
@@ -107,11 +120,11 @@ class LoanApplication extends Component {
 		if (regexPhone.test(event.target.value)) {
 			this.setState({
 				phone: event.target.value,
-				validPhone : true,
+				validPhone : true
 			});
 		} else {
 			this.setState({
-				validPhone: false,
+				validPhone: false
 			});
 		}
 	}
@@ -293,7 +306,7 @@ class LoanApplication extends Component {
 
 	uploadKTPImage(event) {
 		event.preventDefault()
-		let reader = new FileReader();
+		let reader = new FileReader()
 		let file = event.target.files[0]
 
 		reader.onloadend = (readerEvent) => {
@@ -405,7 +418,7 @@ class LoanApplication extends Component {
 		reader.readAsDataURL(file)
 	}
 	uploadProofIncome2(event) {
-		event.preventDefault()
+		event.preventDefault();
 		let reader = new FileReader()
 		let file = event.target.files[0]
 		reader.onloadend = () => {
@@ -434,7 +447,7 @@ class LoanApplication extends Component {
 		localStorage.setItem('loanApplication', JSON.stringify(this.state));
 		// if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '') {
 			this.setState({
-				isApplied: true,
+				isApplied: true
 			});
 		} else {
 			this.setState({
@@ -471,6 +484,7 @@ class LoanApplication extends Component {
 				return (
 					<div>
 						<Header />
+						<Swiper />
 						<div className="container" style={{ margin: 25 }}>
 							<div className="row">
 								<div className="col-sm-12 col-md-3 col-md-offset-1 col-lg-2 col-lg-offset-2">
@@ -499,7 +513,7 @@ class LoanApplication extends Component {
 																			<option key={idx} value={cicilan.id}>
 																				<NumberFormat value={Math.ceil((item.price + item.price * cicilan.partnership.interest/100)/cicilan.tenore)} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /><span>/{cicilan.tenore}Bulan</span>
 																			</option>
-																		);
+																		)
 																	}) : <option></option>
 																}
 																</select>
@@ -522,68 +536,158 @@ class LoanApplication extends Component {
 								</div>
 								<div className="col-sm-12 col-md-7 col-lg-6">
 									<div className="panel-top">
-										<div className="row">
-											<div className="col-sm-6 col-md-6 col-lg-6">
-												<h4 className="fnt-blue">Your Phone</h4>
-											</div>
-											<div className="col-sm-6 col-md-6 col-lg-6 text-right">
-												<mark className="tertiary fade">Saved!</mark>
-											</div>
-										</div>
+										<h4 className="fnt-blue">Step 1</h4>
 									</div>
 									<div className="panel-bottom">
-										<SwiperForm
-											setFullname={event => this.setFullname(event)}
-											validFullname={this.state.validFullname}
-											setPhone={event => this.setPhone(event)}
-											validPhone={this.state.validPhone}
-											setNIK={event => this.setNIK(event)}
-											validNIK={this.state.validNIK}
-											setBirthPlace={event => this.setBirthPlace(event)}
-											validBirthplace={this.state.validBirthplace}
-											datePickerBirthdate={this.state.datePickerBirthdate}
-											setBirthday={event => this.setBirthday(event)}
-
-											setMarriedStatus={event => this.setMarriedStatus(event)}
-											validMarriedStatus={this.state.validMarriedStatus}
-											setSpouseName={event => this.setSpouseName(event)}
-											validSpouseName={this.state.validSpouseName}
-											setChildren={event => this.setChildren(event)}
-											validChildren={this.state.validChildren}
-											setLastEducation={event => this.setLastEducation(event)}
-											validLastEducation={this.state.validLastEducation}
-											earnings={this.state.earnings}
-											setEarnings={(event, value) => this.setState({ earnings: value })}
-											datePickerStartJob={this.state.datePickerStartJob}
-											setStartDateJob={event => this.setStartDateJob(event)}
-											validStartDateJob={this.state.validStartDateJob}
-
-											setAddress={event => this.setAddress(event)}
-											validAddress={this.state.validAddress}
-											setKelurahan={event => this.setAddress(event)}
-											validKelurahan={this.state.validKelurahan}
-											setKecamatan={event => this.setKecamatan(event)}
-											validKecamatan={this.state.validKecamatan}
-											setCity={event => this.setCity(event)}
-											validCity={this.state.validCity}
-											setProvince={event => this.setProvince(event)}
-											validProvince={this.state.validProvince}
-											setPostcode={event => this.setPostcode(event)}
-											validPostcode={this.state.validPostcode}
-
-											uploadKTPImage={event => this.uploadKTPImage(event)}
-											uploadKTPSelfieImage={event => this.uploadKTPSelfieImage(event)}
-											uploadProofAddressImage={event => this.uploadProofAddressImage(event)}
-											uploadFamilyCardImage={event => this.uploadFamilyCardImage(event)}
-											uploadProofIncome1={event => this.uploadProofIncome1(event)}
-											uploadProofIncome2={event => this.uploadProofIncome2(event)}
-											uploadProofIncome3={event => this.uploadProofIncome3(event)}
-
-											disableSubmitButton={this.props.disableSubmitButton}
-											clickLoanApplication={event => this.clickLoanApplication(event)}
-											isChecked={this.state.isChecked}
-											validFinanceProductID={this.state.validFinanceProductID}
-										/>
+										<form className="clean-form">
+											<h4>Personal Information</h4>
+											{this.state.loanApplicationErr === '' ? <b /> : <ul>{ this.displayErr() }</ul>}
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Upload KTP</h5>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadKTPImage(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Foto diri & KTP</h5>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadKTPSelfieImage(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Bukti Alamat</h5>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadProofAddressImage(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Kartu Keluarga</h5>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadFamilyCardImage(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<h5 className="fnt-grey">
+												Bukti Pendapatan 3 Bulan Terakhir
+											</h5>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadProofIncome1(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadProofIncome2(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<div style={Styles.uploadImage}>
+												<input type="file" id="file-input" onChange={event => this.uploadProofIncome3(event)} accept="image/x-png,image/gif,image/jpeg" />
+											</div>
+											<h5 className="fnt-grey">Nama Lengkap</h5>
+											<input className="input-full" type="text" onChange={event => this.setFullname(event)} />
+											{ !this.state.validFullname ? <span style={{ color: 'red' }}>Nama Tidak boleh kurang dari 5 karakter.</span> : <span></span>}
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Nomor Handphone</h5>
+											<input className="input-full" type="text" onChange={event => this.setPhone(event)} />
+											{ !this.state.validPhone ? <span style={{ color: 'red' }}>Format salah. Nomor handphone harus diawali dengan angka 0</span> : <span></span> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Nomor Induk Kependudukan (No KTP)</h5>
+											<input className="input-full" type="text" onChange={event => this.setNIK(event)} />
+											{ !this.state.validNIK ? <span style={{ color: 'red' }}>Format NIK KTP masih salah</span> : <span></span> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Jenis Kelamin</h5>
+											<select onChange={event => this.setGender(event)}>
+												<option value="L">Laki-laki</option>
+												<option value="P">Perempuan</option>
+											</select>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Tempat Lahir</h5>
+											<input className="input-full" type="text" onChange={event => this.setBirthPlace(event)} />
+											{ !this.state.validBirthplace ? <span style={{ color: 'red' }}>Format masih salah</span> : <span></span> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Tanggal Lahir</h5>
+                      <DatePicker
+                        selected={this.state.datePickerBirthdate}
+                        onChange={(event) => this.setBirthday(event)}
+                        locale="en-gb"
+                        placeholderText="Tanggal Lahir" /> <span className="fnt-grey">Format: DD/MM/YYYY</span>
+												{ !this.state.validBirthdate ? <div style={{ color: 'red' }}>Usia minimal harus 18 tahun</div> : <span></span> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Married Status</h5>
+											<select onChange={event => this.setMarriedStatus(event)}>
+												<option value="kawin">Kawin</option>
+												<option value="belum kawin">Belum Kawin</option>
+												<option value="janda/duda">Janda/Duda</option>
+											</select>
+											{ !this.state.validMarriedStatus ? <div style={{ color: 'red' }}>Anda belum memilih status pernikahan</div> : <span></span> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Nama Istri/Suami</h5>
+											<input className="input-full" type="text" onChange={event => this.setSpouseName(event)} />
+											{ !this.state.validSpouseName ? <div style={{ color: 'red' }}>Format masih salah</div> : <span></span> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Jumlah Anak</h5>
+                      <select onChange={event => this.setChildren(event)}>
+                        <option value="none">-- Jumlah Anak --</option>
+												<option value="0">0</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+                        <option value="3+">3+</option>
+											</select>
+                      { !this.state.validChildren && <span style={{ color: 'red'}}>Anda belum memilih jumlah anak</span>}
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Pendidikan Terakhir</h5>
+											<select onChange={event => this.setLastEducation(event)}>
+                        <option value="none">-- Pendidikan Terakhir --</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP/Sederajat</option>
+                        <option value="SMA">SMA/Sederajat</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                      </select>
+                      { !this.state.validLastEducation && <span style={{ color: 'red'}}>Anda belum memilih tingkat pendidikan terakhir</span>}
+                      <div className="form-spacer" />
+											<h5 className="fnt-grey">Gaji/Pendapatan</h5>
+											<NumberFormat
+												value={this.state.earnings}
+												prefix={'Rp '}
+												decimalSeparator={'.'}
+												thousandSeparator={true}
+												placeholder={'Gaji/Pendapatan per bulan'}
+												onChange={(event, value) => {
+													this.setState({ earnings: value });
+												}}/>
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Mulai Bekerja</h5>
+											<DatePicker
+												selected={this.state.datePickerStartJob}
+												onChange={event => this.setStartDateJob(event)}
+												locale="en-gb"
+												placeholderText="Mulai Bekerja"/><span className="fnt-grey">Format: DD/MM/YYYY</span>
+											{ !this.state.validStartDateJob ? <div style={{ color: 'red' }}>Format tanggal mulai bekerja masih salah</div> : <span /> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Address</h5>
+											<input className="input-full" type="text" onChange={event => this.setAddress(event)} />
+											{ !this.state.validAddress ? <span style={{ color: 'red' }}>Format Alamat Anda masih salah</span> : <span /> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Kelurahan</h5>
+											<input className="input-full" type="text" onChange={event => this.setKelurahan(event)} />
+											{ !this.state.validKelurahan ? <span style={{ color: 'red' }}>Format kelurahan tempat tinggal Anda masih salah</span> : <span /> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Kecamatan</h5>
+											<input className="input-full" type="text" onChange={event => this.setKecamatan(event)} />
+											{ !this.state.validKecamatan ? <span style={{ color: 'red' }}>Format Kecamatan tempat tinggal Anda masih salah</span> : <span /> }
+											<h5 className="fnt-grey">Kota</h5>
+											<input className="input-full" type="text" onChange={event => this.setCity(event)} />
+											{ !this.state.validCity ? <span style={{ color: 'red' }}>Format Kota tempat tinggal Anda masih salah</span> : <span /> }
+											<div className="form-spacer" />
+											<h5 className="fnt-grey">Provinsi</h5>
+											<input className="input-full" type="text" onChange={event => this.setProvince(event)} />
+											{ !this.state.validProvince ? <span style={{ color: 'red' }}>Format Provinsi tempat tinggal Anda masih salah</span> : <span /> }
+											<h5 className="fnt-grey">Kodepos</h5>
+											<input className="input-full" type="text" onChange={event => this.setPostcode(event)} />
+											{ !this.state.validPostcode ? <span style={{ color: 'red' }}>Format Kodepos tempat tinggal Anda masih salah</span> : <span /> }
+											<div className="form-spacer" />
+											<br />
+											<br />
+											<div className="row">
+												<div className="col-sm-12 col-md-12 col-lg-12 text-right">
+													<button className="tertiary" disabled={this.props.disableSubmitButton} onClick={event => this.clickLoanApplication(event)}>Submit</button>
+													{!this.state.isChecked && <span style={{ color: 'red' }}><center>Harap isi form dengan baik dan benar. Silakan cek kembali form Anda</center></span>}
+													{this.state.validFinanceProductID ? <span /> : <span style={{ color: 'red' }}><center>Anda belum memilih cicilan</center></span>}
+												</div>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
