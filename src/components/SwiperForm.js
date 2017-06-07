@@ -39,7 +39,7 @@ class SwiperComponent extends React.Component {
             <SwiperForm3
               setAddress={this.props.setAddress}
               validAddress={this.props.validAddress}
-              setKelurahan={this.props.setAddress}
+              setKelurahan={this.props.setKelurahan}
               validKelurahan={this.props.validKelurahan}
               setKecamatan={this.props.setKecamatan}
               validKecamatan={this.props.validKecamatan}

@@ -77,7 +77,7 @@ class LoanApplication extends Component {
 		};
 	}
 	componentWillMount() {
-		if (JSON.parse(localStorage.userDetail).token !== '' && this.props.user.isLogin) {
+		if (JSON.parse(localStorage.userDetail).token !== '' || this.props.user.isLogin) {
 			this.setState({
 				isLogin: true,
 			});
@@ -442,7 +442,7 @@ class LoanApplication extends Component {
 				validFinanceProductID: false,
 			})
 		}
-		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + this.props.user.token }})
+		axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/',{...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230}, {headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token }})
 		.then(result => {
 		})
 		.catch(error => {
@@ -560,7 +560,7 @@ class LoanApplication extends Component {
 
 											setAddress={event => this.setAddress(event)}
 											validAddress={this.state.validAddress}
-											setKelurahan={event => this.setAddress(event)}
+											setKelurahan={event => this.setKelurahan(event)}
 											validKelurahan={this.state.validKelurahan}
 											setKecamatan={event => this.setKecamatan(event)}
 											validKecamatan={this.state.validKecamatan}

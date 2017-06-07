@@ -35,9 +35,6 @@ class LoanReview extends Component {
 		});
 	}
 	submitLoan() {
-		console.log('id', this.state.financeID);
-		console.log('product', JSON.parse(localStorage.loanReview)[0].id);
-		console.log('user', this.props.user);
 		this.props.submitLoan(
 			this.state.financeID,
 			JSON.parse(localStorage.loanReview)[0].id,
