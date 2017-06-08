@@ -1,3 +1,4 @@
+/* global children */
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
@@ -27,7 +28,7 @@ class LoanApplication extends Component {
 			datePickerBirthdate: '',
 			married_status: 'Belum Kawin',
 			wife_husband_name: '',
-			kids: '',
+			children: '',
 			education: '',
 			earnings: '',
 			start_date_job: '',
@@ -173,7 +174,7 @@ class LoanApplication extends Component {
 	setChildren(event) {
 		if (event.target.value !== 'none') {
 			this.setState({
-				kids: event.target.value,
+				children: event.target.value,
 				validChildren: true,
 			});
 		} else {
@@ -430,7 +431,7 @@ class LoanApplication extends Component {
 				isChecked: true,
 			});
 			localStorage.setItem('loanApplication', JSON.stringify(this.state));
-			if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '' && this.state.wife_husband_name !== '' && this.state.kids !== '' && this.state.education !== '' && this.state.earnings !== '' && this.state.start_date_job !== '' && this.state.provinsi !== '' && this.state.kel !== '' && this.state.kec !== '' && this.state.city !== '' && this.state.ktp !== '' && this.state.ktp64 !== '' && this.state.ktp_selfie !== '' && this.state.ktp_selfie64 !== '' && this.state.proof_address !== '' && this.state.proof_address64 !== '' && this.state.proof_income1 !== '' && this.state.proof_income164 && this.state.proof_income2 !== '' && this.state.proof_income264 !== '' && this.state.proof_income3 !== '' && this.state.proof_income364 !== '') {
+			if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '' && this.state.wife_husband_name !== '' && this.state.children !== '' && this.state.education !== '' && this.state.earnings !== '' && this.state.start_date_job !== '' && this.state.provinsi !== '' && this.state.kel !== '' && this.state.kec !== '' && this.state.city !== '' && this.state.ktp !== '' && this.state.ktp64 !== '' && this.state.ktp_selfie !== '' && this.state.ktp_selfie64 !== '' && this.state.proof_address !== '' && this.state.proof_address64 !== '' && this.state.proof_income1 !== '' && this.state.proof_income164 && this.state.proof_income2 !== '' && this.state.proof_income264 !== '' && this.state.proof_income3 !== '' && this.state.proof_income364 !== '') {
 				axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', { ...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, { headers: { Authorization: 'JWT ' + JSON.parse(localStorage.user
 				).token } })
 				.then(result => {
@@ -484,7 +485,7 @@ class LoanApplication extends Component {
 								birthdate={this.state.birthdate}
 								married_status={this.state.married_status}
 								wife_husband_name={this.state.wife_husband_name}
-								kids={this.state.kids}
+								children={this.state.children}
 								education={this.state.education}
 								earnings={this.state.earnings}
 								start_date_job={this.state.start_date_job}
@@ -566,7 +567,7 @@ class LoanApplication extends Component {
 const mapStateToProps = state => ({
 	user: state.user,
 	userDetail: state.userDetail,
-	product: state.product,
+	product: state.product.selectedPhone,
 	disableSubmitButton: state.loanApp.isLoading,
 });
 
