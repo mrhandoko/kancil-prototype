@@ -101,7 +101,7 @@ class PhoneSelection extends Component {
 	}
 	checkedPhone(phone) {
 		this.setState({
-			checked: phone
+			checked: phone,
 		})
 		this.props.searchingPhone(phone);
 	}
