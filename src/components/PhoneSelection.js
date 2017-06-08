@@ -132,8 +132,8 @@ class PhoneSelection extends Component {
 	                  <div className="form-spacer" />
 	                  <h5>BRAND</h5>
 	                  <div className="input-group">
-										<input type="radio" id="chk0" name="filter" defaultValue="" onChange={() => this.checkedPhone('')} onChecked={this.state.checked === ''} tabIndex={0} /> <label htmlFor="chk0">&nbsp;All</label>
-										<br />
+											<input type="radio" id="chk0" name="filter" value="" onChange={() => this.checkedPhone('')} onChecked={this.state.checked === ''} tabIndex={0} /> <label htmlFor="chk0">&nbsp;All</label>
+											<br />
 	                    <input type="radio" id="chk1" name="filter" value="Andromax" onChange={() => this.checkedPhone('Andromax')} onChecked={this.state.checked === 'Andromax'} tabIndex={0} /> <label htmlFor="chk1">&nbsp;Andromax</label>
 	                    <br />
 	                    <input type="radio" id="chk2" name="filter" value="Blackberry" onChange={() => this.checkedPhone('Blackberry')} onChecked={this.state.checked === 'Blackberry'} tabIndex={1} /> <label htmlFor="chk2">&nbsp;Blackberry</label>

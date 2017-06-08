@@ -460,7 +460,7 @@ class LoanApplication extends Component {
 		}
 	}
 	render() {
-		if (this.props.user.isLogin || JSON.parse(localStorage.user).isLogin) {
+		if (this.props.user.isLogin || localStorage.length !== 0) {
 			if (this.state.isApplied) {
 				return <Redirect to="/loan-review" />;
 			}
