@@ -102,9 +102,9 @@ class SignUp extends React.Component {
 			  }
 			})
 			.then(response => {
-				window.localStorage.setItem('userDetail', JSON.stringify(result.data))
-				this.props.setUserDetail(response.data)
-				this.setState({ redirectLoginSuccess: true })
+				window.localStorage.setItem('user', JSON.stringify(result.data));
+				this.props.setUserDetail(response.data);
+				this.setState({ redirectLoginSuccess: true });
 			})
 			.catch(err1 => {
 				this.setState({ registerErr: err1 })

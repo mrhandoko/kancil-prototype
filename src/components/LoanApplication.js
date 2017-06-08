@@ -27,7 +27,7 @@ class LoanApplication extends Component {
 			datePickerBirthdate: '',
 			married_status: 'Belum Kawin',
 			wife_husband_name: '',
-			children: '',
+			kids: '',
 			education: '',
 			earnings: '',
 			start_date_job: '',
@@ -78,13 +78,6 @@ class LoanApplication extends Component {
 			isChecked: true,
 		};
 	}
-	componentWillMount() {
-		if (JSON.parse(localStorage.userDetail).token !== '' || this.props.user.isLogin) {
-			this.setState({
-				isLogin: true,
-			});
-		}
-	}
 	setFullname(event) {
 		const regexFullname = /[A-Za-z]/g;
 		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
@@ -92,6 +85,7 @@ class LoanApplication extends Component {
 				full_name: event.target.value,
 				validFullname: true,
 			});
+			localStorage.setItem('loanApplication', JSON.stringify(this.state));
 		} else {
 			this.setState({
 				validFullname: false,
@@ -105,6 +99,7 @@ class LoanApplication extends Component {
 				phone: event.target.value,
 				validPhone : true,
 			});
+			localStorage.setItem('loanApplication', JSON.stringify(this.state));
 		} else {
 			this.setState({
 				validPhone: false,
@@ -179,7 +174,7 @@ class LoanApplication extends Component {
 	setChildren(event) {
 		if (event.target.value !== 'none') {
 			this.setState({
-				children: event.target.value,
+				kids: event.target.value,
 				validChildren: true,
 			});
 		} else {
@@ -436,8 +431,9 @@ class LoanApplication extends Component {
 				isChecked: true,
 			});
 			localStorage.setItem('loanApplication', JSON.stringify(this.state));
-			if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '' && this.state.wife_husband_name !== '' && this.state.children !== '' && this.state.education !== '' && this.state.earnings !== '' && this.state.start_date_job !== '' && this.state.provinsi !== '' && this.state.kel !== '' && this.state.kec !== '' && this.state.city !== '' && this.state.ktp !== '' && this.state.ktp64 !== '' && this.state.ktp_selfie !== '' && this.state.ktp_selfie64 !== '' && this.state.proof_address !== '' && this.state.proof_address64 !== '' && this.state.proof_income1 !== '' && this.state.proof_income164 && this.state.proof_income2 !== '' && this.state.proof_income264 !== '' && this.state.proof_income3 !== '' && this.state.proof_income364 !== '') {
-				axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', { ...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, { headers: { Authorization: 'JWT ' + JSON.parse(localStorage.userDetail).token } })
+			if (this.state.full_name !== '' && this.state.phone !== '' && this.state.NIK !== '' && this.state.birthdate !== '' && this.state.birthplace !== '' && this.state.address !== '' && this.state.wife_husband_name !== '' && this.state.kids !== '' && this.state.education !== '' && this.state.earnings !== '' && this.state.start_date_job !== '' && this.state.provinsi !== '' && this.state.kel !== '' && this.state.kec !== '' && this.state.city !== '' && this.state.ktp !== '' && this.state.ktp64 !== '' && this.state.ktp_selfie !== '' && this.state.ktp_selfie64 !== '' && this.state.proof_address !== '' && this.state.proof_address64 !== '' && this.state.proof_income1 !== '' && this.state.proof_income164 && this.state.proof_income2 !== '' && this.state.proof_income264 !== '' && this.state.proof_income3 !== '' && this.state.proof_income364 !== '') {
+				axios.put('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', { ...this.state, partnership: this.props.userDetail.partnership, lat: 6.1818, lng: 106.8230 }, { headers: { Authorization: 'JWT ' + JSON.parse(localStorage.user
+				).token } })
 				.then(result => {
 					this.props.setUserDetail(result.data);
 				})
@@ -464,7 +460,7 @@ class LoanApplication extends Component {
 		}
 	}
 	render() {
-		if (this.state.isLogin) {
+		if (JSON.parse(localStorage.user).isLogin || this.props.user.isLogin) {
 			if (this.state.isApplied) {
 				return <Redirect to="/loan-review" />;
 			}
@@ -481,6 +477,32 @@ class LoanApplication extends Component {
 								phoneLink={'/phone'}
 							/>
 							<SwiperForm
+								full_name={this.state.full_name}
+								nik={this.state.nik}
+								gender={this.state.gender}
+								phone={this.state.phone}
+								birthplace={this.state.birthplace}
+								birthdate={this.state.birthdate}
+								married_status={this.state.married_status}
+								wife_husband_name={this.state.wife_husband_name}
+								kids={this.state.kids}
+								education={this.state.education}
+								earnings={this.state.earnings}
+								start_date_job={this.state.start_date_job}
+								address={this.state.address}
+								kec={this.state.kec}
+								city={this.state.city}
+								kel={this.state.kel}
+								provinsi={this.state.provinsi}
+								kodepos={this.state.kodepos}
+								ktp={this.state.ktp}
+								ktp_selfie={this.state.ktp_selfie}
+								proof_address={this.state.proof_address}
+								family_card={this.state.family_card}
+								proof_income1={this.state.proof_income1}
+								proof_income2={this.state.proof_income2}
+								proof_income3={this.state.proof_income3}
+
 								setFullname={event => this.setFullname(event)}
 								validFullname={this.state.validFullname}
 								setPhone={event => this.setPhone(event)}
