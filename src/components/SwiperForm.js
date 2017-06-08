@@ -35,17 +35,23 @@ class SwiperComponent extends React.Component {
           <div className="swiper-container swiper-no-swiping">
             <div className="swiper-wrapper">
               <SwiperForm1
+                full_name={this.propsfull_name}
                 setFullname={this.props.setFullname}
                 validFullname={this.props.validFullname}
+                phone={this.propsphone}
                 setPhone={this.props.setPhone}
                 validPhone={this.props.validPhone}
+                gender={this.propsgender}
                 setGender={this.props.setGender}
+                birthplace={this.propsbirthplace}
                 setBirthPlace={this.props.setBirthPlace}
                 validBirthplace={this.props.validBirthplace}
+                birthdate={this.propsbirthdate}
                 datePickerBirthdate={this.props.datePickerBirthdate}
                 setBirthday={this.props.setBirthday}
                 validBirthdate={this.props.validBirthdate}
                 setLastEducation={this.props.setLastEducation}
+                education={this.propseducation}
                 validLastEducation={this.props.validLastEducation}
               />
               <SwiperForm3

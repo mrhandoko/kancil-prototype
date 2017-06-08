@@ -85,7 +85,6 @@ class LoanApplication extends Component {
 				full_name: event.target.value,
 				validFullname: true,
 			});
-			localStorage.setItem('loanApplication', JSON.stringify(this.state));
 		} else {
 			this.setState({
 				validFullname: false,
@@ -523,7 +522,6 @@ class LoanApplication extends Component {
 								validChildren={this.state.validChildren}
 								setLastEducation={event => this.setLastEducation(event)}
 								validLastEducation={this.state.validLastEducation}
-								earnings={this.state.earnings}
 								setEarnings={(event, value) => this.setState({ earnings: value })}
 								datePickerStartJob={this.state.datePickerStartJob}
 								setStartDateJob={event => this.setStartDateJob(event)}
