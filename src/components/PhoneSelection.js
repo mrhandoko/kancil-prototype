@@ -25,10 +25,10 @@ class PhoneSelection extends Component {
 
 	componentDidMount() {
 		this.modal = new VanillaModal();
-
 		if (this.props.userDetail.partnership) {
 			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
 				.then(response => {
+					console.log(response.data);
 					this.setState({ products: response.data });
 				})
 				.catch(err => {
@@ -37,6 +37,7 @@ class PhoneSelection extends Component {
 		} else {
 			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
 				.then(response => {
+					console.log('highway to hell', response.data);
 					this.setState({ products: response.data });
 				})
 				.catch(err => {

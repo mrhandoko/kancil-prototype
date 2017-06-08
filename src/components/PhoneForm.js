@@ -18,7 +18,7 @@ const PhoneForm = props => (
                   <img src={item.image} alt="" />
                   <h4>
                     {item.model}
-                    <small>{item.price}</small>
+                    <small><NumberFormat value={item.price} displayType={'text'} prefix={'Rp. '} thousandSeparator={true} /></small>
                   </h4>
                   <div>
                   <select style={{ width: '90%' }} onChange={props.chooseTenore}>
