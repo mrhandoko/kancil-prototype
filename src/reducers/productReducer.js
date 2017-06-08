@@ -12,7 +12,11 @@ export const productReducer = (state = initialState, action) => {
         filteredPhone: action.payload,
       })
     case 'SEARCH_PHONE':
-      return state;
+      const filteredPhone = state.allPhone.filter((item, index) => {
+        let pattern = new RegExp(action.payload, 'gi')
+        return pattern.test(item.model)
+      })
+      return Object.assign({}, state, { filteredPhone })
     case 'SELECT_PHONE':
       return Object.assign({}, state, {
         selectedPhone: [action.payload],
