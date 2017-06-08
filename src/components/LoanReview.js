@@ -34,6 +34,18 @@ class LoanReview extends Component {
 			tenore: finance[financeOptionID].tenore,
 		});
 	}
+	chosenTenore() {
+		const tenoreID = JSON.parse(localStorage.loanApplication).financeProductID;
+		const price = JSON.parse(localStorage.loanReview)[0].price;
+		const finance = JSON.parse(localStorage.loanReview)[0].finance_option;
+		const financeOption = finance.map(data => data.id);
+		const financeOptionID = financeOption.indexOf(parseInt(tenoreID));
+		this.setState({
+			financeID: financeOption,
+			tenore: finance[financeOptionID].tenore,
+		});
+		return Math.ceil((price + price * finance[financeOptionID].partnership.interest/100)/finance[financeOptionID].tenore);
+	}
 	submitLoan() {
 		this.props.submitLoan(
 			this.state.financeID,
