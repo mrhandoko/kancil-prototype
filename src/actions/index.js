@@ -64,7 +64,14 @@ export const getDataPhone = () => dispatch => {
     type: 'GET_DATA_PHONE_ERROR',
     payload: err,
   }));
-}
+};
+
+export const searchingPhone = data => {
+  return {
+    type: 'SEARCH_PHONE',
+    payload: data,
+  };
+};
 
 export const setUserDetail = data => ({
   type: 'SET_USER_DETAIL',

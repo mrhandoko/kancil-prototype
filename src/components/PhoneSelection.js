@@ -9,7 +9,7 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 
-import { selectPhone, getDataPhone } from '../actions';
+import { selectPhone, getDataPhone, searchingPhone } from '../actions';
 
 class PhoneSelection extends Component {
 	constructor() {
@@ -20,6 +20,7 @@ class PhoneSelection extends Component {
 			price: '',
 			products: '',
 			modalProduct: -1,
+			checked: '',
 		};
 	}
 
@@ -57,7 +58,7 @@ class PhoneSelection extends Component {
 
 	productModals() {
 		if (this.state.modalProduct !== -1) {
-			const data = this.state.products[this.state.modalProduct];
+			const data = this.props.products[this.state.modalProduct];
 			return (
 				<div>
 					<center><img src={data.image} alt="" /></center>
@@ -98,8 +99,14 @@ class PhoneSelection extends Component {
 		}
 		return <p />;
 	}
+	checkedPhone(phone) {
+		this.setState({
+			checked: phone,
+		})
+		this.props.searchingPhone(phone);
+	}
 	searchPhone(event) {
-		
+		this.props.searchingPhone(event.target.value);
 	}
 	chooseThisPhone(data) {
 		this.props.selectPhone(data);
@@ -119,19 +126,19 @@ class PhoneSelection extends Component {
 	                <h4 className="fnt-blue">Filters</h4>
 	              </div>
 	              <div className="panel-bottom">
-	                <form className="clean-form">
+	                <div className="clean-form" style={{ padding: '1rem' }}>
 	                  <h5>SEARCH</h5>
 	                  <input type="text" onChange={event => this.searchPhone(event)} />
 	                  <div className="form-spacer" />
 	                  <h5>BRAND</h5>
 	                  <div className="input-group">
-	                    <input type="checkbox" id="chk1" tabIndex={0} /> <label htmlFor="chk1">&nbsp;Samsung</label>
+											<input type="radio" id="chk0" name="filter" value="" onChange={() => this.checkedPhone('')} onChecked={this.state.checked === ''} tabIndex={0} /> <label htmlFor="chk0">&nbsp;All</label>
+											<br />
+	                    <input type="radio" id="chk1" name="filter" value="Andromax" onChange={() => this.checkedPhone('Andromax')} onChecked={this.state.checked === 'Andromax'} tabIndex={0} /> <label htmlFor="chk1">&nbsp;Andromax</label>
 	                    <br />
-	                    <input type="checkbox" id="chk2" tabIndex={1} /> <label htmlFor="chk2">&nbsp;Apple</label>
+	                    <input type="radio" id="chk2" name="filter" value="Blackberry" onChange={() => this.checkedPhone('Blackberry')} onChecked={this.state.checked === 'Blackberry'} tabIndex={1} /> <label htmlFor="chk2">&nbsp;Blackberry</label>
 	                    <br />
-	                    <input type="checkbox" id="chk3" tabIndex={2} /> <label htmlFor="chk3">&nbsp;Oppo</label>
-	                    <br />
-	                    <input type="checkbox" id="chk4" tabIndex={3} /> <label htmlFor="chk4">&nbsp;Lenovo</label>
+	                    <input type="radio" id="chk3" name="filter" value="Lenovo" onChange={() => this.checkedPhone('Lenovo')} onChecked={this.state.checked === 'Lenovo'} tabIndex={2} /> <label htmlFor="chk3">&nbsp;Lenovo</label>
 	                  </div>
 	                  <div className="form-spacer" />
 	                  {/* <h5>Price Range</h5>
@@ -148,7 +155,7 @@ class PhoneSelection extends Component {
 	                    <option>20cm</option>
 	                  </select>
 	                  <br /> */}
-	                </form>
+	                </div>
 	              </div>
 	            </div>
 	          </div>
@@ -225,6 +232,6 @@ const mapStateToProps = state => ({
 	products: state.product.filteredPhone,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ selectPhone, getDataPhone }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ selectPhone, getDataPhone, searchingPhone }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhoneSelection);

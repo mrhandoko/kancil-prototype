@@ -79,6 +79,13 @@ class LoanApplication extends Component {
 			isChecked: true,
 		};
 	}
+	componentWillMount() {
+		if(localStorage.user !== undefined ) {
+			this.setState({
+				isLogin: JSON.parse(localStorage.user).isLogin,
+			})
+		}
+	}
 	setFullname(event) {
 		const regexFullname = /[A-Za-z]/g;
 		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
@@ -460,105 +467,107 @@ class LoanApplication extends Component {
 		}
 	}
 	render() {
-		if (JSON.parse(localStorage.user).isLogin || this.props.user.isLogin) {
+		if (this.props.user.isLogin || this.state.isLogin) {
 			if (this.state.isApplied) {
 				return <Redirect to="/loan-review" />;
 			}
-			return (
-				<div>
-					<Header />
-					<div className="container" style={{ margin: 25 }}>
-						<div className="row">
-							<PhoneForm
-								product={this.props.product}
-								chooseTenore={event => this.chooseTenore(event)}
-								financeProductID={this.state.financeProductID}
-								validFinanceProductID={this.state.validFinanceProductID}
-								phoneLink={'/phone'}
-							/>
-							<SwiperForm
-								full_name={this.state.full_name}
-								nik={this.state.nik}
-								gender={this.state.gender}
-								phone={this.state.phone}
-								birthplace={this.state.birthplace}
-								birthdate={this.state.birthdate}
-								married_status={this.state.married_status}
-								wife_husband_name={this.state.wife_husband_name}
-								children={this.state.children}
-								education={this.state.education}
-								earnings={this.state.earnings}
-								start_date_job={this.state.start_date_job}
-								address={this.state.address}
-								kec={this.state.kec}
-								city={this.state.city}
-								kel={this.state.kel}
-								provinsi={this.state.provinsi}
-								kodepos={this.state.kodepos}
-								ktp={this.state.ktp}
-								ktp_selfie={this.state.ktp_selfie}
-								proof_address={this.state.proof_address}
-								family_card={this.state.family_card}
-								proof_income1={this.state.proof_income1}
-								proof_income2={this.state.proof_income2}
-								proof_income3={this.state.proof_income3}
+			if(JSON.parse(localStorage.user).isLogin) {
+				return (
+					<div>
+						<Header />
+						<div className="container" style={{ margin: 25 }}>
+							<div className="row">
+								<PhoneForm
+									product={this.props.product}
+									chooseTenore={event => this.chooseTenore(event)}
+									financeProductID={this.state.financeProductID}
+									validFinanceProductID={this.state.validFinanceProductID}
+									phoneLink={'/phone'}
+								/>
+								<SwiperForm
+									full_name={this.state.full_name}
+									nik={this.state.nik}
+									gender={this.state.gender}
+									phone={this.state.phone}
+									birthplace={this.state.birthplace}
+									birthdate={this.state.birthdate}
+									married_status={this.state.married_status}
+									wife_husband_name={this.state.wife_husband_name}
+									children={this.state.children}
+									education={this.state.education}
+									earnings={this.state.earnings}
+									start_date_job={this.state.start_date_job}
+									address={this.state.address}
+									kec={this.state.kec}
+									city={this.state.city}
+									kel={this.state.kel}
+									provinsi={this.state.provinsi}
+									kodepos={this.state.kodepos}
+									ktp={this.state.ktp}
+									ktp_selfie={this.state.ktp_selfie}
+									proof_address={this.state.proof_address}
+									family_card={this.state.family_card}
+									proof_income1={this.state.proof_income1}
+									proof_income2={this.state.proof_income2}
+									proof_income3={this.state.proof_income3}
 
-								setFullname={event => this.setFullname(event)}
-								validFullname={this.state.validFullname}
-								setPhone={event => this.setPhone(event)}
-								validPhone={this.state.validPhone}
-								setNIK={event => this.setNIK(event)}
-								validNIK={this.state.validNIK}
-								setBirthPlace={event => this.setBirthPlace(event)}
-								validBirthplace={this.state.validBirthplace}
-								datePickerBirthdate={this.state.datePickerBirthdate}
-								setBirthday={event => this.setBirthday(event)}
-								validBirthdate={this.state.validBirthdate}
+									setFullname={event => this.setFullname(event)}
+									validFullname={this.state.validFullname}
+									setPhone={event => this.setPhone(event)}
+									validPhone={this.state.validPhone}
+									setNIK={event => this.setNIK(event)}
+									validNIK={this.state.validNIK}
+									setBirthPlace={event => this.setBirthPlace(event)}
+									validBirthplace={this.state.validBirthplace}
+									datePickerBirthdate={this.state.datePickerBirthdate}
+									setBirthday={event => this.setBirthday(event)}
+									validBirthdate={this.state.validBirthdate}
 
-								setMarriedStatus={event => this.setMarriedStatus(event)}
-								validMarriedStatus={this.state.validMarriedStatus}
-								setSpouseName={event => this.setSpouseName(event)}
-								validSpouseName={this.state.validSpouseName}
-								setChildren={event => this.setChildren(event)}
-								validChildren={this.state.validChildren}
-								setLastEducation={event => this.setLastEducation(event)}
-								validLastEducation={this.state.validLastEducation}
-								setEarnings={(event, value) => this.setState({ earnings: value })}
-								datePickerStartJob={this.state.datePickerStartJob}
-								setStartDateJob={event => this.setStartDateJob(event)}
-								validStartDateJob={this.state.validStartDateJob}
+									setMarriedStatus={event => this.setMarriedStatus(event)}
+									validMarriedStatus={this.state.validMarriedStatus}
+									setSpouseName={event => this.setSpouseName(event)}
+									validSpouseName={this.state.validSpouseName}
+									setChildren={event => this.setChildren(event)}
+									validChildren={this.state.validChildren}
+									setLastEducation={event => this.setLastEducation(event)}
+									validLastEducation={this.state.validLastEducation}
+									setEarnings={(event, value) => this.setState({ earnings: value })}
+									datePickerStartJob={this.state.datePickerStartJob}
+									setStartDateJob={event => this.setStartDateJob(event)}
+									validStartDateJob={this.state.validStartDateJob}
 
-								setAddress={event => this.setAddress(event)}
-								validAddress={this.state.validAddress}
-								setKelurahan={event => this.setKelurahan(event)}
-								validKelurahan={this.state.validKelurahan}
-								setKecamatan={event => this.setKecamatan(event)}
-								validKecamatan={this.state.validKecamatan}
-								setCity={event => this.setCity(event)}
-								validCity={this.state.validCity}
-								setProvince={event => this.setProvince(event)}
-								validProvince={this.state.validProvince}
-								setPostcode={event => this.setPostcode(event)}
-								validPostcode={this.state.validPostcode}
+									setAddress={event => this.setAddress(event)}
+									validAddress={this.state.validAddress}
+									setKelurahan={event => this.setKelurahan(event)}
+									validKelurahan={this.state.validKelurahan}
+									setKecamatan={event => this.setKecamatan(event)}
+									validKecamatan={this.state.validKecamatan}
+									setCity={event => this.setCity(event)}
+									validCity={this.state.validCity}
+									setProvince={event => this.setProvince(event)}
+									validProvince={this.state.validProvince}
+									setPostcode={event => this.setPostcode(event)}
+									validPostcode={this.state.validPostcode}
 
-								uploadKTPImage={event => this.uploadKTPImage(event)}
-								uploadKTPSelfieImage={event => this.uploadKTPSelfieImage(event)}
-								uploadProofAddressImage={event => this.uploadProofAddressImage(event)}
-								uploadFamilyCardImage={event => this.uploadFamilyCardImage(event)}
-								uploadProofIncome1={event => this.uploadProofIncome1(event)}
-								uploadProofIncome2={event => this.uploadProofIncome2(event)}
-								uploadProofIncome3={event => this.uploadProofIncome3(event)}
+									uploadKTPImage={event => this.uploadKTPImage(event)}
+									uploadKTPSelfieImage={event => this.uploadKTPSelfieImage(event)}
+									uploadProofAddressImage={event => this.uploadProofAddressImage(event)}
+									uploadFamilyCardImage={event => this.uploadFamilyCardImage(event)}
+									uploadProofIncome1={event => this.uploadProofIncome1(event)}
+									uploadProofIncome2={event => this.uploadProofIncome2(event)}
+									uploadProofIncome3={event => this.uploadProofIncome3(event)}
 
-								disableSubmitButton={this.props.disableSubmitButton}
-								clickLoanApplication={event => this.clickLoanApplication(event)}
-								isChecked={this.state.isChecked}
-								validFinanceProductID={this.state.validFinanceProductID}
-							/>
+									disableSubmitButton={this.props.disableSubmitButton}
+									clickLoanApplication={event => this.clickLoanApplication(event)}
+									isChecked={this.state.isChecked}
+									validFinanceProductID={this.state.validFinanceProductID}
+								/>
+							</div>
 						</div>
+						<Footer />
 					</div>
-					<Footer />
-				</div>
-			);
+				);
+			}
 		}
 		return <Redirect to="/signup" />;
 	}
