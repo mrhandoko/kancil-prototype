@@ -3,22 +3,20 @@ import { Link, Redirect } from 'react-router-dom';
 
 class Header extends React.Component {
 	constructor() {
-		super()
+		super();
 		this.state = {
 			isLogin: false,
 			isLogout: false,
-			username: ''
-		}
+			username: '',
+		};
 	}
 	logout() {
-		localStorage.removeItem('userDetail');
-		localStorage.removeItem('loanApplication');
-		localStorage.removeItem('loanReview');
-		localStorage.removeItem('product');
+		window.localStorage.removeItem('user');
+		window.localStorage.removeItem('product');
 		this.state({
 			isLogin: false,
-			isLogout: true
-		})
+			isLogout: true,
+		});
 	}
 	componentWillMount() {
 		// let setUser = window.localStorage.getItem('userDetail')
@@ -37,45 +35,44 @@ class Header extends React.Component {
 		// 			console.log(err)
 		// 		})
 		// }
-		if (window.localStorage.getItem('userDetail') !== null) {
-			if (window.localStorage.length !==0 && JSON.parse(localStorage.getItem('userDetail')).user.username.length > 0 ) {
+		if (window.localStorage.getItem('user') !== null) {
+			if (window.localStorage.length !== 0 && JSON.parse(localStorage.getItem('user')).user.username.length > 0) {
 				this.setState({
 					isLogin: true,
-					username: JSON.parse(localStorage.userDetail).user.username
-				})
+					username: JSON.parse(localStorage.user).user.username,
+				});
 			}
 		}
 	}
 	render() {
 		if (this.state.isLogout) {
-			return <Redirect to='/Home' />
-		} else {
-			return (
-				<header className="sticky">
-					<div className="row">
-						<div className="col-sm-7 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-2">
-							<img src={require('../assets/images/logo/top_logo.png')} className="top-logo" alt="" />
-						</div>
-						<div className="align-right col-sm-5 col-md-7 col-lg-4">
-							<nav className="hidden-sm">
-								<Link to="/">Home</Link>
-								<Link to="/phone">Phones</Link>
-								<Link to="/faq">FAQ</Link>
-								{
-									this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
-								}
-								{
-									localStorage.getItem('product') && <Link to='/loan-application'><b>Loan Application</b></Link>
-								}
-								{
-									this.state.isLogin ? <Link onClick={() => this.logout()} to='/' style={{cursor: 'pointer'}}>Logout</Link> : <Link to="/login"><b>Login</b></Link>
-								}
-							</nav>
-						</div>
-					</div>
-				</header>
-			)
+			return <Redirect to="/Home" />;
 		}
+		return (
+			<header className="sticky">
+				<div className="row">
+					<div className="col-sm-7 col-md-3 col-md-offset-1 col-lg-4 col-lg-offset-2">
+						<img src={require('../assets/images/logo/top_logo.png')} className="top-logo" alt="" />
+					</div>
+					<div className="align-right col-sm-5 col-md-7 col-lg-4">
+						<nav className="hidden-sm">
+							<Link to="/">Home</Link>
+							<Link to="/phone">Phones</Link>
+							<Link to="/faq">FAQ</Link>
+							{
+								this.state.isLogin ? <a>Selamat Datang, {this.state.username}</a> : <Link to="/signup"><b>Daftar</b></Link>
+							}
+							{
+								localStorage.getItem('product') && <Link to="/loan-application"><b>Loan Application</b></Link>
+							}
+							{
+								this.state.isLogin ? <Link onClick={() => this.logout()} to="/" style={{ cursor: "pointer" }}>Logout</Link> : <Link to="/login"><b>Login</b></Link>
+							}
+						</nav>
+					</div>
+				</div>
+			</header>
+		);
 	}
 }
 

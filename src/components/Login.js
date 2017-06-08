@@ -54,7 +54,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.isLogin && !this.props.user.isLogin) {
-      window.localStorage.setItem('userDetail', JSON.stringify(nextProps.user));
+      window.localStorage.setItem('user', JSON.stringify(nextProps.user));
       this.props.getUserDetail(nextProps.user);
       this.setState({ isSucceed: true, isLogin: true });
     } else {

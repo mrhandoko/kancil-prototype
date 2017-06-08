@@ -26,51 +26,50 @@ class SignUp extends React.Component {
 			validEmail: true,
 		};
 	}
-
 	setUsernameField(event) {
-		this.setState({ username: event.target.value })
+		this.setState({ username: event.target.value });
 		if(event.target.value.length <= 3) {
 			this.setState({
-				wrongUsername: true
+				wrongUsername: true,
 			})
 		} else if(event.target.value.length >= 6) {
 			this.setState({
-				wrongUsername: false
-			})
+				wrongUsername: false,
+			});
 		}
 	}
 	setPassword1Field(event) {
 		const regex = /(?=.*\d)(?=.*[a-z]).{6,}/g;
     if(regex.test(event.target.value)) {
-			this.setState({ password1: event.target.value })
+			this.setState({ password1: event.target.value });
 			if (this.state.password2 !== event.target.value) {
 				this.setState({
-					wrongPassword: true
-				})
+					wrongPassword: true,
+				});
 			} else {
 				this.setState({
-					wrongPassword: false
-				})
+					wrongPassword: false,
+				});
 			}
 		}
 	}
 	setPassword2Field(event) {
 		const regex = /(?=.*\d)(?=.*[a-z]).{6,}/g;
     if(regex.test(event.target.value)) {
-			this.setState({ password2: event.target.value })
+			this.setState({ password2: event.target.value });
 			if (this.state.password1 !== event.target.value) {
 				this.setState({
-					wrongPassword: true
-				})
+					wrongPassword: true,
+				});
 			} else {
 				this.setState({
-					wrongPassword: false
-				})
+					wrongPassword: false,
+				});
 			}
 		} else {
 			this.setState({
-				wrongPassword: false
-			})
+				wrongPassword: false,
+			});
 		}
 	}
 	setEmailField(event) {
@@ -79,21 +78,25 @@ class SignUp extends React.Component {
     if (regexEmail.test(email)) {
 			this.setState({
 				email: email,
-				validEmail: true
-			})
+				validEmail: true,
+			});
 		} else {
-			this.setState({ validEmail: false })
+			this.setState({
+				validEmail: false,
+			});
 		}
 	}
 
 	registerButtonOnClick(event) {
 		event.preventDefault()
 		// show loading
-		this.setState({ registerButton: true, disabled: true })
+		this.setState({ registerButton: true, disabled: true });
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
 			if (result.data.user.email === this.state.email) {
-				this.props.loginRequest(result.data.user.email, this.state.password1)
+				this.props.loginRequest(result.data.user.email, this.state.password1);
+				result.data['isLogin'] = true;
+				window.localStorage.setItem('user', JSON.stringify(result.data));
 			}
 			axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', {partnership: this.props.partner.id ? this.props.partner.id : 3}, {
 			  headers: {
@@ -101,9 +104,8 @@ class SignUp extends React.Component {
 			  }
 			})
 			.then(response => {
-				window.localStorage.setItem('userDetail', JSON.stringify(result.data))
-				this.props.setUserDetail(response.data)
-				this.setState({ redirectLoginSuccess: true })
+				this.props.setUserDetail(response.data);
+				this.setState({ redirectLoginSuccess: true });
 			})
 			.catch(err1 => {
 				this.setState({ registerErr: err1 })

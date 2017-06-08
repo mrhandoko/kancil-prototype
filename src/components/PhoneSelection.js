@@ -25,23 +25,17 @@ class PhoneSelection extends Component {
 
 	componentDidMount() {
 		this.modal = new VanillaModal();
-
 		if (this.props.userDetail.partnership) {
 			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
-				.then(response => {
-					this.setState({ products: response.data });
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			.then(response => {
+				this.setState({ products: response.data });
+				this.props.getDataPhone();
+			})
+			.catch(err => {
+				console.log(err);
+			});
 		} else {
-			axios.get('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/product/3/')
-				.then(response => {
-					this.setState({ products: response.data });
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			this.props.getDataPhone();
 		}
 	}
 
@@ -104,7 +98,9 @@ class PhoneSelection extends Component {
 		}
 		return <p />;
 	}
-
+	searchPhone(event) {
+		
+	}
 	chooseThisPhone(data) {
 		this.props.selectPhone(data);
 	}
@@ -125,7 +121,7 @@ class PhoneSelection extends Component {
 	              <div className="panel-bottom">
 	                <form className="clean-form">
 	                  <h5>SEARCH</h5>
-	                  <input type="text" />
+	                  <input type="text" onChange={event => this.searchPhone(event)} />
 	                  <div className="form-spacer" />
 	                  <h5>BRAND</h5>
 	                  <div className="input-group">
@@ -174,8 +170,8 @@ class PhoneSelection extends Component {
 	                  </div>
 	                </div>
 	              </div> */}
-								{this.state.products !== ''
-				          ? this.state.products.map((data, index) => {
+								{this.props.products !== ''
+				          ? this.props.products.map((data, index) => {
 				            return (
 				              <div key={data.id} className="col-sm-12 col-md-6 col-lg-4">
 				                <div className="card fluid">
@@ -226,7 +222,7 @@ class PhoneSelection extends Component {
 const mapStateToProps = state => ({
 	user: state.user,
 	userDetail: state.userDetail,
-	products: state.product,
+	products: state.product.filteredPhone,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ selectPhone, getDataPhone }, dispatch);

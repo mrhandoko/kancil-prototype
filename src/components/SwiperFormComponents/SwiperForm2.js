@@ -22,11 +22,11 @@ const SwiperForm2 = props => (
       <option value="belum kawin">Belum Kawin</option>
       <option value="janda/duda">Janda/Duda</option>
     </select>
-    { !props.validMarriedStatus ? <div style={{ color: 'red' }}>Anda belum memilih status pernikahan</div> : <span></span> }
+    { !props.validMarriedStatus ? <mark className="secondary clean-list">Anda belum memilih status pernikahan</mark> : <span /> }
     <div className="form-spacer" />
     <h5 className="fnt-grey">Nama Istri/Suami</h5>
     <input className="input-full" type="text" onChange={props.setSpouseName} />
-    { !props.validSpouseName ? <div style={{ color: 'red' }}>Format masih salah</div> : <span></span> }
+    { !props.validSpouseName ? <mark className="secondary clean-list">Format masih salah</mark> : <span /> }
     <div className="form-spacer" />
     <h5 className="fnt-grey">Jumlah Anak</h5>
     <select onChange={props.setChildren}>
