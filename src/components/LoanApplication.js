@@ -87,8 +87,10 @@ class LoanApplication extends Component {
 		}
 	}
 	setFullname(event) {
+		let _this = this;
 		const regexFullname = /[A-Za-z]/g;
 		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
+			window.localStorage.setItem('loanApplication', JSON.stringify(_this.state))
 			this.setState({
 				full_name: event.target.value,
 				validFullname: true,

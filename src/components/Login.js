@@ -68,8 +68,8 @@ class Login extends Component {
     } else {
       return (
   		<div>
-  		<Header />
-          <div className="container" style={{margin: '25px 0'}}>
+  		  <Header />
+        <div className="container" style={{margin: '25px 0'}}>
           <div className="row">
             <div className="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
               <div className="panel-top">
@@ -79,15 +79,15 @@ class Login extends Component {
                 <form className="clean-form">
                   <h5 className="fnt-grey">Email</h5>
                   <input type="text" name className="input-full" onChange={event => this.setEmailField(event)} />
-                  { !this.state.validEmail && <span style={{ color: 'red' }}>Format Email salah</span>}
+                  { !this.state.validEmail && <mark className="secondary clean-list">Format Email salah</mark>}
                   <div className="form-spacer" />
                   <h5 className="fnt-grey">Password</h5>
                   <input type="password" className="input-full" onChange={event => this.setPasswordField(event)} />
-                  { !this.state.validPassword && <span style={{ color: 'red' }}>Password masih salah</span>}
+                  { !this.state.validPassword && <mark className="secondary clean-list">Password masih salah</mark>}
                   <div className="row" style={{borderTop: '1px solid #eaeaea', margin: '1rem 0', paddingTop: '1rem'}}>
                     <div className="col-sm-12 col-md-12 col-lg-12">
                       <button className="tertiary input-full" onClick={event => this.clickLogin(event)}>Login</button>
-                      { this.state.isSucceed === false && <span style={{ color: 'red' }}>Anda tidak bisa melakukan login. Silakan daftar/Sign Up terlebih dahulu</span>}
+                      { this.state.isSucceed === false && <mark className="secondary clean-list">Anda tidak bisa melakukan login. Silakan daftar/Sign Up terlebih dahulu</mark>}
                     </div>
                   </div>
                 </form>
@@ -111,7 +111,7 @@ class Login extends Component {
             </div>
           </div>
         </div>
-  		<Footer />
+        <Footer />
       </div>
       )
     }

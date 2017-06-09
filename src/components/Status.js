@@ -7,7 +7,7 @@ import { getLoanData } from '../actions'
 
 class Status extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			isAccepted: false,
 			listLoan: ''

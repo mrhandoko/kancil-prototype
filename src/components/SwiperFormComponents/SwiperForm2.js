@@ -36,7 +36,7 @@ const SwiperForm2 = props => (
       <option value="2">2</option>
       <option value="3+">3+</option>
     </select>
-    { !props.validChildren && <span style={{ color: 'red'}}>Anda belum memilih jumlah anak</span>}
+    { !props.validChildren && <mark className="secondary clean-list">Anda belum memilih jumlah anak</mark>}
     <div className="form-spacer" />
     <h5 className="fnt-grey">Kartu Keluarga</h5>
     <div style={Styles.uploadImage}>
