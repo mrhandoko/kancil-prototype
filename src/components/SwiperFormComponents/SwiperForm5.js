@@ -36,7 +36,7 @@ const SwiperForm5 = props => (
         placeholderText="Mulai Bekerja"
 			/>
 			<span className="fnt-grey">Format: DD/MM/YYYY</span>
-      { !props.validStartDateJob ? <div style={{ color: 'red' }}>Format tanggal mulai bekerja masih salah</div> : <span /> }
+      { !props.validStartDateJob ? <mark className="secondary clean-list">Format tanggal mulai bekerja masih salah</mark> : <span /> }
       <h5 className="fnt-grey">
         Bukti Pendapatan 3 Bulan Terakhir
       </h5>

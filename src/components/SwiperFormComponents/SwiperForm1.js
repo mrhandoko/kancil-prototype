@@ -41,7 +41,7 @@ const SwiperForm1 = props => (
         <option value="D3">D3</option>
         <option value="S1">S1</option>
       </select>
-      { !props.validLastEducation && <span style={{ color: 'red'}}>Anda belum memilih tingkat pendidikan terakhir</span>}
+      { !props.validLastEducation && <mark className="secondary clean-list">Anda belum memilih tingkat pendidikan terakhir</mark>}
     </form>
   </div>
 );
