@@ -85,16 +85,21 @@ class LoanApplication extends Component {
 				isLogin: JSON.parse(localStorage.user).isLogin,
 			})
 		}
+		if (localStorage.loanApplication === undefined) {
+			localStorage.setItem('loanApplication', JSON.stringify(this.state))
+		}
 	}
 	setFullname(event) {
-		let _this = this;
+		event.persist();
+		const _this = this;
 		const regexFullname = /[A-Za-z]/g;
 		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
-			window.localStorage.setItem('loanApplication', JSON.stringify(_this.state))
 			this.setState({
 				full_name: event.target.value,
 				validFullname: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { full_name: event.target.value })))
+			);
 		} else {
 			this.setState({
 				validFullname: false,
@@ -102,13 +107,15 @@ class LoanApplication extends Component {
 		}
 	}
 	setPhone(event) {
+		event.persist();
 		const regexPhone = /^(^\+62\s?|^0)(\d{3,4}?){2}\d{3,4}$/g;
 		if (regexPhone.test(event.target.value)) {
 			this.setState({
 				phone: event.target.value,
 				validPhone : true,
-			});
-			localStorage.setItem('loanApplication', JSON.stringify(this.state));
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { phone: event.target.value })))
+			);
 		} else {
 			this.setState({
 				validPhone: false,
@@ -116,12 +123,15 @@ class LoanApplication extends Component {
 		}
 	}
 	setNIK(event) {
+		event.persist();
 		const regexNIK = /[0-9]/g;
 		if (event.target.value.length >= 10 && regexNIK.test(event.target.value) && event.target.value !== '') {
 			this.setState({
 				nik: event.target.value,
 				validNIK: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { nik: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validNIK: false,
@@ -129,17 +139,23 @@ class LoanApplication extends Component {
 		}
 	}
 	setGender(event) {
+		event.persist();
 		this.setState({
 			gender: event.target.value,
-		});
+		},
+			() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { gender: event.target.value }))),
+		);
 	}
 	setBirthPlace(event) {
+		event.persist();
 		const regexBirthplace = /[A-Za-z]/g;
 		if (event.target.value.length >= 4 && regexBirthplace.test(event.target.value)) {
 			this.setState({
 				birthplace: event.target.value,
 				validBirthplace: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { birthplace: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validBirthplace: false,
@@ -147,6 +163,7 @@ class LoanApplication extends Component {
 		}
 	}
 	setBirthday(date) {
+		event.persist();
 		this.setState({
 			datePickerBirthdate: date,
 		});
@@ -154,7 +171,9 @@ class LoanApplication extends Component {
 			this.setState({
 				birthdate: moment(date).format('DDMMYYYY'),
 				validBirthdate: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { datePickerBirthdate: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validBirthdate: false,
@@ -162,12 +181,15 @@ class LoanApplication extends Component {
 		}
 	}
 	setMarriedStatus(event) {
+		event.persist();
 		const regexMarriedStatus = /[A-Za-z]/g;
 		if (regexMarriedStatus.test(event.target.value)) {
 			this.setState({
 				married_status: event.target.value,
 				validMarriedStatus: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { married_status: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validMarriedStatus: false,
@@ -175,17 +197,22 @@ class LoanApplication extends Component {
 		}
 	}
 	setSpouseName(event) {
+		event.persist();
 		this.setState({
 			wife_husband_name: event.target.value,
 			validSpouseName: true,
-		});
+		},
+			() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { wife_husband_name: event.target.value }))),
+		);
 	}
 	setChildren(event) {
+		event.persist();
 		if (event.target.value !== 'none') {
 			this.setState({
 				children: event.target.value,
 				validChildren: true,
 			});
+			localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { children: event.target.value })));
 		} else {
 			this.setState({
 				validChildren: false,
@@ -193,11 +220,13 @@ class LoanApplication extends Component {
 		}
 	}
 	setLastEducation(event) {
+		event.persist();
 		if (event.target.value !== 'none') {
 			this.setState({
 				education: event.target.value,
 				validLastEducation: true,
 			});
+			localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { education: event.target.value })));
 		} else {
 			this.setState({
 				validLastEducation: false,
@@ -205,12 +234,15 @@ class LoanApplication extends Component {
 		}
 	}
 	setStartDateJob(date) {
+		date.persist();
 		if (date !== '') {
 			this.setState({
 				start_date_job: moment(date).format('DDMMYYYY'),
 				datePickerStartJob: date,
 				validStartDateJob: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { start_date_job: date }))),
+			);
 		} else {
 			this.setState({
 				validStartDateJob: false,
@@ -218,11 +250,14 @@ class LoanApplication extends Component {
 		}
 	}
 	setAddress(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				address: event.target.value,
 				validAddress: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { address: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validAddress: false,
@@ -230,11 +265,14 @@ class LoanApplication extends Component {
 		}
 	}
 	setKelurahan(event) {
+		event.persit();
 		if (event.target.value !== '') {
 			this.setState({
 				kel: event.target.value,
 				validKelurahan: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { kel: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validKelurahan: false,
@@ -242,11 +280,14 @@ class LoanApplication extends Component {
 		}
 	}
 	setKecamatan(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				kec: event.target.value,
 				validKecamatan: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { kec: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validKecamatan: false,
@@ -254,11 +295,14 @@ class LoanApplication extends Component {
 		}
 	}
 	setCity(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				city: event.target.value,
 				validCity: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { city: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validCity: false,
@@ -266,11 +310,14 @@ class LoanApplication extends Component {
 		}
 	}
 	setProvince(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				provinsi: event.target.value,
 				validProvince: true,
-			});
+			},
+				() => () => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { provinsi: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validProvince: false,
@@ -278,12 +325,15 @@ class LoanApplication extends Component {
 		}
 	}
 	setPostcode(event) {
+		event.persist();
 		const regexPostcode = /[0-9]/g;
 		if (event.target.value !== '' && regexPostcode.test(event.target.value)) {
 			this.setState({
 				kodepos: event.target.value,
 				validPostcode: true,
-			});
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { kodepos: event.target.value }))),
+			);
 		} else {
 			this.setState({
 				validPostcode: false,
@@ -294,10 +344,14 @@ class LoanApplication extends Component {
 		this.setState({
 			financeProductID: event.target.value,
 			validFinanceProductID: true,
-		});
+		},
+			() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { financeProductID: event.target.value }))),
+		);
 	}
 	uploadKTPImage(event) {
 		event.preventDefault();
+		event.persist();
+
 		const reader = new FileReader();
 		const file = event.target.files[0];
 
@@ -329,7 +383,9 @@ class LoanApplication extends Component {
 				this.setState({
 					ktp: file[name],
 					ktp64: dataUrl,
-				});
+				},
+					() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp: file[name] }))),
+				);
 			};
 			image.src = readerEvent.target.result;
 		};
@@ -337,6 +393,8 @@ class LoanApplication extends Component {
 	}
 	uploadKTPSelfieImage(event) {
 		event.preventDefault();
+		event.persist();
+
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = readerEvent => {
@@ -367,7 +425,9 @@ class LoanApplication extends Component {
 				this.setState({
 					ktp_selfie: file[name],
 					ktp_selfie64: dataUrl,
-				});
+				},
+					() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp_selfie: file[name] }))),
+				);
 			};
 			image.src = readerEvent.target.result;
 		};
@@ -375,61 +435,80 @@ class LoanApplication extends Component {
 	}
 	uploadProofAddressImage(event) {
 		event.preventDefault();
+		event.persist();
+
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_address64: reader.result,
 				proof_address: file[name],
-			});
+				proof_address64: reader.result,
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_address: file[name] }))),
+			);
 		};
 		reader.readAsDataURL(file);
 	}
 	uploadFamilyCardImage(event) {
 		event.preventDefault();
+		event.persist();
+
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				family_card64: reader.result,
 				family_card: file[name],
-			});
+				family_card64: reader.result,
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { family_card: file[name] }))),
+			);
 		};
 		reader.readAsDataURL(file);
 	}
 	uploadProofIncome1(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_income164: reader.result,
 				proof_income1: file[name],
-			});
+				proof_income164: reader.result,
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income1: file[name] }))),
+			);
 		};
 		reader.readAsDataURL(file);
 	}
 	uploadProofIncome2(event) {
 		event.preventDefault();
+		event.persist();
+
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_income264: reader.result,
 				proof_income2: file[name],
-			});
+				proof_income264: reader.result,
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income2: file[name] }))),
+			);
 		};
 		reader.readAsDataURL(file);
 	}
 	uploadProofIncome3(event) {
 		event.preventDefault();
+		event.persist();
+
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_income364: reader.result,
 				proof_income3: file[name],
-			});
+				proof_income364: reader.result,
+			},
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income3: file[name] }))),
+			);
 		};
 		reader.readAsDataURL(file);
 	}
@@ -487,31 +566,31 @@ class LoanApplication extends Component {
 									phoneLink={'/phone'}
 								/>
 								<SwiperForm
-									full_name={this.state.full_name}
-									nik={this.state.nik}
-									gender={this.state.gender}
-									phone={this.state.phone}
-									birthplace={this.state.birthplace}
-									birthdate={this.state.birthdate}
-									married_status={this.state.married_status}
-									wife_husband_name={this.state.wife_husband_name}
-									children={this.state.children}
-									education={this.state.education}
-									earnings={this.state.earnings}
-									start_date_job={this.state.start_date_job}
-									address={this.state.address}
-									kec={this.state.kec}
-									city={this.state.city}
-									kel={this.state.kel}
-									provinsi={this.state.provinsi}
-									kodepos={this.state.kodepos}
-									ktp={this.state.ktp}
-									ktp_selfie={this.state.ktp_selfie}
-									proof_address={this.state.proof_address}
-									family_card={this.state.family_card}
-									proof_income1={this.state.proof_income1}
-									proof_income2={this.state.proof_income2}
-									proof_income3={this.state.proof_income3}
+									full_name={JSON.parse(localStorage.loanApplication).full_name}
+									nik={JSON.parse(localStorage.loanApplication).nik}
+									gender={JSON.parse(localStorage.loanApplication).gender}
+									phone={JSON.parse(localStorage.loanApplication).phone}
+									birthplace={JSON.parse(localStorage.loanApplication).birthplace}
+									birthdate={JSON.parse(localStorage.loanApplication).birthdate}
+									married_status={JSON.parse(localStorage.loanApplication).married_status}
+									wife_husband_name={JSON.parse(localStorage.loanApplication).wife_husband_name}
+									children={JSON.parse(localStorage.loanApplication).children}
+									education={JSON.parse(localStorage.loanApplication).education}
+									earnings={JSON.parse(localStorage.loanApplication).earnings}
+									start_date_job={JSON.parse(localStorage.loanApplication).start_date_job}
+									address={JSON.parse(localStorage.loanApplication).address}
+									kec={JSON.parse(localStorage.loanApplication).kec}
+									city={JSON.parse(localStorage.loanApplication).city}
+									kel={JSON.parse(localStorage.loanApplication).kel}
+									provinsi={JSON.parse(localStorage.loanApplication).provinsi}
+									kodepos={JSON.parse(localStorage.loanApplication).kodepos}
+									ktp={JSON.parse(localStorage.loanApplication).ktp}
+									ktp_selfie={JSON.parse(localStorage.loanApplication).ktp_selfie}
+									proof_address={JSON.parse(localStorage.loanApplication).proof_address}
+									family_card={JSON.parse(localStorage.loanApplication).family_card}
+									proof_income1={JSON.parse(localStorage.loanApplication).proof_income1}
+									proof_income2={JSON.parse(localStorage.loanApplication).proof_income2}
+									proof_income3={JSON.parse(localStorage.loanApplication).proof_income3}
 
 									setFullname={event => this.setFullname(event)}
 									validFullname={this.state.validFullname}
