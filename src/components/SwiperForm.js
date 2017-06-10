@@ -35,10 +35,10 @@ class SwiperComponent extends React.Component {
           <div className="swiper-container swiper-no-swiping">
             <div className="swiper-wrapper">
               <SwiperForm1
-                full_name={this.propsfull_name}
+                full_name={this.props.full_name}
                 setFullname={this.props.setFullname}
                 validFullname={this.props.validFullname}
-                phone={this.propsphone}
+                phone={this.props.phone}
                 setPhone={this.props.setPhone}
                 validPhone={this.props.validPhone}
                 gender={this.propsgender}
