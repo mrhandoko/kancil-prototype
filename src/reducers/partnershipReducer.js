@@ -1,4 +1,4 @@
-const initialState = {partnership: 3};
+const initialState = { partnership: 3 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
