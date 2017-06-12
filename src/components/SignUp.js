@@ -93,6 +93,11 @@ class SignUp extends React.Component {
 		this.setState({ registerButton: true, disabled: true });
 		axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/auth/register/', this.state)
 		.then(result => {
+			if (result.data.user.email === this.state.email) {
+				this.props.loginRequest(result.data.user.email, this.state.password1);
+				result.data['isLogin'] = true;
+				localStorage.setItem('user', JSON.stringify(result.data));
+			}
 			axios.post('http://kancil-dev.ap-southeast-1.elasticbeanstalk.com/api/userdetail/', { partnership: this.props.partner.id ? this.props.partner.id : 3 },
 			{
 			  headers: {
@@ -102,9 +107,6 @@ class SignUp extends React.Component {
 			.then(response => {
 				this.props.setUserDetail(response.data);
 				this.setState({ redirectLoginSuccess: true });
-				this.props.loginRequest(result.data.user.email, this.state.password1);
-				result.data['isLogin'] = true;
-				localStorage.setItem('user', JSON.stringify(result.data));
 			})
 			.catch(err1 => {
 				if (err1.response.status !== 500) {

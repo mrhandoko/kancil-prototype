@@ -11,8 +11,7 @@ class Header extends React.Component {
 		};
 	}
 	logout() {
-		window.localStorage.removeItem('user');
-		window.localStorage.removeItem('product');
+		window.localStorage.clear();
 		this.state({
 			isLogin: false,
 			isLogout: true,
