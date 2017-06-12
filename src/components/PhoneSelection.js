@@ -141,7 +141,7 @@ class PhoneSelection extends Component {
 	                    <input type="radio" id="chk3" name="filter" value="Lenovo" onChange={() => this.checkedPhone('Lenovo')} onChecked={this.state.checked === 'Lenovo'} tabIndex={2} /> <label htmlFor="chk3">&nbsp;Lenovo</label>
 	                  </div>
 	                  <div className="form-spacer" />
-	                  {/* <h5>Price Range</h5>
+	                  <h5>Price Range</h5>
 	                  <select>
 	                    <option>0 - 1jt</option>
 	                    <option>1jt - 2jt</option>
@@ -154,14 +154,14 @@ class PhoneSelection extends Component {
 	                    <option>15cm</option>
 	                    <option>20cm</option>
 	                  </select>
-	                  <br /> */}
+	                  <br />
 	                </div>
 	              </div>
 	            </div>
 	          </div>
 	          <div className="col-sm-12 col-md-7 col-lg-6">
 	            <div className="row">
-	              {/* <div className="col-sm-12 col-md-12 col-lg-12">
+	              <div className="col-sm-12 col-md-12 col-lg-12">
 	                <div className="row" style={{borderBottom: '1px solid #eaeaea'}}>
 	                  <div className="col-sm-6 col-md-6 col-lg-6">
 	                    <div style={{marginTop: 10}} className="fnt-sz-s1">Showing 12 of 53 Products</div>
@@ -176,7 +176,7 @@ class PhoneSelection extends Component {
 	                    </form>
 	                  </div>
 	                </div>
-	              </div> */}
+	              </div>
 								{this.props.products !== ''
 				          ? this.props.products.map((data, index) => {
 				            return (
