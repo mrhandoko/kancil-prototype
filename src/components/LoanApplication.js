@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { setUserDetail } from '../actions';
+import { setUserDetail, formLoanAction } from '../actions';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -94,6 +94,7 @@ class LoanApplication extends Component {
 				full_name: event.target.value,
 				validFullname: true,
 			});
+			this.props.formLoanAction(this.state);
 		} else {
 			this.setState({
 				validFullname: false,
@@ -203,7 +204,6 @@ class LoanApplication extends Component {
 		}
 	}
 	setStartDateJob(date) {
-		date.persist();
 		if (date !== '') {
 			this.setState({
 				start_date_job: moment(date).format('DDMMYYYY'),
@@ -498,8 +498,9 @@ class LoanApplication extends Component {
 									validFinanceProductID={this.state.validFinanceProductID}
 									phoneLink={'/phone'}
 								/>
+								<input type="submit" onClick={() => this.sepay()}/>
 								<SwiperForm
-									full_name={this.state.full_name}
+									full_name={this.props.formLoan.full_name}
 									nik={this.state.nik}
 									gender={this.state.gender}
 									phone={this.state.phone}
@@ -592,8 +593,9 @@ const mapStateToProps = state => ({
 	userDetail: state.userDetail,
 	product: state.product.selectedPhone,
 	disableSubmitButton: state.loanApp.isLoading,
+	formLoan: state.formLoan.persistedState,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setUserDetail }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserDetail, formLoanAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoanApplication);
