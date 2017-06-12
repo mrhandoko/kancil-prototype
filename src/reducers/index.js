@@ -5,6 +5,7 @@ import { productReducer } from './productReducer';
 import { loanAppReducer } from './loanAppReducer';
 import { partnerReducer } from './partnerReducer';
 import { userDetailReducer } from './userDetailReducer';
+import { formLoanReducer } from './formLoanReducer';
 
 export default combineReducers({
   user: userReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   loanApp: loanAppReducer,
   partner: partnerReducer,
   userDetail: userDetailReducer,
+  formLoan: formLoanReducer,
 });
