@@ -93,8 +93,9 @@ class LoanApplication extends Component {
 			this.setState({
 				full_name: event.target.value,
 				validFullname: true,
-			});
-			this.props.formLoanAction(this.state);
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
 				validFullname: false,
