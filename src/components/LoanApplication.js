@@ -229,7 +229,6 @@ class LoanApplication extends Component {
 		}
 	}
 	setKelurahan(event) {
-		event.persit();
 		if (event.target.value !== '') {
 			this.setState({
 				kel: event.target.value,
@@ -498,7 +497,6 @@ class LoanApplication extends Component {
 									validFinanceProductID={this.state.validFinanceProductID}
 									phoneLink={'/phone'}
 								/>
-								<input type="submit" onClick={() => this.sepay()}/>
 								<SwiperForm
 									full_name={this.props.formLoan.full_name}
 									nik={this.state.nik}
