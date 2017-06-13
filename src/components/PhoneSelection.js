@@ -132,13 +132,13 @@ class PhoneSelection extends Component {
 	                  <div className="form-spacer" />
 	                  <h5>BRAND</h5>
 	                  <div className="input-group">
-											<input type="radio" id="chk0" name="filter" value="" onChange={() => this.checkedPhone('')} onChecked={this.state.checked === ''} tabIndex={0} /> <label htmlFor="chk0">&nbsp;All</label>
+											<input type="radio" id="chk0" name="filter" value="" onChange={() => this.checkedPhone('')} checked={this.state.checked === ''} tabIndex={0} /> <label htmlFor="chk0">&nbsp;All</label>
 											<br />
-	                    <input type="radio" id="chk1" name="filter" value="Andromax" onChange={() => this.checkedPhone('Andromax')} onChecked={this.state.checked === 'Andromax'} tabIndex={0} /> <label htmlFor="chk1">&nbsp;Andromax</label>
+	                    <input type="radio" id="chk1" name="filter" value="Andromax" onChange={() => this.checkedPhone('Andromax')} checked={this.state.checked === 'Andromax'} tabIndex={0} /> <label htmlFor="chk1">&nbsp;Andromax</label>
 	                    <br />
-	                    <input type="radio" id="chk2" name="filter" value="Blackberry" onChange={() => this.checkedPhone('Blackberry')} onChecked={this.state.checked === 'Blackberry'} tabIndex={1} /> <label htmlFor="chk2">&nbsp;Blackberry</label>
+	                    <input type="radio" id="chk2" name="filter" value="Blackberry" onChange={() => this.checkedPhone('Blackberry')} checked={this.state.checked === 'Blackberry'} tabIndex={1} /> <label htmlFor="chk2">&nbsp;Blackberry</label>
 	                    <br />
-	                    <input type="radio" id="chk3" name="filter" value="Lenovo" onChange={() => this.checkedPhone('Lenovo')} onChecked={this.state.checked === 'Lenovo'} tabIndex={2} /> <label htmlFor="chk3">&nbsp;Lenovo</label>
+	                    <input type="radio" id="chk3" name="filter" value="Lenovo" onChange={() => this.checkedPhone('Lenovo')} checked={this.state.checked === 'Lenovo'} tabIndex={2} /> <label htmlFor="chk3">&nbsp;Lenovo</label>
 	                  </div>
 	                  <div className="form-spacer" />
 	                </div>
