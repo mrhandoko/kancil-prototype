@@ -59,5 +59,38 @@
         document.querySelector('#toggleMenu').addEventListener('click', classToggle);
         document.querySelector('#overlayMenu').addEventListener('click', classToggle);
     </script>
+    <script async type="text/javascript">
+      var LenddoVerifyConfig = {
+        scriptId: '562f3909aa9612778a2b8d2e',
+        applicationId: 'AAZog0WWSApnQUI1c1J544Fm2Aqjp+NMvKlqgx9V2DbvGTcYHpbNGlXxwSzcQHpJBTSSyCYlR4YqQMrHRQBHdw==',
+        verificationFields: {
+          /* sample verification field values */
+          firstname: 'John',
+          middlename: 'Doe',
+          lastname: function(){
+            return $("#lastname").val()
+          },
+          birthdate: '1985-03-03',
+          email: 'john.doe@yahoo.com',
+          employer: 'Google',
+          mobilephone: '+639939299923'
+        },
+        onSubmit: function(cb) {
+          var errors = false;
+          if (errors === false) {
+            cb();
+          }
+        }
+      };
+
+      (function() {
+        var la = document.createElement('script');
+        la.type = 'text/javascript';
+        la.async = true;
+        la.src = 'https://authorize.partner-service.link/verify.js?v=' + Date.now();
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(la, s);
+      })();
+    </script>
   </body>
 </html>

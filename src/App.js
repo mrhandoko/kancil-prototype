@@ -1,22 +1,24 @@
-import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Home from './components/Home'
-import PhoneSelection from './components/PhoneSelection'
-import Login from './components/Login'
-import LoanApplication from './components/LoanApplication'
-import SignUp from './components/SignUp'
-import Thankyou from './components/Thankyou'
-import Status from './components/Status'
-import LoanReview from './components/LoanReview'
-import FAQ from './components/FAQ'
-import UberHome1 from './components/uber/UberHome1'
-import UberHome2 from './components/uber/UberHome2'
-import UberHome3 from './components/uber/UberHome3'
-import UberHome4 from './components/uber/UberHome4'
-import { setUserData, getUserDetail } from './actions'
+import Home from './components/Home';
+import PhoneSelection from './components/PhoneSelection';
+import Login from './components/Login';
+import LoanApplication from './components/LoanApplication';
+import SignUp from './components/SignUp';
+import Thankyou from './components/Thankyou';
+import Status from './components/Status';
+import LoanReview from './components/LoanReview';
+import FAQ from './components/FAQ';
+import UberHome1 from './components/uber/UberHome1';
+import UberHome2 from './components/uber/UberHome2';
+import UberHome3 from './components/uber/UberHome3';
+import UberHome4 from './components/uber/UberHome4';
+import LenddoPage from './components/LenddoPage';
+
+import { setUserData, getUserDetail } from './actions';
 
 class App extends React.Component {
 	componentDidMount() {
@@ -43,6 +45,7 @@ class App extends React.Component {
 					<Route path="/uber2" component={UberHome2} />
 					<Route path="/uber3" component={UberHome3} />
 					<Route path="/uber4" component={UberHome4} />
+					<Route path="/lenddo" component={LenddoPage} />
 				</div>
 			</Router>
 		)
