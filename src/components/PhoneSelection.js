@@ -12,7 +12,7 @@ import Footer from './Footer';
 import { selectPhone, getDataPhone, searchingPhone } from '../actions';
 
 class PhoneSelection extends Component {
-	constructor() {
+	constructor() {	
 		super();
 		this.state = {
 			isLogin: false,
