@@ -30,7 +30,6 @@ class LenddoPage extends Component {
         }
       }
     };
-    console.log(this.state.application_id);
   }
   render() {
     return (
