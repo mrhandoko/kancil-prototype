@@ -16,6 +16,7 @@ import UberHome1 from './components/uber/UberHome1';
 import UberHome2 from './components/uber/UberHome2';
 import UberHome3 from './components/uber/UberHome3';
 import UberHome4 from './components/uber/UberHome4';
+import LenddoUser from './components/LenddoUser';
 import LenddoPage from './components/LenddoPage';
 
 import { setUserData, getUserDetail } from './actions';
@@ -45,6 +46,7 @@ class App extends React.Component {
 					<Route path="/uber2" component={UberHome2} />
 					<Route path="/uber3" component={UberHome3} />
 					<Route path="/uber4" component={UberHome4} />
+					<Route path="/lenddo-user" component={LenddoUser} />
 					<Route path="/lenddo" component={LenddoPage} />
 				</div>
 			</Router>

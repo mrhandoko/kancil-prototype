@@ -23,6 +23,9 @@ class LenddoPage extends Component {
     window.LenddoVerifyConfig = {
       scriptId: '59230c27f7a57939fa653526',
       application_id: this.state.application_id,
+      verificationFields: {
+        name: 'testing',
+      },
       onSubmit: function(cb) {
         var errors = false;
         if (errors === false) {
