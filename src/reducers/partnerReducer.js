@@ -1,4 +1,4 @@
-const initialState = {id: 1};
+const initialState = {id: 3};
 
 export const partnerReducer = (state = initialState, action) => {
   switch (action.type) {
