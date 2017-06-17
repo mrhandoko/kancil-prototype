@@ -327,10 +327,10 @@ class LoanApplication extends Component {
 				canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 				const dataUrl = canvas.toDataURL('image/jpeg');
 				this.setState({
-					ktp: file[name],
+					ktp: file['name'],
 					ktp64: dataUrl,
 				},
-					() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp: file[name] }))),
+					() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp: file['name'] }))),
 				);
 			};
 			image.src = readerEvent.target.result;
@@ -367,10 +367,15 @@ class LoanApplication extends Component {
 				canvas.getContext('2d').drawImage(image, 0, 0, width, height);
 				const dataUrl = canvas.toDataURL('image/jpeg');
 				this.setState({
-					ktp_selfie: file[name],
+					ktp_selfie: file['name'],
 					ktp_selfie64: dataUrl,
-				},
-					() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp_selfie: file[name] }))),
+				}
+				,
+					() => {
+						localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp_selfie: file['name'] })))
+						console.log(this.state.ktp_selfie);
+						console.log(this.state.ktp_selfie64);
+					},
 				);
 			};
 			image.src = readerEvent.target.result;
@@ -383,10 +388,10 @@ class LoanApplication extends Component {
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_address: file[name],
+				proof_address: file['name'],
 				proof_address64: reader.result,
 			},
-				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_address: file[name] }))),
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_address: file['name'] }))),
 			);
 		};
 		reader.readAsDataURL(file);
@@ -397,10 +402,10 @@ class LoanApplication extends Component {
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				family_card: file[name],
+				family_card: file['name'],
 				family_card64: reader.result,
 			},
-				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { family_card: file[name] }))),
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { family_card: file['name'] }))),
 			);
 		};
 		reader.readAsDataURL(file);
@@ -411,10 +416,10 @@ class LoanApplication extends Component {
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_income1: file[name],
+				proof_income1: file['name'],
 				proof_income164: reader.result,
 			},
-				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income1: file[name] }))),
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income1: file['name'] }))),
 			);
 		};
 		reader.readAsDataURL(file);
@@ -425,10 +430,10 @@ class LoanApplication extends Component {
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_income2: file[name],
+				proof_income2: file['name'],
 				proof_income264: reader.result,
 			},
-				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income2: file[name] }))),
+				() => localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { proof_income2: file['name'] }))),
 			);
 		};
 		reader.readAsDataURL(file);
@@ -439,7 +444,7 @@ class LoanApplication extends Component {
 		const file = event.target.files[0];
 		reader.onloadend = () => {
 			this.setState({
-				proof_income3: file[name],
+				proof_income3: file['name'],
 				proof_income364: reader.result,
 			});
 		};
@@ -592,7 +597,7 @@ const mapStateToProps = state => ({
 	userDetail: state.userDetail,
 	product: state.product.selectedPhone,
 	disableSubmitButton: state.loanApp.isLoading,
-	formLoan: state.formLoan.persistedState,
+	formLoan: state.formLoan,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ setUserDetail, formLoanAction }, dispatch);
