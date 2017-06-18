@@ -114,7 +114,9 @@ export const getLoanData = user => dispatch => {
   .catch(err => dispatch({ type: 'FETCH_LOAN_ERROR', payload: err }));
 }
 
-export const formLoanAction = data => ({
-  type: 'persist/REHYDRATE',
-  payload: data,
-});
+export const formLoanAction = data => {
+  return {
+    type: 'persist/REHYDRATE',
+    payload: data,
+  }
+}
