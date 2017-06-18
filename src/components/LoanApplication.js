@@ -106,8 +106,8 @@ class LoanApplication extends Component {
 				full_name: event.target.value,
 				validFullname: true,
 			},
-				() => this.props.formLoanAction(this.state),
-			);
+			() => this.props.formLoanAction(this.state)
+		);
 
 	}
 	setPhone(event) {
@@ -512,7 +512,7 @@ class LoanApplication extends Component {
 									phoneLink={'/phone'}
 								/>
 								<SwiperForm
-									full_name={this.props.formLoan.full_name}
+									full_name={this.props.formLoan.formLoan}
 									nik={this.state.nik}
 									gender={this.state.gender}
 									phone={this.state.phone}
