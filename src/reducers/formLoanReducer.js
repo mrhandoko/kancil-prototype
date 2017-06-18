@@ -1,11 +1,8 @@
-const initialState = {
-  persistedState: {}
-}
-
-export const formLoanReducer = (state = initialState, action) => {
+export const formLoanReducer = (state = {}, action) => {
   switch (action.type) {
     case 'persist/REHYDRATE':
-      return {...state, persistedState: action.payload}
+      console.log('cantik kau meyta', action.payload.formLoan);
+      return action.payload
     default:
       return state;
   }

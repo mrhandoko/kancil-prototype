@@ -5,7 +5,10 @@ const SwiperForm1 = props => (
   <div className="swiper-slide swiper-slide-form">
     <form>
       <h5 className="fnt-grey">Nama Lengkap</h5>
-      <input className="input-full" type="text" onChange={props.setFullname} defaultValue={props.full_name} />
+      {
+        props.full_name !== '' ? <input className="input-full" type="text" onChange={props.setFullname} value={props.full_name} /> :
+        <input className="input-full" type="text" onChange={props.setFullname} />
+      }
       { !props.validFullname ? <mark className="secondary clean-list">Nama Tidak boleh kurang dari 5 karakter.</mark> : <span /> }
       <div className="form-spacer" />
       <h5 className="fnt-grey">Nomor Handphone</h5>

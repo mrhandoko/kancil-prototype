@@ -89,18 +89,26 @@ class LoanApplication extends Component {
 	setFullname(event) {
 		const _this = this;
 		const regexFullname = /[A-Za-z]/g;
-		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
-			this.setState({
+		// if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
+		// 	this.setState({
+		// 		full_name: event.target.value,
+		// 		validFullname: true,
+		// 	},
+		// 		() => this.props.formLoanAction(this.state),
+		// 	);
+		// } else {
+		// 	this.setState({
+		// 		validFullname: false,
+		// 	});
+		// }
+
+		this.setState({
 				full_name: event.target.value,
 				validFullname: true,
 			},
 				() => this.props.formLoanAction(this.state),
 			);
-		} else {
-			this.setState({
-				validFullname: false,
-			});
-		}
+
 	}
 	setPhone(event) {
 		const regexPhone = /^(^\+62\s?|^0)(\d{3,4}?){2}\d{3,4}$/g;
