@@ -84,77 +84,94 @@ class LoanApplication extends Component {
 			this.setState({
 				isLogin: JSON.parse(localStorage.user).isLogin,
 			})
+			this.state = this.props.formLoan;
 		}
 	}
 	setFullname(event) {
-		const _this = this;
+		event.persist();
 		const regexFullname = /[A-Za-z]/g;
-		// if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
-		// 	this.setState({
-		// 		full_name: event.target.value,
-		// 		validFullname: true,
-		// 	},
-		// 		() => this.props.formLoanAction(this.state),
-		// 	);
-		// } else {
-		// 	this.setState({
-		// 		validFullname: false,
-		// 	});
-		// }
-
-		this.setState({
+		if (event.target.value.length >= 5 && event.target.value.length <= 25 && regexFullname.test(event.target.value)) {
+			this.setState({
 				full_name: event.target.value,
 				validFullname: true,
 			},
-			() => this.props.formLoanAction(this.state)
-		);
-
+				() => this.props.formLoanAction(this.state),
+			);
+		} else {
+			this.setState({
+				full_name: event.target.value,
+				validFullname: false,
+			},
+				() => this.props.formLoanAction(this.state),
+			);
+		}
 	}
 	setPhone(event) {
+		event.persist();
 		const regexPhone = /^(^\+62\s?|^0)(\d{3,4}?){2}\d{3,4}$/g;
 		if (regexPhone.test(event.target.value)) {
 			this.setState({
 				phone: event.target.value,
 				validPhone : true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				phone: event.target.value,
 				validPhone: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setNIK(event) {
+		event.persist();
 		const regexNIK = /[0-9]/g;
 		if (event.target.value.length >= 10 && regexNIK.test(event.target.value) && event.target.value !== '') {
 			this.setState({
 				nik: event.target.value,
 				validNIK: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
 				validNIK: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setGender(event) {
+		event.persist();
 		this.setState({
 			gender: event.target.value,
-		});
+		},
+			() => this.props.formLoanAction(this.state),
+		);
 	}
 	setBirthPlace(event) {
+		event.persist();
 		const regexBirthplace = /[A-Za-z]/g;
 		if (event.target.value.length >= 4 && regexBirthplace.test(event.target.value)) {
 			this.setState({
 				birthplace: event.target.value,
 				validBirthplace: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				birthplace: event.target.value,
 				validBirthplace: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setBirthday(date) {
+		event.persist();
 		this.setState({
 			datePickerBirthdate: date,
 		});
@@ -162,70 +179,104 @@ class LoanApplication extends Component {
 			this.setState({
 				birthdate: moment(date).format('DDMMYYYY'),
 				validBirthdate: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				birthdate: moment(date).format('DDMMYYYY'),
 				validBirthdate: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setMarriedStatus(event) {
+		event.persist();
 		const regexMarriedStatus = /[A-Za-z]/g;
 		if (regexMarriedStatus.test(event.target.value)) {
 			this.setState({
 				married_status: event.target.value,
 				validMarriedStatus: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				married_status: event.target.value,
 				validMarriedStatus: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setSpouseName(event) {
+		event.persist();
 		this.setState({
 			wife_husband_name: event.target.value,
 			validSpouseName: true,
-		});
+		},
+			() => this.props.formLoanAction(this.state),
+		);
 	}
 	setChildren(event) {
+		event.persist();
 		if (event.target.value !== 'none') {
 			this.setState({
 				children: event.target.value,
 				validChildren: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				children: event.target.value,
 				validChildren: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setLastEducation(event) {
+		event.persist();
 		if (event.target.value !== 'none') {
 			this.setState({
 				education: event.target.value,
 				validLastEducation: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				education: event.target.value,
 				validLastEducation: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setStartDateJob(date) {
+		date.persist();
 		if (date !== '') {
 			this.setState({
 				start_date_job: moment(date).format('DDMMYYYY'),
 				datePickerStartJob: date,
 				validStartDateJob: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				start_date_job: moment(date).format('DDMMYYYY'),
+				datePickerStartJob: date,
 				validStartDateJob: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setAddress(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				address: event.target.value,
@@ -233,79 +284,116 @@ class LoanApplication extends Component {
 			});
 		} else {
 			this.setState({
+				address: event.target.value,
 				validAddress: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setKelurahan(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				kel: event.target.value,
 				validKelurahan: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				kel: event.target.value,
 				validKelurahan: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setKecamatan(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				kec: event.target.value,
 				validKecamatan: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				kec: event.target.value,
 				validKecamatan: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setCity(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				city: event.target.value,
 				validCity: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				city: event.target.value,
 				validCity: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setProvince(event) {
+		event.persist();
 		if (event.target.value !== '') {
 			this.setState({
 				provinsi: event.target.value,
 				validProvince: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				provinsi: event.target.value,
 				validProvince: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	setPostcode(event) {
+		event.persist();
 		const regexPostcode = /[0-9]/g;
 		if (event.target.value !== '' && regexPostcode.test(event.target.value)) {
 			this.setState({
 				kodepos: event.target.value,
 				validPostcode: true,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		} else {
 			this.setState({
+				kodepos: event.target.value,
 				validPostcode: false,
-			});
+			},
+				() => this.props.formLoanAction(this.state),
+			);
 		}
 	}
 	chooseTenore(event) {
+		event.persist();
 		this.setState({
 			financeProductID: event.target.value,
 			validFinanceProductID: true,
-		});
+		},
+			() => this.props.formLoanAction(this.state),
+		);
 	}
 	uploadKTPImage(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 
@@ -347,6 +435,7 @@ class LoanApplication extends Component {
 	}
 	uploadKTPSelfieImage(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = readerEvent => {
@@ -381,8 +470,6 @@ class LoanApplication extends Component {
 				,
 					() => {
 						localStorage.setItem('loanApplication', JSON.stringify(Object.assign({}, this.state, { ktp_selfie: file['name'] })))
-						console.log(this.state.ktp_selfie);
-						console.log(this.state.ktp_selfie64);
 					},
 				);
 			};
@@ -392,6 +479,7 @@ class LoanApplication extends Component {
 	}
 	uploadProofAddressImage(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
@@ -406,6 +494,7 @@ class LoanApplication extends Component {
 	}
 	uploadFamilyCardImage(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
@@ -420,6 +509,7 @@ class LoanApplication extends Component {
 	}
 	uploadProofIncome1(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
@@ -434,6 +524,7 @@ class LoanApplication extends Component {
 	}
 	uploadProofIncome2(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
@@ -448,6 +539,7 @@ class LoanApplication extends Component {
 	}
 	uploadProofIncome3(event) {
 		event.preventDefault();
+		event.persist();
 		const reader = new FileReader();
 		const file = event.target.files[0];
 		reader.onloadend = () => {
@@ -512,36 +604,37 @@ class LoanApplication extends Component {
 									phoneLink={'/phone'}
 								/>
 								<SwiperForm
-									full_name={this.props.formLoan.formLoan}
-									nik={this.state.nik}
-									gender={this.state.gender}
-									phone={this.state.phone}
-									birthplace={this.state.birthplace}
-									birthdate={this.state.birthdate}
-									married_status={this.state.married_status}
-									wife_husband_name={this.state.wife_husband_name}
-									children={this.state.children}
-									education={this.state.education}
-									earnings={this.state.earnings}
-									start_date_job={this.state.start_date_job}
-									address={this.state.address}
-									kec={this.state.kec}
-									city={this.state.city}
-									kel={this.state.kel}
-									provinsi={this.state.provinsi}
-									kodepos={this.state.kodepos}
-									ktp={this.state.ktp}
-									ktp_selfie={this.state.ktp_selfie}
-									proof_address={this.state.proof_address}
-									family_card={this.state.family_card}
-									proof_income1={this.state.proof_income1}
-									proof_income2={this.state.proof_income2}
-									proof_income3={this.state.proof_income3}
+									full_name={this.props.formLoan.full_name}
+									nik={this.props.formLoan.nik}
+									gender={this.props.formLoan.gender}
+									phone={this.props.formLoan.phone}
+									birthplace={this.props.formLoan.birthplace}
+									birthdate={this.props.formLoan.birthdate}
+									married_status={this.props.formLoan.married_status}
+									wife_husband_name={this.props.formLoan.wife_husband_name}
+									children={this.props.formLoan.children}
+									education={this.props.formLoan.education}
+									earnings={this.props.formLoan.earnings}
+									start_date_job={this.props.formLoan.start_date_job}
+									address={this.props.formLoan.address}
+									kec={this.props.formLoan.kec}
+									city={this.props.formLoan.city}
+									kel={this.props.formLoan.kel}
+									provinsi={this.props.formLoan.provinsi}
+									kodepos={this.props.formLoan.kodepos}
+									ktp={this.props.formLoan.ktp}
+									ktp_selfie={this.props.formLoan.ktp_selfie}
+									proof_address={this.props.formLoan.proof_address}
+									family_card={this.props.formLoan.family_card}
+									proof_income1={this.props.formLoan.proof_income1}
+									proof_income2={this.props.formLoan.proof_income2}
+									proof_income3={this.props.formLoan.proof_income3}
 
 									setFullname={event => this.setFullname(event)}
 									validFullname={this.state.validFullname}
 									setPhone={event => this.setPhone(event)}
 									validPhone={this.state.validPhone}
+									setGender={event => this.setGender(event)}
 									setNIK={event => this.setNIK(event)}
 									validNIK={this.state.validNIK}
 									setBirthPlace={event => this.setBirthPlace(event)}
