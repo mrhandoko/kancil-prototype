@@ -41,9 +41,9 @@ class SwiperComponent extends React.Component {
                 phone={this.props.phone}
                 setPhone={this.props.setPhone}
                 validPhone={this.props.validPhone}
-                gender={this.propsgender}
+                gender={this.props.gender}
                 setGender={this.props.setGender}
-                birthplace={this.propsbirthplace}
+                birthplace={this.props.birthplace}
                 setBirthPlace={this.props.setBirthPlace}
                 validBirthplace={this.props.validBirthplace}
                 birthdate={this.propsbirthdate}

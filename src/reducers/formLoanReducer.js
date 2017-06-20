@@ -1,8 +1,10 @@
 export const formLoanReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'persist/REHYDRATE':
-      console.log('cantik kau meyta', action.payload.formLoan);
-      return action.payload
+  if (state == null) {
+    return {};
+  }
+  switch(action.type) {
+    case 'UPDATE_LOAN_FORM':
+      return {...action.payload };
     default:
       return state;
   }

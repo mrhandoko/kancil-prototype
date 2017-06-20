@@ -116,7 +116,7 @@ export const getLoanData = user => dispatch => {
 
 export const formLoanAction = data => {
   return {
-    type: 'persist/REHYDRATE',
+    type: 'UPDATE_LOAN_FORM',
     payload: data,
   }
 }
